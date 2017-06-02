@@ -51,6 +51,14 @@ Route::group(
                         'uses' => 'CampaignController@update',
                     ]
                 );
+
+                Route::delete(
+                    '/{id}',
+                    [
+                        'as'   => 'campaigns.destroy',
+                        'uses' => 'CampaignController@destroy',
+                    ]
+                );
             }
         );
     }

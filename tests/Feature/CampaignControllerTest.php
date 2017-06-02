@@ -8,7 +8,6 @@ use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * @property mixed campaign
@@ -88,8 +87,9 @@ class CampaignControllerTest extends TestCase
                 $this->item(
                     Campaign::findByUuId($this->campaign->uuid), new CampaignTransformer
                 )
-            )
-            ->assertDatabaseHas('campaigns', $update);
+            );
+
+        $this->assertDatabaseHas('campaigns', $update);
     }
 
     /** @test */
@@ -105,5 +105,17 @@ class CampaignControllerTest extends TestCase
             'id'   => $this->campaign->id,
             'uuid' => $this->campaign->uuid,
         ]);
+    }
+
+    /** @test */
+    public function user_can_delete_campaign()
+    {
+        $this->delete('/v1/campaigns/' . $this->campaign->uuid)
+            ->assertStatus(Response::HTTP_OK)
+            ->assertExactJson([
+                'data' => ''
+            ]);
+
+        $this->assertDatabaseMissing('campaigns', ['uuid' => $this->campaign->uuid]);
     }
 }

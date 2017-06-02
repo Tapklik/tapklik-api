@@ -28,16 +28,6 @@ class CampaignController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
@@ -102,8 +92,19 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Campaign $campaign)
+    public function destroy($uuid)
     {
-        //
+        try {
+            Campaign::findByUuId($uuid)
+            ->delete();
+
+            return response()->json(['data' => '']);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found');
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown', $e->getMessage());
+        }
     }
 }
