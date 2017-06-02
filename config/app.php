@@ -178,6 +178,11 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
+         * Observers
+         */
+        App\Providers\CampaignObserverProvider::class,
+
+        /*
          * Custom Service Providers...
          */
         App\Providers\FractalResponseProvider::class,

@@ -11,6 +11,39 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get(
+    '/',
+    function () {
+
+        return view('welcome');
+    }
+);
+
+Route::group(
+    ['prefix' => 'v1'],
+    function () {
+
+        // Campaigns
+        Route::group(
+            ['prefix' => 'campaigns'],
+            function () {
+
+                Route::get(
+                    '/',
+                    [
+                        'as'   => 'campaigns.index',
+                        'uses' => 'CampaignController@index',
+                    ]
+                );
+
+                Route::get(
+                    '/{id}',
+                    [
+                        'as'   => 'campaigns.show',
+                        'uses' => 'CampaignController@show',
+                    ]
+                );
+            }
+        );
+    }
+);

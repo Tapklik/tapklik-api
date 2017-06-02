@@ -2,6 +2,7 @@
 
 use App\Http\Response\FractalResponse;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -26,7 +27,8 @@ class Controller extends BaseController
      *
      * @param \App\Http\Response\FractalResponse $fractal
      */
-    public function __construct(FractalResponse $fractal) {
+    public function __construct(FractalResponse $fractal)
+    {
 
         $this->_fractal = $fractal;
     }
@@ -42,6 +44,7 @@ class Controller extends BaseController
      */
     public function collection($data, $transformer, $resource = null)
     {
+
         return $this->_fractal->collection($data, $transformer, $resource);
     }
 
@@ -56,6 +59,22 @@ class Controller extends BaseController
      */
     public function item($data, $transformer, $resource = null)
     {
+
         return $this->_fractal->item($data, $transformer, $resource);
+    }
+
+    protected function error($code = Response::HTTP_NOT_FOUND, $message = "There was an error", $details = "N/A")
+    {
+
+        return response()->json(
+            [
+                'error' => [
+                    'code'    => $code,
+                    'message' => $message,
+                    'details' => $details,
+                ],
+            ],
+            $code
+        );
     }
 }

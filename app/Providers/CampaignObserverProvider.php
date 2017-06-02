@@ -2,23 +2,24 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Schema;
+use App\Campaign;
+use App\Observers\CampaignObserver;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class CampaignObserverProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Bootstrap the application services.
      *
      * @return void
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        Campaign::observe(CampaignObserver::class);
     }
 
     /**
-     * Register any application services.
+     * Register the application services.
      *
      * @return void
      */
