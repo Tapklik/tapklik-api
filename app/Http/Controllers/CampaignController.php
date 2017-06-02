@@ -51,11 +51,12 @@ class CampaignController extends Controller
 
 
     /**
-     * @param $uuid
+     * @param \Illuminate\Http\Request $request
+     * @param                          $uuid
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($uuid)
+    public function show(Request $request, $uuid)
     {
         try {
             $campaign = Campaign::findByUuId($uuid);
@@ -71,28 +72,27 @@ class CampaignController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Campaign $campaign
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Campaign $campaign)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Campaign            $campaign
+     * @param                           $uuid
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Campaign $campaign)
+    public function update(Request $request, $uuid)
     {
-        //
+        try {
+            $campaign = Campaign::findByUuId($uuid);
+            $campaign->update($request->input());
+
+            return $this->item($campaign, new CampaignTransformer);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found');
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown', $e->getMessage());
+        }
     }
 
     /**

@@ -43,6 +43,14 @@ Route::group(
                         'uses' => 'CampaignController@show',
                     ]
                 );
+
+                Route::put(
+                    '/{id}',
+                    [
+                        'as'   => 'campaigns.update',
+                        'uses' => 'CampaignController@update',
+                    ]
+                );
             }
         );
     }

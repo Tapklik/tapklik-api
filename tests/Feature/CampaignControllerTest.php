@@ -10,6 +10,9 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+/**
+ * @property mixed campaign
+ */
 class CampaignControllerTest extends TestCase
 {
 
@@ -29,7 +32,9 @@ class CampaignControllerTest extends TestCase
 
         $this->get('/v1/campaigns')
             ->assertStatus(Response::HTTP_OK)
-            ->assertExactJson($this->collection(Campaign::all(), new CampaignTransformer));
+            ->assertExactJson(
+                $this->collection(Campaign::all(), new CampaignTransformer)
+            );
     }
 
 
@@ -52,10 +57,53 @@ class CampaignControllerTest extends TestCase
             ->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson([
                 'error' => [
-                    'code' => 404,
+                    'code'    => 404,
                     'message' => 'Not found',
-                    'details' => 'Campaign does-not-exist does not exist.'
-                ]
+                    'details' => 'Campaign does-not-exist does not exist.',
+                ],
             ]);
+    }
+
+    /** @test */
+    public function user_can_update_campaign()
+    {
+
+        $update = [
+            'name'        => 'Updated name',
+            'description' => 'Updated description',
+            'start'       => '2017-01-01',
+            'end'         => '2017-01-02',
+            'bid'         => 9999,
+            'ctrurl'      => 'updated-ctr-url',
+            'test'        => 0,
+            'weight'      => 0
+        ];
+
+        $this->assertDatabaseMissing('campaigns', $update);
+
+
+        $this->put('/v1/campaigns/' . $this->campaign->uuid, $update)
+            ->assertStatus(Response::HTTP_OK)
+            ->assertExactJson(
+                $this->item(
+                    Campaign::findByUuId($this->campaign->uuid), new CampaignTransformer
+                )
+            )
+            ->assertDatabaseHas('campaigns', $update);
+    }
+
+    /** @test */
+    public function it_should_not_updated_crucial_keys()
+    {
+        $this->put('/v1/campaigns/' . $this->campaign->uuid, [
+            'id'   => 999,
+            'uuid' => 'updating-to-new-uuid-here-should-not-work',
+        ])
+        ->assertStatus(Response::HTTP_OK);
+
+        $this->assertDatabaseHas('campaigns', [
+            'id'   => $this->campaign->id,
+            'uuid' => $this->campaign->uuid,
+        ]);
     }
 }

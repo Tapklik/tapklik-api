@@ -4,5 +4,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModelSetup extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id', 'uuid'];
 }
