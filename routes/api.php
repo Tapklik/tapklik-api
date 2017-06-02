@@ -64,5 +64,22 @@ Route::group(
                 'uses' => 'CampaignController@destroy',
             ]
         );
+
+        // Campaign Endpoints
+        Route::get(
+            '/{id}/adomain',
+            [
+                'as'   => 'campaigns.adomain.index',
+                'uses' => 'AdvertiserDomainController@index',
+            ]
+        );
+
+        Route::post(
+            '/{id}/adomain',
+            [
+                'as'   => 'campaigns.adomain.store',
+                'uses' => 'AdvertiserDomainController@store',
+            ]
+        );
     }
 );
