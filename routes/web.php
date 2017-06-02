@@ -36,6 +36,14 @@ Route::group(
                     ]
                 );
 
+                Route::post(
+                    '/',
+                    [
+                        'as'   => 'campaigns.store',
+                        'uses' => 'CampaignController@store',
+                    ]
+                );
+
                 Route::get(
                     '/{id}',
                     [

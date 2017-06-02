@@ -36,7 +36,14 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $campaign = Campaign::create($request->input());
+
+            return $this->item($campaign, new CampaignTransformer);
+        } catch (\Exception $e) {
+
+            return $this->error($e->getCode(), $e->getMessage());
+        }
     }
 
 
@@ -88,7 +95,7 @@ class CampaignController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Campaign $campaign
+     * @param $uuid
      *
      * @return \Illuminate\Http\Response
      */

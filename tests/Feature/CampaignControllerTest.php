@@ -26,6 +26,23 @@ class CampaignControllerTest extends TestCase
     }
 
     /** @test */
+    public function user_can_create_campaign()
+    {
+        $campaign = factory(Campaign::class)->make(['name' => 'new campaign created']);
+
+        $this->assertDatabaseMissing('campaigns', [
+            'name' => 'new campaign created'
+        ]);
+
+        $this->post('/v1/campaigns', $campaign->toArray())
+            ->assertStatus(Response::HTTP_OK);
+
+        $this->assertDatabaseHas('campaigns', [
+            'name' => 'new campaign created'
+        ]);
+    }
+
+    /** @test */
     public function user_can_list_campaigns()
     {
 
