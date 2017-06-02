@@ -81,5 +81,21 @@ Route::group(
                 'uses' => 'AdvertiserDomainController@store',
             ]
         );
+
+        Route::get(
+            '/{id}/exchange',
+            [
+                'as'   => 'campaigns.exchange.index',
+                'uses' => 'ExchangeController@index',
+            ]
+        );
+
+        Route::post(
+            '/{id}/exchange',
+            [
+                'as'   => 'campaigns.exchange.store',
+                'uses' => 'ExchangeController@store',
+            ]
+        );
     }
 );

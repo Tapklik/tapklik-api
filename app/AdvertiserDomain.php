@@ -5,6 +5,6 @@ class AdvertiserDomain extends ModelSetup
     // Methods
     public static function findByCampaignUuId($uuid)
     {
-        return Campaign::findByUuId($uuid)->advertiserDomains();
+        return Campaign::findByUuId($uuid)->advertiserDomains;
     }
 }
