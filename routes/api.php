@@ -13,6 +13,56 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')->get(
+    '/user',
+    function (Request $request) {
+
+        return $request->user();
+    }
+);
+
+Route::group(
+    ['prefix' => 'campaigns'],
+    function () {
+
+        Route::get(
+            '/',
+            [
+                'as'   => 'campaigns.index',
+                'uses' => 'CampaignController@index',
+            ]
+        );
+
+        Route::post(
+            '/',
+            [
+                'as'   => 'campaigns.store',
+                'uses' => 'CampaignController@store',
+            ]
+        );
+
+        Route::get(
+            '/{id}',
+            [
+                'as'   => 'campaigns.show',
+                'uses' => 'CampaignController@show',
+            ]
+        );
+
+        Route::put(
+            '/{id}',
+            [
+                'as'   => 'campaigns.update',
+                'uses' => 'CampaignController@update',
+            ]
+        );
+
+        Route::delete(
+            '/{id}',
+            [
+                'as'   => 'campaigns.destroy',
+                'uses' => 'CampaignController@destroy',
+            ]
+        );
+    }
+);
