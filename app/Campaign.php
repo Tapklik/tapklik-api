@@ -16,6 +16,12 @@ class Campaign extends ModelSetup
         return $this->hasMany(Exchange::class);
     }
 
+    public function categories()
+    {
+
+        return $this->belongsToMany(Category::class);
+    }
+
     // Custom Methods
 
     public static function findByUuId($uuid)

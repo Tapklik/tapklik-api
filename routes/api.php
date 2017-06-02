@@ -97,5 +97,13 @@ Route::group(
                 'uses' => 'ExchangeController@store',
             ]
         );
+
+        Route::post(
+            '/{id}/cat',
+            [
+                'as'   => 'campaigns.categories.store',
+                'uses' => 'CategoryController@store',
+            ]
+        );
     }
 );
