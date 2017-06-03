@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Campaign;
 use App\Category;
 use App\Transformers\CampaignTransformer;
+use App\Transformers\CategoryTransformer;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -18,18 +19,37 @@ class CategoryControllerTest extends TestCase
 
     use DatabaseMigrations;
 
+    public function setUp()
+    {
+
+        parent::setUp();
+
+        $this->campaign = factory(Campaign::class)->create();
+    }
+
+    /** @test */
+    public function user_can_view_categories_endpoint()
+    {
+        $cat = factory(Category::class)->create();
+        $this->campaign->categories()->save($cat);
+
+        $this->get('/v1/campaigns/' . $this->campaign->uuid . '/cat')
+            ->assertStatus(Response::HTTP_OK)
+            ->assertExactJson(
+                $this->collection($this->campaign->categories, new CategoryTransformer)
+            );
+    }
     /** @test */
     public function user_can_save_category_to_campaign()
     {
-        $campaign = factory(Campaign::class)->create();
         $categories = factory(Category::class, 4)->create();
 
-        $page = $this->post('/v1/campaigns/' . $campaign->uuid . '/cat', $categories->pluck('id')->toArray())
+        $page = $this->post('/v1/campaigns/' . $this->campaign->uuid . '/cat', $categories->pluck('id')->toArray())
             ->assertStatus(Response::HTTP_OK);
 
 
         $page = $page->decodeResponseJson();
 
-        $this->assertCount(count($page['data']), $campaign->categories);
+        $this->assertCount(count($page['data']), $this->campaign->categories);
     }
 }

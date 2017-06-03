@@ -98,6 +98,14 @@ Route::group(
             ]
         );
 
+        Route::get(
+            '/{id}/cat',
+            [
+                'as'   => 'campaigns.categories.index',
+                'uses' => 'CategoryController@index',
+            ]
+        );
+
         Route::post(
             '/{id}/cat',
             [

@@ -22,7 +22,7 @@ class CategoryController extends Controller
     {
         try {
 
-            return $this->collection(Campaign::findByUuId()->categories, new CategoryTransformer);
+            return $this->collection(Campaign::findByUuId($uuid)->categories, new CategoryTransformer);
         } catch (ModelNotFoundException $e) {
             
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
