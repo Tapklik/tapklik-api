@@ -4,6 +4,12 @@ class Campaign extends ModelSetup
 {
 
     // Relationships
+    public static function findByUuId($uuid)
+    {
+
+        return Campaign::where(['uuid' => $uuid])->firstOrFail();
+    }
+
     public function advertiserDomains()
     {
 
@@ -24,9 +30,9 @@ class Campaign extends ModelSetup
 
     // Custom Methods
 
-    public static function findByUuId($uuid)
+    public function budget()
     {
 
-        return Campaign::where(['uuid' => $uuid])->firstOrFail();
+        return $this->hasOne(Budget::class);
     }
 }

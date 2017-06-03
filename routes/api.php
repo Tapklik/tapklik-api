@@ -113,5 +113,13 @@ Route::group(
                 'uses' => 'CategoryController@store',
             ]
         );
+
+        Route::get(
+            '/{id}/budget',
+            [
+                'as'   => 'campaigns.budget.index',
+                'uses' => 'BudgetController@index',
+            ]
+        );
     }
 );

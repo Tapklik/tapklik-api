@@ -21,13 +21,12 @@ class CampaignObserver
         $campaign->description = $campaign->description ?: '';
         $campaign->save();
 
-        // Set budget
-        // Pull this from account
-//        factory(Budget::class)->create(
-//            [
-//                'campaign_id' => $campaign->id,
-//            ]
-//        );
+        // Set default budget
+        factory(Budget::class)->create(
+            [
+                'campaign_id' => $campaign->id,
+            ]
+        );
 
         // Set user
         // Should be left empty

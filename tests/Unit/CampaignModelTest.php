@@ -32,4 +32,10 @@ class CampaignModelTest extends TestCase {
     {
         $this->assertInstanceOf(Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->campaign->categories());
     }
+
+    /** @test */
+    public function it_has_budget_relationship()
+    {
+        $this->assertInstanceOf(Illuminate\Database\Eloquent\Relations\HasOne::class, $this->campaign->budget());
+    }
 }
