@@ -122,6 +122,14 @@ Route::group(
             ]
         );
 
+        Route::post(
+            '/{id}/budget',
+            [
+                'as'   => 'campaigns.budget.store',
+                'uses' => 'BudgetController@store',
+            ]
+        );
+
         Route::get(
             '/{id}/user',
             [
@@ -129,5 +137,16 @@ Route::group(
                 'uses' => 'DemographyController@index',
             ]
         );
+    }
+);
+
+/**
+ * Core namespace provides utility endpoints, such as fuzzy search
+ */
+Route::group(
+    [
+        'prefix' => 'core',
+    ],
+    function () {
     }
 );

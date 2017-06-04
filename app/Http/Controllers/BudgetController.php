@@ -7,6 +7,7 @@ use App\Campaign;
 use App\Transformers\BudgetTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BudgetController extends Controller
 {
@@ -40,25 +41,33 @@ class BudgetController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $uuid)
     {
-        //
+        try {
+            $campaign = Campaign::findByUuId($uuid);
+
+            $budget = Budget::create([
+                'type' => request('type'),
+                'amount' => request('amount'),
+                'pacing' => request('pacing'),
+                'campaign_id' => $campaign->id
+            ]);
+
+            return $this->item($budget, new BudgetTransformer);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Unknown error', $e->getMessage() . ' = ' . $e->getFile()
+            . ' | ' . $e->getLine());
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
+use App\Budget;
 use App\Transformers\BudgetTransformer;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -24,9 +26,19 @@ class BudgetControllerTest extends TestCase {
     {
 
         $this->get('/v1/campaigns/' . $this->campaign->uuid . '/budget')
-            ->assertStatus(\Illuminate\Http\Response::HTTP_OK)
+            ->assertStatus(Response::HTTP_OK)
             ->assertExactJson(
                 $this->item($this->campaign->budget, new BudgetTransformer)
             );
+    }
+
+    /** @test */
+    public function user_can_create_budget_on_campaign()
+    {
+
+        $budget = factory(Budget::class)->make();
+
+        $this->post('/v1/campaigns/' . $this->campaign->uuid . '/budget', $budget->toArray())
+            ->assertStatus(Response::HTTP_OK);
     }
 }
