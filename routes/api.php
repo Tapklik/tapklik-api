@@ -139,6 +139,13 @@ Route::group(
         );
 
         // GEO HERE
+        Route::get(
+            '/{id}/geo',
+            [
+                'as'   => 'campaigns.geo.index',
+                'uses' => 'GeographyController@index',
+            ]
+        );
 
         Route::get(
             '/{id}/creatives',
@@ -158,5 +165,8 @@ Route::group(
         'prefix' => 'core',
     ],
     function () {
+
+        // Search
+        // Email sending
     }
 );

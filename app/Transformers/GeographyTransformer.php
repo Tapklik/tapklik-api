@@ -15,7 +15,7 @@ class GeographyTransformer extends TransformerAbstract
     {
 
         return [
-            'country'     => $geography->country->name,
+            'country'     => $geography->country,
             'city'        => $geography->city,
             'region'      => $geography->region,
             'region_name' => $geography->region_name,

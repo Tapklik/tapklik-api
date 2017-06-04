@@ -50,4 +50,11 @@ class CampaignModelTest extends TestCase {
     {
         $this->assertInstanceOf(Illuminate\Database\Eloquent\Relations\BelongsToMany::class, $this->campaign->creatives());
     }
+
+    /** @test */
+    public function it_has_geographies_relationship()
+    {
+        $this->assertInstanceOf(Illuminate\Database\Eloquent\Relations\BelongsToMany::class,
+            $this->campaign->geography());
+    }
 }

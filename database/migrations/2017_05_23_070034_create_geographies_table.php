@@ -15,18 +15,16 @@ class CreateGeographiesTable extends Migration
     {
         Schema::create('geographies', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('country_id');
             $table->string('key');
+            $table->string('country_iso2');
+            $table->string('country_name');
+            $table->string('country');
             $table->string('city');
             $table->string('region');
             $table->string('region_name');
             $table->string('type');
+            $table->string('comment');
             $table->timestamps();
-
-            $table->foreign('country_id')
-                  ->references('id')
-                  ->on('countries')
-                  ->onDelete('cascade');
         });
     }
 

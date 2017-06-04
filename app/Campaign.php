@@ -40,6 +40,12 @@ class Campaign extends ModelSetup
         return $this->belongsToMany(Creative::class);
     }
 
+    public function geography()
+    {
+
+        return $this->belongsToMany(Geography::class);
+    }
+
     // Custom Methods
 
     public function budget()

@@ -19,9 +19,9 @@ class CampaignTransformer extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['adomain', 'exchange', 'cat', 'budget', 'user', 'creatives'];
+    protected $defaultIncludes = ['adomain', 'exchange', 'cat', 'budget', 'user', 'geo', 'creatives'];
 
-//    protected $defaultIncludes = ['geo', 'creatives', 'device'];
+//    protected $defaultIncludes = [ 'device'];
 
     /**
      * @param \App\Campaign $campaign
