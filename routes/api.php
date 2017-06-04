@@ -137,6 +137,16 @@ Route::group(
                 'uses' => 'DemographyController@index',
             ]
         );
+
+        // GEO HERE
+
+        Route::get(
+            '/{id}/creatives',
+            [
+                'as'   => 'campaigns.creatives.index',
+                'uses' => 'CampaignCreativeController@index',
+            ]
+        );
     }
 );
 

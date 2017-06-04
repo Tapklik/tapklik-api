@@ -42,7 +42,7 @@ class CampaignController extends Controller
             return $this->item($campaign, new CampaignTransformer);
         } catch (\Exception $e) {
 
-            return $this->error($e->getCode(), $e->getMessage());
+            return $this->error(Response::HTTP_BAD_REQUEST, $e->getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ class CampaignController extends Controller
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign ' . $uuid . ' does not exist.');
         } catch (\Exception $e) {
 
-            return $this->error($e->getCode(), $e->getMessage());
+            return $this->error(Response::HTTP_BAD_REQUEST, $e->getMessage());
         }
     }
 

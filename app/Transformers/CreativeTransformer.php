@@ -10,13 +10,13 @@ use League\Fractal\TransformerAbstract;
  */
 class CreativeTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = ['btype', 'attr'];
+    //protected $defaultIncludes = ['btype', 'attr'];
 
     public function transform(Creative $creative)
     {
 
         return [
-            'id'     => $creative->uuid,
+            'id'       => $creative->uuid,
             'expdir'   => $creative->expdir,
             'adm'      => $creative->adm,
             'ctrurl'   => $creative->ctrurl,
@@ -26,13 +26,13 @@ class CreativeTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeBtype(Creative $creative)
-    {
-        return $this->collection($creative->btypes, new BtypeTransformer);
-    }
-
-    public function includeAttr(Creative $creative)
-    {
-        return $this->collection($creative->attributes, new AttributeTransformer);
-    }
+//    public function includeBtype(Creative $creative)
+//    {
+//        return $this->collection($creative->btypes, new BtypeTransformer);
+//    }
+//
+//    public function includeAttr(Creative $creative)
+//    {
+//        return $this->collection($creative->attributes, new AttributeTransformer);
+//    }
 }

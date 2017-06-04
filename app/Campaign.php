@@ -34,6 +34,12 @@ class Campaign extends ModelSetup
         return $this->hasOne(Demography::class);
     }
 
+    public function creatives()
+    {
+
+        return $this->belongsToMany(Creative::class);
+    }
+
     // Custom Methods
 
     public function budget()
