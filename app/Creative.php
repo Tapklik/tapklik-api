@@ -1,10 +1,6 @@
-<?php
+<?php namespace App;
 
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Creative extends Model
+class Creative extends ModelSetup
 {
     //
 }

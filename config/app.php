@@ -181,6 +181,7 @@ return [
          * Observers
          */
         App\Providers\CampaignObserverProvider::class,
+        App\Providers\CreativeObserverProvider::class,
 
         /*
          * Custom Service Providers...

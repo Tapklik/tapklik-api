@@ -15,7 +15,7 @@ class CreateCreativesTable extends Migration
     {
         Schema::create('creatives', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uuid')->unique();
+            $table->string('uuid')->unique()->nullable();
             $table->integer('expdir');
             $table->text('adm');
             $table->string('ctrurl');
