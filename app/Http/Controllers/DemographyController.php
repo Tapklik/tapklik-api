@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Budget;
 use App\Campaign;
-use App\Transformers\BudgetTransformer;
+use App\Demography;
+use App\Transformers\DemographyTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class BudgetController extends Controller
+class DemographyController extends Controller
 {
 
     /**
@@ -20,22 +20,17 @@ class BudgetController extends Controller
      */
     public function index($uuid)
     {
-
         try {
+
             $campaign = Campaign::findByUuId($uuid);
 
-            return $this->item(
-                $campaign->budget
-                    ?: factory(Budget::class)->create(
-                    [
-                        'campaign_id' => $campaign->id,
-                    ]
-                ),
-                new BudgetTransformer
-            );
+            return $this->item($campaign->demography ?: factory(Demography::class)->create([
+                'campaign_id' => $campaign->id
+            ]), new
+            DemographyTransformer);
         } catch (ModelNotFoundException $e) {
 
-            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign ' . $uuid . ' does not exist.');
         }
     }
 
@@ -52,8 +47,7 @@ class BudgetController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -64,11 +58,10 @@ class BudgetController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Budget $budget
-     *
+     * @param  \App\Demography  $demography
      * @return \Illuminate\Http\Response
      */
-    public function show(Budget $budget)
+    public function show(Demography $demography)
     {
         //
     }
@@ -76,11 +69,10 @@ class BudgetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Budget $budget
-     *
+     * @param  \App\Demography  $demography
      * @return \Illuminate\Http\Response
      */
-    public function edit(Budget $budget)
+    public function edit(Demography $demography)
     {
         //
     }
@@ -88,12 +80,11 @@ class BudgetController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Budget              $budget
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Demography  $demography
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Budget $budget)
+    public function update(Request $request, Demography $demography)
     {
         //
     }
@@ -101,11 +92,10 @@ class BudgetController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Budget $budget
-     *
+     * @param  \App\Demography  $demography
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Budget $budget)
+    public function destroy(Demography $demography)
     {
         //
     }

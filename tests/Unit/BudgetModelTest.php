@@ -14,6 +14,8 @@ class BudgetModelTest extends TestCase {
 
         $campaign->budget()->save($budget);
 
-        $this->assertEquals(1, $campaign->budget->count());
+        // Since we have observer on create campaign which attaches a default budget
+        // the count will be 2 in this case as we are creating additional budget
+        $this->assertEquals(2, $campaign->budget->count());
     }
 }

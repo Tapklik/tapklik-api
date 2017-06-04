@@ -121,5 +121,13 @@ Route::group(
                 'uses' => 'BudgetController@index',
             ]
         );
+
+        Route::get(
+            '/{id}/user',
+            [
+                'as'   => 'campaigns.user.index',
+                'uses' => 'DemographyController@index',
+            ]
+        );
     }
 );

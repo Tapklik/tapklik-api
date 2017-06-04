@@ -28,6 +28,12 @@ class Campaign extends ModelSetup
         return $this->belongsToMany(Category::class);
     }
 
+    public function demography()
+    {
+
+        return $this->hasOne(Demography::class);
+    }
+
     // Custom Methods
 
     public function budget()

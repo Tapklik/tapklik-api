@@ -38,4 +38,10 @@ class CampaignModelTest extends TestCase {
     {
         $this->assertInstanceOf(Illuminate\Database\Eloquent\Relations\HasOne::class, $this->campaign->budget());
     }
+
+    /** @test */
+    public function it_has_demography_relationship()
+    {
+        $this->assertInstanceOf(Illuminate\Database\Eloquent\Relations\HasOne::class, $this->campaign->demography());
+    }
 }
