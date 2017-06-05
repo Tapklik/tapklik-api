@@ -194,6 +194,14 @@ Route::group(
                 'uses' => 'UserController@index',
             ]
         );
+
+        Route::post(
+            '/{id}/users',
+            [
+                'as'   => 'accounts.users.store',
+                'uses' => 'UserController@store',
+            ]
+        );
     }
 );
 
