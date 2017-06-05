@@ -1,6 +1,7 @@
 <?php
 use App\Account;
 use App\Transformers\AccountTransformer;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -49,6 +50,15 @@ class AccountControllerTest extends TestCase {
             ->assertExactJson(
                 $this->item(Account::orderBy('id', 'desc')->first(), new AccountTransformer)
             );
+    }
 
+    /** @test */
+    public function user_can_access_users_accounts_endpoint()
+    {
+        $this->get('/v1/accounts/' . $this->account->uuid . '/users')
+            ->assertStatus(Response::HTTP_OK)
+            ->assertExactJson(
+                $this->collection($this->account->users, new UserTransformer)
+            );
     }
 }

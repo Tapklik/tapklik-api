@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Account;
-use App\Campaign;
 use App\Transformers\AccountTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -68,7 +67,7 @@ class AccountController extends Controller
             return $this->item(Account::findByUuId($uuid), new AccountTransformer());
         } catch (ModelNotFoundException $e) {
 
-            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign ' . $uuid . ' does not exist.');
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Account ' . $uuid . ' does not exist.');
         } catch (\Exception $e) {
 
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());

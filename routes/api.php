@@ -186,6 +186,14 @@ Route::group(
                 'uses' => 'AccountController@show',
             ]
         );
+
+        Route::get(
+            '/{id}/users',
+            [
+                'as'   => 'accounts.users.index',
+                'uses' => 'UserController@index',
+            ]
+        );
     }
 );
 
