@@ -24,4 +24,13 @@ class User extends Authenticatable
 
         return $this->HasMany(Account::class);
     }
+
+    // Mehtods
+
+    public static function findByUuId($uuid)
+    {
+        return self::where([
+            'uuid' => $uuid
+        ])->firstOrFail();
+    }
 }

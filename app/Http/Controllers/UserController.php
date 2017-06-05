@@ -72,13 +72,24 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param $uuid
+     * @param $userId
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid, $userId)
     {
-        //
+        try {
+
+            return $this->item(User::findByUuId($userId), new UserTransformer);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Account '.$uuid.' does not exist.');
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+        }
     }
 
     /**

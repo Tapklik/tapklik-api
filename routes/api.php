@@ -202,6 +202,16 @@ Route::group(
                 'uses' => 'UserController@store',
             ]
         );
+
+
+
+        Route::get(
+            '/{id}/users/{userId}',
+            [
+                'as'   => 'accounts.users.show',
+                'uses' => 'UserController@show',
+            ]
+        );
     }
 );
 
