@@ -2,10 +2,12 @@
 
 use App\Http\Response\FractalResponse;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use League\Fractal\Manager;
 
 /**
  * Class Controller
@@ -26,11 +28,23 @@ class Controller extends BaseController
      * Controller constructor.
      *
      * @param \App\Http\Response\FractalResponse $fractal
+     *
+     * @internal param \Illuminate\Http\Request $request
      */
-    public function __construct(FractalResponse $fractal)
+    public function __construct(Request $request, FractalResponse $fractal)
     {
 
         $this->_fractal = $fractal;
+
+        $this->_parseIncludes($request);
+    }
+
+    private function _parseIncludes(Request $request) {
+
+        if( ! $includes = $request->get('include')) return;
+
+        $fractalManager = new Manager();
+        $fractalManager->parseIncludes($includes);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Transformers\AccountTransformer;
+use League\Fractal\Manager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,7 +20,6 @@ class AccountController extends Controller
     {
         // Request through middleware
         // Redirect if its not admin account
-
         $accounts = Account::all();
 
         return $this->collection($accounts, new AccountTransformer);

@@ -204,7 +204,6 @@ Route::group(
         );
 
 
-
         Route::get(
             '/{id}/users/{userId}',
             [
@@ -227,4 +226,15 @@ Route::group(
         // Search
         // Email sending
     }
+);
+
+/**
+ * Core namespace provides utility endpoints, such as fuzzy search
+ */
+Route::post(
+    '/v1/auth',
+    [
+        'as'   => 'auth',
+        'uses' => 'AuthController@login',
+    ]
 );

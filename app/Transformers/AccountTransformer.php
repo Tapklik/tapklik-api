@@ -11,6 +11,8 @@ use League\Fractal\TransformerAbstract;
 class AccountTransformer extends TransformerAbstract
 {
 
+    protected $availableIncludes = ['users'];
+
     public function transform(Account $account)
     {
 
@@ -25,5 +27,11 @@ class AccountTransformer extends TransformerAbstract
             ],
             'status'       => $account->status,
         ];
+    }
+
+    public function includeUsers(Account $account)
+    {
+
+        return $this->collection($account->users, new UserTransformer());
     }
 }
