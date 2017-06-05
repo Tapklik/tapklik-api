@@ -18,7 +18,6 @@ $factory->define(
         $uuid = \Ramsey\Uuid\Uuid::uuid1();
 
         return [
-            'uuid'     => $uuid->toString(),
             'name'     => $faker->company,
             'country'  => $faker->countryISOAlpha3,
             'city'     => $faker->city,

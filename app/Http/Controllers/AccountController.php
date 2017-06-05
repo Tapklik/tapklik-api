@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Campaign;
 use App\Transformers\AccountTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -20,6 +21,9 @@ class AccountController extends Controller
         // Request through middleware
         // Redirect if its not admin account
 
+        $accounts = Account::all();
+
+        return $this->collection($accounts, new AccountTransformer);
     }
 
     /**
@@ -40,7 +44,14 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $account = Account::create($request->input());
+
+            return $this->item($account, new AccountTransformer);
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+        }
     }
 
     /**

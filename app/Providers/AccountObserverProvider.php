@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Account;
+use App\Observers\AccountObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AccountObserverProvider extends ServiceProvider

@@ -171,6 +171,14 @@ Route::group(
             ]
         );
 
+        Route::post(
+            '/',
+            [
+                'as'   => 'accounts.store',
+                'uses' => 'AccountController@store',
+            ]
+        );
+
         Route::get(
             '/{id}',
             [

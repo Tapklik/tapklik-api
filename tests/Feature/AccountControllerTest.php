@@ -18,6 +18,16 @@ class AccountControllerTest extends TestCase {
     }
 
     /** @test */
+    public function user_can_list_accounts()
+    {
+        $this->get('/v1/accounts')
+            ->assertStatus(Response::HTTP_OK)
+            ->assertExactJson(
+                $this->collection(Account::all(), new AccountTransformer)
+            );
+    }
+
+    /** @test */
     public function it_user_can_list_account_data() 
     {
 
@@ -27,5 +37,18 @@ class AccountControllerTest extends TestCase {
 
                 $this->item($this->account, new AccountTransformer)
             );
+    }
+
+    /** @test */
+    public function user_can_create_an_account()
+    {
+        $account = factory(Account::class)->make();
+
+        $this->post('/v1/accounts', $account->toArray())
+            ->assertStatus(Response::HTTP_OK)
+            ->assertExactJson(
+                $this->item(Account::orderBy('id', 'desc')->first(), new AccountTransformer)
+            );
+
     }
 }
