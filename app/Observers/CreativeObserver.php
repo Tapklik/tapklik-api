@@ -1,22 +1,24 @@
 <?php namespace App\Observers;
 
-use App\Budget;
-use App\Campaign;
 use App\Creative;
+use Ramsey\Uuid\Uuid;
 
 /**
- * Class CampaignObserver
+ * Class CreativeObserver
  *
  * @package \App\Observers
  */
 class CreativeObserver
 {
 
+    /**
+     * @param \App\Creative $creative
+     */
     public function created(Creative $creative)
     {
 
         // Set defaults
-        $uuid           = \Ramsey\Uuid\Uuid::uuid1();
+        $uuid           = Uuid::uuid1();
         $creative->uuid = $uuid->toString();
         $creative->save();
     }

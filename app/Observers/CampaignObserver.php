@@ -2,7 +2,6 @@
 
 use App\Budget;
 use App\Campaign;
-use App\Demography;
 
 /**
  * Class CampaignObserver

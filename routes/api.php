@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get(
     }
 );
 
+// Campaigns
 Route::group(
     ['prefix' => 'campaigns'],
     function () {
@@ -152,6 +153,29 @@ Route::group(
             [
                 'as'   => 'campaigns.creatives.index',
                 'uses' => 'CampaignCreativeController@index',
+            ]
+        );
+    }
+);
+
+// Accounts
+Route::group(
+    ['prefix' => 'accounts'],
+    function () {
+
+        Route::get(
+            '/',
+            [
+                'as'   => 'accounts.index',
+                'uses' => 'AccountController@index',
+            ]
+        );
+
+        Route::get(
+            '/{id}',
+            [
+                'as'   => 'accounts.show',
+                'uses' => 'AccountController@show',
             ]
         );
     }
