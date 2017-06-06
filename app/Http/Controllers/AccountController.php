@@ -18,8 +18,8 @@ class AccountController extends Controller
     public function index()
     {
        try {
-           return $this->item(
-               Account::find(1),
+           return $this->collection(
+               Account::orderBy('created_at', 'desc')->get(),
                new AccountTransformer
            );
        } catch (ModelNotFoundException $e) {
