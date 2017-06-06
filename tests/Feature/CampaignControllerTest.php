@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Campaign;
+use App\Http\Middleware\JWT;
 use App\Transformers\CampaignTransformer;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -22,7 +23,7 @@ class CampaignControllerTest extends TestCase
 
         parent::setUp();
 
-        $this->campaign = factory(Campaign::class)->create();
+        $this->campaign = factory(Campaign::class)->create(['account_id' => 1]);
     }
 
     /** @test */
@@ -41,18 +42,6 @@ class CampaignControllerTest extends TestCase
             'name' => 'new campaign created'
         ]);
     }
-
-    /** @test */
-    public function user_can_list_campaigns()
-    {
-
-        $this->get('/v1/campaigns')
-            ->assertStatus(Response::HTTP_OK)
-            ->assertExactJson(
-                $this->collection(Campaign::all(), new CampaignTransformer)
-            );
-    }
-
 
     /** @test */
     public function user_can_query_specific_campaign()

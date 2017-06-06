@@ -52,17 +52,16 @@ class JWT
             );
         }
 
-        $request->attributes->add(
-            [
-                'session' => [
-                    'id'        => $payload->getClaim('id'),
-                    'uuid'      => $payload->getClaim('uuid'),
-                    'accountId' => $payload->getClaim('accountId'),
-                    'name'      => $payload->getClaim('name'),
-                    'email'     => $payload->getClaim('email'),
-                ],
-            ]
-        );
+
+        $request->attributes->add([
+            'session' => [
+                'id'        => $payload->getClaim('id'),
+                'uuid'      => $payload->getClaim('uuid'),
+                'accountId' => $payload->getClaim('accountId'),
+                'name'      => $payload->getClaim('name'),
+                'email'     => $payload->getClaim('email'),
+            ],
+        ]);
 
         return $next($request);
     }

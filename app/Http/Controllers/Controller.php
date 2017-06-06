@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Http\Middleware\JWT;
 use App\Http\Response\FractalResponse;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -20,15 +21,19 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
+     * @var \Illuminate\Http\Request
+     */
+    protected $req;
+
+    /**
      * @var \App\Http\Response\FractalResponse
      */
     private $_fractal;
 
-    protected $req;
-
     /**
      * Controller constructor.
      *
+     * @param \Illuminate\Http\Request           $request
      * @param \App\Http\Response\FractalResponse $fractal
      *
      * @internal param \Illuminate\Http\Request $request
@@ -37,18 +42,7 @@ class Controller extends BaseController
     {
 
         $this->_fractal = $fractal;
-
-        $this->req = $request;
-
-        $this->_parseIncludes($request);
-    }
-
-    private function _parseIncludes(Request $request) {
-
-        if( ! $includes = $request->get('include')) return;
-
-        $fractalManager = new Manager();
-        $fractalManager->parseIncludes($includes);
+        $this->req      = $request;
     }
 
     /**
@@ -81,6 +75,13 @@ class Controller extends BaseController
         return $this->_fractal->item($data, $transformer, $resource);
     }
 
+    /**
+     * @param int    $code
+     * @param string $message
+     * @param string $details
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     protected function error($code = Response::HTTP_NOT_FOUND, $message = "There was an error", $details = "N/A")
     {
 

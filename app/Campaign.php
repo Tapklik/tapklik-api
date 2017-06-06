@@ -4,11 +4,6 @@ class Campaign extends ModelSetup
 {
 
     // Relationships
-    public static function findByUuId($uuid)
-    {
-
-        return Campaign::where(['uuid' => $uuid])->firstOrFail();
-    }
 
     public function advertiserDomains()
     {
@@ -46,11 +41,30 @@ class Campaign extends ModelSetup
         return $this->belongsToMany(Geography::class);
     }
 
-    // Custom Methods
-
     public function budget()
     {
 
         return $this->hasOne(Budget::class);
     }
+
+    public function account()
+    {
+
+        return $this->hasOne(Account::class, 'id', 'account_id');
+    }
+
+    // Custom Methods
+
+    public static function findByUuId($uuid)
+    {
+
+        return Campaign::where(['uuid' => $uuid])->firstOrFail();
+    }
+
+    public static function findByAccountId($id)
+    {
+
+        return Campaign::where(['account_id' => $id])->get();
+    }
+
 }

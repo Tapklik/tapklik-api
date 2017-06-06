@@ -17,7 +17,10 @@ class CampaignController extends Controller
     public function index()
     {
         try {
-            $campaigns = Campaign::all();
+
+            $campaigns = Campaign::findByAccountId(
+                $this->req->get('session')['accountId']
+            );
 
             return $this->collection($campaigns, new CampaignTransformer);
         } catch (ModelNotFoundException $e) {
@@ -35,6 +38,7 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             $campaign = Campaign::create($request->input());
 
@@ -54,13 +58,14 @@ class CampaignController extends Controller
      */
     public function show(Request $request, $uuid)
     {
+
         try {
             $campaign = Campaign::findByUuId($uuid);
 
             return $this->item($campaign, new CampaignTransformer);
         } catch (ModelNotFoundException $e) {
 
-            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign ' . $uuid . ' does not exist.');
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
         } catch (\Exception $e) {
 
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
@@ -77,6 +82,7 @@ class CampaignController extends Controller
      */
     public function update(Request $request, $uuid)
     {
+
         try {
             $campaign = Campaign::findByUuId($uuid);
             $campaign->update($request->input());
@@ -100,9 +106,9 @@ class CampaignController extends Controller
      */
     public function destroy($uuid)
     {
+
         try {
-            Campaign::findByUuId($uuid)
-            ->delete();
+            Campaign::findByUuId($uuid)->delete();
 
             return response()->json(['data' => '']);
         } catch (ModelNotFoundException $e) {
