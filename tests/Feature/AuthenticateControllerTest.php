@@ -34,4 +34,19 @@ class AuthenticateControllerTest extends TestCase
         $this->assertEquals($account->id, $token->getClaim('id'));
         $this->assertEquals($user->account_id, $token->getClaim('accountId'));
     }
+
+    /** @test */
+    public function user_should_get_a_forbidden_error_when_trying_to_login_with_wrong_user_pass()
+    {
+        $this->post('/v1/auth', ['email' => 'test@test.com', 'password' => 'password'])
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertExactJson([
+                'error' => [
+                    'code'    => Response::HTTP_UNAUTHORIZED,
+                    'details' => 'Wrong username / password',
+                    'message' => 'Unauthorized',
+                    'request' => ''
+                ]
+            ]);
+    }
 }

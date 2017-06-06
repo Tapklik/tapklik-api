@@ -4,10 +4,11 @@ use App\Transformers\BudgetTransformer;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class BudgetControllerTest extends TestCase {
 
-    use DatabaseMigrations;
+    use DatabaseMigrations, WithoutMiddleware;
 
     /**
      *

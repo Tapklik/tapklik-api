@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Campaign;
 use App\Category;
-use App\Transformers\CampaignTransformer;
 use App\Transformers\CategoryTransformer;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -17,7 +16,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class CategoryControllerTest extends TestCase
 {
 
-    use DatabaseMigrations;
+    use DatabaseMigrations, WithoutMiddleware;
 
     public function setUp()
     {

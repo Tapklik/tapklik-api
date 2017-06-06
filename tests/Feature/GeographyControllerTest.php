@@ -2,6 +2,7 @@
 
 use App\Campaign;
 use App\Transformers\GeographyTransformer;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class GeographyControllerTest extends TestCase
 {
 
-    use DatabaseMigrations;
+    use DatabaseMigrations, WithoutMiddleware;
 
     public function setUp()
     {

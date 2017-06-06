@@ -15,7 +15,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class CampaignControllerTest extends TestCase
 {
 
-    use DatabaseMigrations;
+    use DatabaseMigrations, WithoutMiddleware;
 
     public function setUp()
     {

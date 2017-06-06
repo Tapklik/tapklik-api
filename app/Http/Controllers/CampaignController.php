@@ -16,7 +16,6 @@ class CampaignController extends Controller
      */
     public function index()
     {
-
         try {
             $campaigns = Campaign::all();
 

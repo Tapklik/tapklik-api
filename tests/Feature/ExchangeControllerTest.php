@@ -2,8 +2,8 @@
 
 use App\Campaign;
 use App\Exchange;
-use App\Transformers\AdvertiserDomainTransformer;
 use App\Transformers\ExchangeTransformer;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class ExchangeControllerTest extends TestCase
 {
 
-    use DatabaseMigrations;
+    use DatabaseMigrations, WithoutMiddleware;
 
     public function setUp()
     {

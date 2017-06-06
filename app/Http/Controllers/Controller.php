@@ -24,6 +24,8 @@ class Controller extends BaseController
      */
     private $_fractal;
 
+    protected $req;
+
     /**
      * Controller constructor.
      *
@@ -35,6 +37,8 @@ class Controller extends BaseController
     {
 
         $this->_fractal = $fractal;
+
+        $this->req = $request;
 
         $this->_parseIncludes($request);
     }
@@ -86,6 +90,7 @@ class Controller extends BaseController
                     'code'    => $code,
                     'message' => $message,
                     'details' => $details,
+                    'request' => '' // create a hash function that will match the logs
                 ],
             ],
             $code

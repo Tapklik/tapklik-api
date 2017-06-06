@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Middleware\JWT;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,17 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get(
-    '/user',
-    function (Request $request) {
-
-        return $request->user();
-    }
-);
-
 // Campaigns
 Route::group(
-    ['prefix' => 'campaigns'],
+    ['prefix' => 'campaigns', 'middleware' => JWT::class],
     function () {
 
         Route::get(
@@ -160,7 +152,7 @@ Route::group(
 
 // Accounts
 Route::group(
-    ['prefix' => 'accounts'],
+    ['prefix' => 'accounts', 'middleware' => JWT::class],
     function () {
 
         Route::get(
