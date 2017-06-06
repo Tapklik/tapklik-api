@@ -22,11 +22,14 @@ class AccountControllerTest extends TestCase {
     /** @test */
     public function user_can_list_accounts()
     {
-        $this->get('/v1/accounts')
-            ->assertStatus(Response::HTTP_OK)
-            ->assertExactJson(
-                $this->collection(Account::all(), new AccountTransformer)
-            );
+
+        $this->get('/v1/accounts', [
+            'Authorize' => 'Bearer ' . $this->generateApiToken($this->account->id)
+        ])
+        ->assertStatus(Response::HTTP_OK)
+        ->assertExactJson(
+            $this->item(Account::findByUuId($this->account->uuid), new AccountTransformer)
+        );
     }
 
     /** @test */

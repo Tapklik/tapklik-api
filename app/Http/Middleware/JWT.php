@@ -29,7 +29,7 @@ class JWT
                 [
                     'error' => [
                         'code'    => Response::HTTP_FORBIDDEN,
-                        'message' => 'Unauthorized',
+                        'message' => 'Forbidden',
                         'request' => md5(rand(999, 9999)).'.'.sha1(Carbon::now()),
                     ],
                 ], Response::HTTP_FORBIDDEN
@@ -38,14 +38,29 @@ class JWT
 
         // Validate bearer
         $token   = str_replace('Bearer ', '', $request->header('Authorization'));
-        $payload = (new Parser())->parse((string)$token);
+        try {
+
+            $payload = (new Parser())->parse((string)$token);
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'error' => [
+                        'code'    => Response::HTTP_FORBIDDEN,
+                        'message' => 'Forbidden',
+                        'request' => md5(rand(999, 9999)).'.'.sha1(Carbon::now()),
+                    ],
+                ], Response::HTTP_UNAUTHORIZED
+            );
+        }
+
 
         if ( !$payload->getClaim('accountId') || !$payload->getClaim('id')) {
             return response()->json(
                 [
                     'error' => [
-                        'code'    => Response::HTTP_FORBIDDEN,
-                        'message' => 'Unauthorized',
+                        'code'    => Response::HTTP_UNAUTHORIZED,
+                        'message' => 'Forbidden',
                         'request' => md5(rand(999, 9999)).'.'.sha1(Carbon::now()),
                     ],
                 ], Response::HTTP_FORBIDDEN
@@ -53,14 +68,16 @@ class JWT
         }
 
 
-        $request->attributes->add([
-            'session' => [
-                'id'        => $payload->getClaim('id'),
-                'uuid'      => $payload->getClaim('uuid'),
-                'accountId' => $payload->getClaim('accountId'),
-                'name'      => $payload->getClaim('name'),
-                'email'     => $payload->getClaim('email'),
-            ],
+        $request->attributes->add(
+            [
+                'session' => [
+                    'id'          => $payload->getClaim('id'),
+                    'uuid'        => $payload->getClaim('uuid'),
+                    'accountId'   => $payload->getClaim('accountId'),
+                    'accountUuId' => $payload->getClaim('accountUuId'),
+                    'name'        => $payload->getClaim('name'),
+                    'email'       => $payload->getClaim('email'),
+                ],
         ]);
 
         return $next($request);

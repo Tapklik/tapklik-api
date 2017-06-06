@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Transformers\AccountTransformer;
-use League\Fractal\Manager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,11 +17,18 @@ class AccountController extends Controller
      */
     public function index()
     {
-        // Request through middleware
-        // Redirect if its not admin account
-        $accounts = Account::all();
+       try {
+           return $this->item(
+               Account::find(1),
+               new AccountTransformer
+           );
+       } catch (ModelNotFoundException $e) {
 
-        return $this->collection($accounts, new AccountTransformer);
+           return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Account ' . $this->req->get('session')['accountId'] . ' does not exist.');
+       } catch (\Exception $e) {
+
+           return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+       }
     }
 
     /**

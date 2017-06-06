@@ -97,10 +97,12 @@ class CampaignModelTest extends TestCase
         $user      = factory(\App\User::class)->create(['account_id' => $account->id]);
         $campaigns = factory(Campaign::class, 5)->create(['account_id' => $account->id]);
 
+        $token = \App\User::apiToken($user);
+
         $page = $this->get(
             '/v1/campaigns',
             [
-                'Authorization' => 'Bearer '. $this->token,
+                'Authorization' => 'Bearer '. $token,
             ]
         )->assertStatus(Response::HTTP_OK);
 

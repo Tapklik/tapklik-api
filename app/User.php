@@ -22,7 +22,7 @@ class User extends Authenticatable
 
     public function account() {
 
-        return $this->HasMany(Account::class);
+        return $this->HasOne(Account::class, 'id', 'account_id');
     }
 
     // Mehtods
@@ -61,6 +61,8 @@ class User extends Authenticatable
             'uuid', $user->uuid
         )->set(
             'accountId', $user->account_id
+        )->set(
+            'accountUuId', $user->account->uuid
         )->set(
             'name', $user->name
         )->getToken();
