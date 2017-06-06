@@ -53,7 +53,7 @@ class UserController extends Controller
                     'first_name' => request('first_name'),
                     'last_name'  => request('last_name'),
                     'email'      => request('email'),
-                    'password'   => request('password'),
+                    'password'   => bcrypt(request('password')),
                     'account_id' => $account->id,
                 ]
             );
@@ -90,18 +90,6 @@ class UserController extends Controller
 
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
