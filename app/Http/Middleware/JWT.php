@@ -21,6 +21,7 @@ class JWT
      */
     public function handle($request, Closure $next)
     {
+
         // Check for bearer
         if ( !$request->header('Authorization')) {
 
@@ -31,15 +32,15 @@ class JWT
                         'message' => 'Unauthorized',
                         'request' => md5(rand(999, 9999)).'.'.sha1(Carbon::now()),
                     ],
-                ]
+                ], Response::HTTP_FORBIDDEN
             );
         }
 
         // Validate bearer
-        $token = str_replace('Bearer ', '', $request->header('Authorization'));
-        $payload = (new Parser())->parse((string) $token);
+        $token   = str_replace('Bearer ', '', $request->header('Authorization'));
+        $payload = (new Parser())->parse((string)$token);
 
-        if( !$payload->getClaim('accountId') || !$payload->getClaim('id')) {
+        if ( !$payload->getClaim('accountId') || !$payload->getClaim('id')) {
             return response()->json(
                 [
                     'error' => [
@@ -47,13 +48,21 @@ class JWT
                         'message' => 'Unauthorized',
                         'request' => md5(rand(999, 9999)).'.'.sha1(Carbon::now()),
                     ],
-                ]
+                ], Response::HTTP_FORBIDDEN
             );
         }
 
-        $request->attributes->add([
-            'token' => $payload
-        ]);
+        $request->attributes->add(
+            [
+                'session' => [
+                    'id'        => $payload->getClaim('id'),
+                    'uuid'      => $payload->getClaim('uuid'),
+                    'accountId' => $payload->getClaim('accountId'),
+                    'name'      => $payload->getClaim('name'),
+                    'email'     => $payload->getClaim('email'),
+                ],
+            ]
+        );
 
         return $next($request);
     }

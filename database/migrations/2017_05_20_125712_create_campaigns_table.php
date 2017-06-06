@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCampaignsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,22 +14,30 @@ class CreateCampaignsTable extends Migration
      */
     public function up()
     {
-        Schema::create('campaigns', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('uuid')->nullable();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->date('start');
-            $table->date('end');
-            $table->integer('bid');
-            $table->string('ctrurl');
-            $table->tinyInteger('test')->default(0);
-            $table->integer('weight')->default(0);
-            $table->string('node')->nullable()->default("");
-            $table->string('approved')->default('pending');
-            $table->string('status')->default('pending');
-            $table->timestamps();
-        });
+
+        Schema::create(
+            'campaigns',
+            function (Blueprint $table) {
+
+                $table->increments('id');
+                $table->unsignedInteger('account_id');
+                $table->string('uuid')->nullable();
+                $table->string('name');
+                $table->text('description')->nullable();
+                $table->date('start');
+                $table->date('end');
+                $table->integer('bid');
+                $table->string('ctrurl');
+                $table->tinyInteger('test')->default(0);
+                $table->integer('weight')->default(0);
+                $table->string('node')->nullable()->default("");
+                $table->string('approved')->default('pending');
+                $table->string('status')->default('pending');
+                $table->timestamps();
+
+                $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            }
+        );
     }
 
     /**

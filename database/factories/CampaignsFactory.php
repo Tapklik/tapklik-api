@@ -22,6 +22,7 @@ $factory->define(
 
         return [
             'uuid'        => $uuid->toString(),
+            'account_id'  => factory(\App\Account::class)->create()->id,
             'name'        => $faker->company,
             'description' => $faker->sentences(4, true),
             'start'       => ($start = \Carbon\Carbon::now())->toDateString(),

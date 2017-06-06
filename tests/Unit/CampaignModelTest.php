@@ -1,5 +1,7 @@
 <?php
 use App\Campaign;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -56,5 +58,18 @@ class CampaignModelTest extends TestCase {
     {
         $this->assertInstanceOf(Illuminate\Database\Eloquent\Relations\BelongsToMany::class,
             $this->campaign->geography());
+    }
+
+    /** @test */
+    public function it_can_retrieve_campaigns_limited_to_user_account()
+    {
+        $account = factory(\App\Account::class)->create();
+        $user = factory(\App\User::class)->create(['account_id' => $account->id]);
+        $campaigns = factory(Campaign::class, 5)->create();
+        $token = \App\User::apiToken($user);
+
+        $this->get('/v1/campaigns', [
+            'Authorization' => 'Bearer ' . $token
+        ])->assertStatus(Response::HTTP_OK);
     }
 }
