@@ -232,9 +232,9 @@ Route::group(
  * Core namespace provides utility endpoints, such as fuzzy search
  */
 Route::post(
-    '/v1/auth',
+    '/auth',
     [
         'as'   => 'auth',
-        'uses' => 'AuthController@login',
+        'uses' => 'AuthenticateController@authenticate',
     ]
 );
