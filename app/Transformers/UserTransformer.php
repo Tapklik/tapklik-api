@@ -21,6 +21,7 @@ class UserTransformer extends TransformerAbstract
             'name'       => $user->first_name.' '.$user->last_name,
             'email'      => $user->email,
             'phone'      => $user->phone,
+            'status'     => (int) $user->status,
         ];
     }
 }

@@ -48,6 +48,7 @@ class UserController extends Controller
         try {
             $account = Account::findByUuId($uuid);
 
+
             $user = User::create(
                 [
                     'first_name' => request('first_name'),
@@ -63,7 +64,6 @@ class UserController extends Controller
 
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Account '.$uuid.' does not exist.');
         } catch (\Exception $e) {
-            echo $e->getMessage();
 
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
         }

@@ -28,7 +28,7 @@ class AccountControllerTest extends TestCase {
         ])
         ->assertStatus(Response::HTTP_OK)
         ->assertExactJson(
-            $this->item(Account::findByUuId($this->account->uuid), new AccountTransformer)
+            $this->collection(Account::all(), new AccountTransformer)
         );
     }
 
@@ -69,7 +69,7 @@ class AccountControllerTest extends TestCase {
     /** @test */
     public function user_can_create_a_user()
     {
-        $user = factory(\App\User::class)->make();
+        $user = factory(\App\User::class)->make(['status' => 1]);
 
         $this->post('/v1/accounts/' . $this->account->uuid . '/users', $user->toArray())
             ->assertStatus(Response::HTTP_OK)
