@@ -10,6 +10,11 @@ class Account extends ModelSetup
         return $this->hasMany(User::class);
     }
 
+    public function campaigns() {
+
+        return $this->hasMany(Campaign::class);
+    }
+
     // Methods
 
     public static function findByUuId($uuid)
