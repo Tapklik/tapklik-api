@@ -43,12 +43,12 @@ class CategoryControllerTest extends TestCase
     {
         $categories = factory(Category::class, 4)->create();
 
-        $page = $this->post('/v1/campaigns/' . $this->campaign->uuid . '/cat', $categories->pluck('id')->toArray())
+        $page = $this->post('/v1/campaigns/' . $this->campaign->uuid . '/cat', $categories->pluck('code')->toArray())
             ->assertStatus(Response::HTTP_OK);
 
 
         $page = $page->decodeResponseJson();
 
-        $this->assertCount(count($page['data']), $this->campaign->categories);
+        $this->assertEquals(count($page['data']), 4);
     }
 }

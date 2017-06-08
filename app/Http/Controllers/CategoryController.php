@@ -30,16 +30,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
@@ -57,10 +47,10 @@ class CategoryController extends Controller
             if ($request->offsetExists(0)) {
 
                 collect($request->input())->each(
-                        function ($id) use ($campaign) {
+                        function ($iabCode) use ($campaign) {
 
                             try {
-                                $category = Category::findOrFail($id);
+                                $category = Category::findByIabCode($iabCode);
                                 $campaign->categories()->save($category);
                             } catch (ModelNotFoundException $e) {
                                 // skip
