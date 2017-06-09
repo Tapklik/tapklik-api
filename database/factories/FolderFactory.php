@@ -17,8 +17,9 @@ $factory->define(
     function (Faker\Generator $faker) {
 
         return [
-            'name'     => $faker->userName,
-            'status'   => rand(0, 1),
+            'account_id' => factory(\App\Account::class)->create()->id,
+            'name'       => $faker->userName,
+            'status'     => rand(0, 1),
         ];
     }
 );

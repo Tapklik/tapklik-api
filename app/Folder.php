@@ -12,6 +12,6 @@ class Folder extends Model
     public static function findByAccountId(int $id)
     {
 
-        return self::where(['account_id' => $id]);
+        return self::where(['account_id' => $id])->get();
     }
 }
