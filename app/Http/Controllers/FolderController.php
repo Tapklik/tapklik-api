@@ -19,7 +19,6 @@ class FolderController extends Controller
      */
     public function index()
     {
-
         try {
 
             $folders = Folder::findByAccountId($this->getJwtUserClaim('accountId'));
@@ -29,7 +28,7 @@ class FolderController extends Controller
 
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Folders do not exist');
         } catch (\Exception $e) {
-
+echo $e->getMessage();
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
         }
     }
@@ -43,7 +42,21 @@ class FolderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $folder = Folder::create([
+                'name'       => request('name'),
+                'account_id' => $this->getJwtUserClaim('accountId'),
+                'status'     => request('status')
+            ]);
+
+            return $this->item($folder, new FolderTransformer());
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Folders do not exist');
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+        }
     }
 
     /**
@@ -64,21 +77,9 @@ class FolderController extends Controller
 
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Folders ' . $uuid . ' does not exist.');
         } catch (\Exception $e) {
-dd($e->getMessage());
+
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Folder $folder
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Folder $folder)
-    {
-        //
     }
 
     /**

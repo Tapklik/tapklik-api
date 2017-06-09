@@ -31,8 +31,8 @@ class AuthenticateControllerTest extends TestCase
         $this->assertEquals($user->name, $token->getClaim('name'));
         $this->assertEquals($user->email, $token->getClaim('email'));
         $this->assertEquals($user->uuid, $token->getClaim('uuid'));
-        $this->assertEquals($account->id, $token->getClaim('id'));
-        $this->assertEquals($user->account_id, $token->getClaim('accountId'));
+        $this->assertEquals($account->id, $token->getClaim('accountId'));
+        $this->assertEquals($user->id, $token->getClaim('id'));
     }
 
     /** @test */

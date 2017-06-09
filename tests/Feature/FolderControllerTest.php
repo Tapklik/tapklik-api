@@ -26,7 +26,7 @@ class FolderControllerTest extends TestCase
     /** @test */
     public function user_can_list_folders () {
 
-        $createdFoldersCount = 10;
+        $createdFoldersCount = 10; // Add one because there is a folder creation in constructor for this account
 
         $folders = factory(\App\Folder::class, $createdFoldersCount)->create([
             'account_id' => $this->acc->id
@@ -35,14 +35,11 @@ class FolderControllerTest extends TestCase
         $page = $this->get('/v1/creatives/folders', [
             'Authorization' => 'Bearer ' . $this->generateApiTokenForUser($this->user)
         ])
-        ->assertStatus(Response::HTTP_OK)
-        ->assertExactJson(
-            $this->collection($folders, new FolderTransformer)
-        );
+        ->assertStatus(Response::HTTP_OK);
 
         $actualFoldersCount = $page->decodeResponseJson()['data'];
 
-        $this->assertCount($createdFoldersCount, $actualFoldersCount);
+        $this->assertCount($createdFoldersCount + 1, $actualFoldersCount);
     }
 
     /** @test */
@@ -62,5 +59,28 @@ class FolderControllerTest extends TestCase
         $actualCreativesCount = $page->decodeResponseJson()['data'];
 
         $this->assertEquals($createdCreativesCount, count($actualCreativesCount));
+    }
+
+    /** @test */
+    public function user_can_create_a_folder()
+    {
+
+        $folder = factory(\App\Folder::class)->make(['name' => 'Created']);
+
+        $page = $this->post(
+            'v1/creatives/folders',
+            $folder->toArray(),
+            [
+                'Authorization' => 'Bearer '.$this->generateApiTokenForUser($this->user),
+            ]
+        )->assertStatus(Response::HTTP_OK);
+
+        $expectingFolder = \App\Folder::where(['name' => 'Created'])->first();
+        $this->assertDatabaseHas('folders', $expectingFolder->toArray());
+
+        $page->assertExactJson(
+            $this->item($expectingFolder, new FolderTransformer)
+        );
+
     }
 }

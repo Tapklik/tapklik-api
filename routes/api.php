@@ -219,6 +219,14 @@ Route::group(
             ]
         );
 
+        Route::post(
+            '/folders',
+            [
+                'as'   => 'creatives.folders.store',
+                'uses' => 'FolderController@store',
+            ]
+        );
+
         Route::get(
             '/folders/{id}',
             [
