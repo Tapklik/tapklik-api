@@ -1,0 +1,94 @@
+ {
+    "IAB1": {
+      "type": "Arts & Culture",
+      "code": "IAB1"
+    },
+    "IAB2": {
+      "type": "Automative",
+      "code": "IAB2"
+    },
+    "IAB3": {
+      "type": "Business",
+      "code": "IAB3"
+    },
+    "IAB4": {
+      "type": "Careers",
+      "code": "IAB4"
+    },
+    "IAB5": {
+      "type": "Education",
+      "code": "IAB5"
+    },
+    "IAB6": {
+      "type": "Family & Parenting",
+      "code": "IAB6"
+    },
+    "IAB7": {
+      "type": "Health & Fitness",
+      "code": "IAB7"
+    },
+    "IAB8": {
+      "type": "Food & Drink",
+      "code": "IAB8"
+    },
+    "IAB9": {
+      "type": "Hobbies",
+      "code": "IAB9"
+    },
+    "IAB10": {
+      "type": "Home & Garden",
+      "code": "IAB10"
+    },
+    "IAB11": {
+      "type": "Law, Gov’t & Politics",
+      "code": "IAB11"
+    },
+    "IAB12": {
+      "type": "News",
+      "code": "IAB12"
+    },
+    "IAB13": {
+      "type": "Personal Finance",
+      "code": "IAB13"
+    },
+    "IAB14": {
+      "type": "Society",
+      "code": "IAB14"
+    },
+    "IAB15": {
+      "type": "Science",
+      "code": "IAB15"
+    },
+    "IAB16": {
+      "type": "Pets",
+      "code": "IAB16"
+    },
+    "IAB17": {
+      "type": "Sports",
+      "code": "IAB17"
+    },
+    "IAB18": {
+      "type": "Style & Fashion",
+      "code": "IAB18"
+    },
+    "IAB19": {
+      "type": "Technology & Computing",
+      "code": "IAB19"
+    },
+    "IAB20": {
+      "type": "Travel",
+      "code": "IAB20"
+    },
+    "IAB21": {
+      "type": "Real Estate",
+      "code": "IAB21"
+    },
+    "IAB22": {
+      "type": "Shopping",
+      "code": "IAB22"
+    },
+    "IAB23": {
+      "type": "Religion & Spirituality",
+      "code": "IAB23"
+    }
+  }
