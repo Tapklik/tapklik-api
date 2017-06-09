@@ -17,6 +17,7 @@ $factory->define(
     function (Faker\Generator $faker) {
 
         return [
+            'account_id'     => factory(\App\Account::class)->create()->id,
             'first_name'     => $faker->firstName,
             'last_name'      => $faker->lastName,
             'email'          => $faker->unique()->safeEmail,

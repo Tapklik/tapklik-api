@@ -1,11 +1,15 @@
-<?php
+<?php namespace App;
 
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Folder extends Model
+class Folder extends ModelSetup
 {
+
+    // Relationships
+
+    public function creatives()
+    {
+
+        return $this->hasMany(Creative::class);
+    }
 
     // Methods
 

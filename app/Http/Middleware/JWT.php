@@ -68,7 +68,6 @@ class JWT
             );
         }
 
-
         $request->attributes->add(
             [
                 'session' => [

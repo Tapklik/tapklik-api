@@ -184,6 +184,7 @@ return [
         App\Providers\CreativeObserverProvider::class,
         App\Providers\AccountObserverProvider::class,
         App\Providers\UserObserverProvider::class,
+        App\Providers\FolderObserverProvider::class,
 
         /*
          * Custom Service Providers...
