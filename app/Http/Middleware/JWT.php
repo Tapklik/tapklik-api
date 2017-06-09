@@ -38,6 +38,7 @@ class JWT
 
         // Validate bearer
         $token   = str_replace('Bearer ', '', $request->header('Authorization'));
+
         try {
 
             $payload = (new Parser())->parse((string)$token);
@@ -63,7 +64,7 @@ class JWT
                         'message' => 'Forbidden',
                         'request' => md5(rand(999, 9999)).'.'.sha1(Carbon::now()),
                     ],
-                ], Response::HTTP_FORBIDDEN
+                ], Response::HTTP_UNAUTHORIZED
             );
         }
 

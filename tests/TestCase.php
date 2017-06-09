@@ -29,9 +29,23 @@ abstract class TestCase extends BaseTestCase
         return $fractal->item($data, $transformer, $resource, $statusCode);
     }
 
+    /**
+     * @param int $accountId
+     *
+     * @return \Lcobucci\JWT\Token
+     */
     public function generateApiToken($accountId = 1)
     {
         $user = factory(User::class)->make(['account_id' => $accountId]);
+
+        return User::apiToken($user);
+    }
+
+    /**
+     * @param \App\User $user
+     */
+    public function generateApiTokenForUser(User $user)
+    {
 
         return User::apiToken($user);
     }

@@ -206,6 +206,21 @@ Route::group(
     }
 );
 
+// Creatives
+Route::group(
+    ['prefix' => 'creatives', 'middleware' => JWT::class],
+    function () {
+
+        Route::get(
+            '/folders',
+            [
+                'as'   => 'creatives.folders.index',
+                'uses' => 'FolderController@index',
+            ]
+        );
+    }
+);
+
 /**
  * Core namespace provides utility endpoints, such as fuzzy search
  */

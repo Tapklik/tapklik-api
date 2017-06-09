@@ -22,8 +22,6 @@ class CategoriesSeeder extends Seeder
                 'code' => $iab->code,
                 'name' => $iab->type
             ]);
-
-            sprintf('%s', "Created {$iab->code} \n");
         });
     }
 
