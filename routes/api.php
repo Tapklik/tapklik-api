@@ -218,6 +218,14 @@ Route::group(
                 'uses' => 'FolderController@index',
             ]
         );
+
+        Route::get(
+            '/folders/{id}',
+            [
+                'as'   => 'creatives.folders.show',
+                'uses' => 'FolderController@show',
+            ]
+        );
     }
 );
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Folder;
+use App\Transformers\CreativeTransformer;
 use App\Transformers\FolderTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -48,13 +49,24 @@ class FolderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Folder $folder
+     * @param $uuid
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Folder $folder)
+    public function show($uuid)
     {
-        //
+        try {
+
+            $folder = Folder::findByUuId($uuid);
+
+            return $this->collection($folder->creatives, new CreativeTransformer);
+        }  catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Folders ' . $uuid . ' does not exist.');
+        } catch (\Exception $e) {
+dd($e->getMessage());
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+        }
     }
 
     /**
