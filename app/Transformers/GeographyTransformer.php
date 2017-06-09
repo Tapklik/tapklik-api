@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class GeographyTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\Geography $geography
+     *
+     * @return array
+     */
     public function transform(Geography $geography)
     {
 

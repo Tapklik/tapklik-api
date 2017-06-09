@@ -4,9 +4,17 @@ use App\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class AuthenticateController
+ *
+ * @package App\Http\Controllers
+ */
 class AuthenticateController extends Controller
 {
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function authenticate()
     {
 

@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * Class FolderController
+ *
+ * @package App\Http\Controllers
+ */
 class FolderController extends Controller
 {
 
@@ -28,7 +33,7 @@ class FolderController extends Controller
 
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Folders do not exist');
         } catch (\Exception $e) {
-echo $e->getMessage();
+
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
         }
     }

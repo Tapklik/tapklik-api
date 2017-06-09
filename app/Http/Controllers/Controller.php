@@ -75,6 +75,13 @@ class Controller extends BaseController
         return $this->_fractal->item($data, $transformer, $resource);
     }
 
+    /**
+     * Returns a claim from passed JWT token
+     *
+     * @param string $claim
+     *
+     * @return string
+     */
     public function getJwtUserClaim(string $claim) : string
     {
         $currentJwtSession = collect($this->req->attributes->get('session'));

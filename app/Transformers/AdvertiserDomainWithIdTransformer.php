@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class AdvertiserDomainWithIdTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\AdvertiserDomain $adomain
+     *
+     * @return array
+     */
     public function transform(AdvertiserDomain $adomain)
     {
 

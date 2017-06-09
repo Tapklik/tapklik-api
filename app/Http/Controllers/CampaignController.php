@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * Class CampaignController
+ *
+ * @package App\Http\Controllers
+ */
 class CampaignController extends Controller
 {
 

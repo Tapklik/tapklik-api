@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class ExchangeTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\Exchange $exchange
+     *
+     * @return mixed
+     */
     public function transform(Exchange $exchange)
     {
 

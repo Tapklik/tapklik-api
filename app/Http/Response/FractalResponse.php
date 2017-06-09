@@ -6,6 +6,11 @@ use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\SerializerAbstract;
 use League\Fractal\TransformerAbstract;
 
+/**
+ * Class FractalResponse
+ *
+ * @package App\Http\Response
+ */
 class FractalResponse
 {
 

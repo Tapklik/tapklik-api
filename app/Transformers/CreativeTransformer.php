@@ -12,6 +12,11 @@ class CreativeTransformer extends TransformerAbstract
 {
     //protected $defaultIncludes = ['btype', 'attr'];
 
+    /**
+     * @param \App\Creative $creative
+     *
+     * @return array
+     */
     public function transform(Creative $creative)
     {
 

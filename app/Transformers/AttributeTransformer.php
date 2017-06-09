@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class AttributeTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\Attribute $attribute
+     *
+     * @return mixed
+     */
     public function transform(Attribute $attribute)
     {
 

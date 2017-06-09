@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Campaign;
-use App\Creative;
 use App\Transformers\CreativeTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 
+/**
+ * Class CampaignCreativeController
+ *
+ * @package App\Http\Controllers
+ */
 class CampaignCreativeController extends Controller
 {
 

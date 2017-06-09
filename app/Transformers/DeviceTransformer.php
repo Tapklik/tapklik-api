@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class DeviceTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\Device $device
+     *
+     * @return array
+     */
     public function transform(Device $device)
     {
 

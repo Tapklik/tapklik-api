@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class FolderTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\Folder $folder
+     *
+     * @return array
+     */
     public function transform(Folder $folder)
     {
 

@@ -8,6 +8,11 @@ use App\Transformers\CategoryTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
+/**
+ * Class CategoryController
+ *
+ * @package App\Http\Controllers
+ */
 class CategoryController extends Controller
 {
 

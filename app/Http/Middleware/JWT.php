@@ -4,10 +4,14 @@ namespace App\Http\Middleware;
 
 use Carbon\Carbon;
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Lcobucci\JWT\Parser;
 
+/**
+ * Class JWT
+ *
+ * @package App\Http\Middleware
+ */
 class JWT
 {
 

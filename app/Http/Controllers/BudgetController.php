@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * Class BudgetController
+ *
+ * @package App\Http\Controllers
+ */
 class BudgetController extends Controller
 {
 

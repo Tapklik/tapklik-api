@@ -12,6 +12,11 @@ use League\Fractal\TransformerAbstract;
 class BtypeTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\Btype $btype
+     *
+     * @return mixed
+     */
     public function transform(Btype $btype)
     {
 

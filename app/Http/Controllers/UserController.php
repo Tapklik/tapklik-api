@@ -8,6 +8,11 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * Class UserController
+ *
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
 

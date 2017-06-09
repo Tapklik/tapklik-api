@@ -5,6 +5,11 @@
  *
  * @package App
  */
+/**
+ * Class Folder
+ *
+ * @package App
+ */
 class Folder extends ModelSetup
 {
 

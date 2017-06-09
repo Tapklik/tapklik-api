@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class CategoryTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\Category $category
+     *
+     * @return mixed
+     */
     public function transform(Category $category)
     {
 

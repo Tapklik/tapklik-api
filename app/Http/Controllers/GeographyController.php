@@ -7,6 +7,11 @@ use App\Geography;
 use App\Transformers\GeographyTransformer;
 use Illuminate\Http\Request;
 
+/**
+ * Class GeographyController
+ *
+ * @package App\Http\Controllers
+ */
 class GeographyController extends Controller
 {
 

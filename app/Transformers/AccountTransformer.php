@@ -11,8 +11,16 @@ use League\Fractal\TransformerAbstract;
 class AccountTransformer extends TransformerAbstract
 {
 
+    /**
+     * @var array
+     */
     protected $availableIncludes = ['users'];
 
+    /**
+     * @param \App\Account $account
+     *
+     * @return array
+     */
     public function transform(Account $account)
     {
 
@@ -29,6 +37,11 @@ class AccountTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * @param \App\Account $account
+     *
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includeUsers(Account $account)
     {
 

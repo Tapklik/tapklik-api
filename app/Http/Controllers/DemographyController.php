@@ -8,6 +8,11 @@ use App\Transformers\DemographyTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
+/**
+ * Class DemographyController
+ *
+ * @package App\Http\Controllers
+ */
 class DemographyController extends Controller
 {
 

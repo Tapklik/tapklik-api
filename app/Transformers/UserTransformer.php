@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class UserTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\User $user
+     *
+     * @return array
+     */
     public function transform(User $user)
     {
 

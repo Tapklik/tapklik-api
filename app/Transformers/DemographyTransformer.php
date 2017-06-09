@@ -11,6 +11,11 @@ use League\Fractal\TransformerAbstract;
 class DemographyTransformer extends TransformerAbstract
 {
 
+    /**
+     * @param \App\Demography $user
+     *
+     * @return array
+     */
     public function transform(Demography $user)
     {
 

@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * Class AdvertiserDomainController
+ *
+ * @package App\Http\Controllers
+ */
 class AdvertiserDomainController extends Controller
 {
 
