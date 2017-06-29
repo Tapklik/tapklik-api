@@ -2,7 +2,7 @@
 
 use App\Geography;
 use App\Http\Controllers\Controller;
-use App\Transformers\SearchTransformer;
+use App\Transformers\GeographyTransformer;
 
 class SearchController extends Controller
 {
@@ -10,6 +10,6 @@ class SearchController extends Controller
     {
         $results = Geography::findByKey(request('key'));
 
-        return $this->collection($results, new SearchTransformer);
+        return $this->collection($results, new GeographyTransformer);
     }
 }

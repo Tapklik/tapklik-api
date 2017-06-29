@@ -20,10 +20,15 @@ class GeographyTransformer extends TransformerAbstract
     {
 
         return [
-            'country'     => $geography->country,
-            'city'        => $geography->city,
-            'region'      => $geography->region,
-            'region_name' => $geography->region_name,
+            'id'           => $geography->id,
+            'key'          => $geography->key,
+            'country_iso2' => $geography->country_iso2,
+            'country_name' => $geography->country_name,
+            'country'      => $geography->country,
+            'city'         => $geography->city,
+            'region'       => $geography->region,
+            'region_name'  => $geography->region_name,
+            'comment'      => $geography->comment,
         ];
     }
 }
