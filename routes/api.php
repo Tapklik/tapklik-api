@@ -246,7 +246,17 @@ Route::group(
     ],
     function () {
 
-        // Search
+
+        Route::group([
+            'prefix' => 'search'
+        ], function () {
+
+            Route::get('/geo', [
+                'as' => 'core.search.geo',
+                'uses' => 'Core\SearchController@search'
+            ]);
+        });
+
         // Email sending
     }
 );
