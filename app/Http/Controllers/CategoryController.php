@@ -51,17 +51,20 @@ class CategoryController extends Controller
 
             if ($request->offsetExists(0)) {
 
-                collect($request->input())->each(
+                $codes = collect($request->input())->map(
                         function ($iabCode) use ($campaign) {
 
                             try {
                                 $category = Category::findByIabCode($iabCode);
-                                $campaign->categories()->save($category);
+
+                                return $category->id;
                             } catch (ModelNotFoundException $e) {
                                 // skip
                             }
                         }
                     );
+
+                $campaign->categories()->sync($codes);
 
                 return $this->collection($campaign->categories, new CategoryTransformer);
             }
