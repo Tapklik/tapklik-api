@@ -45,6 +45,7 @@ class CampaignController extends Controller
     {
 
         try {
+
             $campaign = Campaign::create($request->input());
 
             return $this->item($campaign, new CampaignTransformer);
