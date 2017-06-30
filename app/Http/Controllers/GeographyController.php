@@ -39,49 +39,29 @@ class GeographyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param $uuid
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($uuid)
     {
-        //
-    }
+        try {
+            $campaign = Campaign::findByUuId($uuid);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Geography $geography
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Geography $geography)
-    {
-        //
-    }
+            $geographyIds = collect(request('geo'))->each(function($geo) {
+                return $geo;
+            });
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Geography $geography
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Geography $geography)
-    {
-        //
+            $campaign->geography()->sync($geographyIds);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Unknown error', $e->getMessage());
+        }
     }
 
     /**

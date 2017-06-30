@@ -152,6 +152,14 @@ Route::group(
             ]
         );
 
+        Route::post(
+            '/{id}/geo',
+            [
+                'as'   => 'campaigns.geo.store',
+                'uses' => 'GeographyController@store',
+            ]
+        );
+
         // CREATIVES
         Route::get(
             '/{id}/creatives',

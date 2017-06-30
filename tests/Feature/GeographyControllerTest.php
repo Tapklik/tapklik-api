@@ -30,4 +30,12 @@ class GeographyControllerTest extends TestCase
             );
     }
 
+    /** @test */
+    public function user_can_add_geographies()
+    {
+
+        $this->post('/v1/campaigns/' . $this->campaign->uuid . '/geo', [101, 102, 103])
+            ->assertStatus(Response::HTTP_OK);
+    }
+
 }
