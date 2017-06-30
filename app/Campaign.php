@@ -11,6 +11,28 @@ class Campaign extends ModelSetup
     // Relationships
 
     /**
+     * @param $uuid
+     *
+     * @return mixed
+     */
+    public static function findByUuId($uuid)
+    {
+
+        return Campaign::where(['uuid' => $uuid])->firstOrFail();
+    }
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public static function findByAccountId($id)
+    {
+
+        return Campaign::where(['account_id' => $id])->get();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function advertiserDomains()
@@ -82,28 +104,24 @@ class Campaign extends ModelSetup
         return $this->hasOne(Account::class, 'id', 'account_id');
     }
 
-    // Custom Methods
-
-    /**
-     * @param $uuid
-     *
-     * @return mixed
-     */
-    public static function findByUuId($uuid)
+    public function deviceTypes()
     {
 
-        return Campaign::where(['uuid' => $uuid])->firstOrFail();
+        return $this->belongsToMany(DeviceType::class);
     }
 
-    /**
-     * @param $id
-     *
-     * @return mixed
-     */
-    public static function findByAccountId($id)
+    // Custom Methods
+
+    public function deviceModels()
     {
 
-        return Campaign::where(['account_id' => $id])->get();
+        return $this->belongsToMany(DeviceModel::class);
+    }
+
+    public function deviceOperatingSystems()
+    {
+
+        return $this->belongsToMany(DeviceOs::class);
     }
 
 }

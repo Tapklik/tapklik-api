@@ -1,6 +1,6 @@
 <?php namespace App\Transformers;
 
-use App\Device;
+use App\Campaign;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -12,19 +12,19 @@ class DeviceTransformer extends TransformerAbstract
 {
 
     /**
-     * @param \App\Device $device
+     * @param \App\Campaign $campaign
      *
      * @return array
      */
-    public function transform(Device $device)
+    public function transform(Campaign $campaign)
     {
 
         return [
-            'type'  => $device->pluck('type'),
-            'make'  => $device->pluck('make'),
-            'model' =>  $device->pluck('model'),
-            'os'    =>  $device->pluck('operating_system'),
-            'ua'    =>  $device->pluck('user_agent'),
+            'type'  => $campaign->deviceTypes()->pluck('type_id'),
+            'make'  => [],
+            'model' => $campaign->deviceModels()->pluck('name'),
+            'os'    => $campaign->deviceOperatingSystems()->pluck('name'),
+            'ua'    => [],
         ];
     }
 }

@@ -58,7 +58,7 @@ Route::group(
             ]
         );
 
-        // Campaign Endpoints
+        // ADVERTISER DOMAIN
         Route::get(
             '/{id}/adomain',
             [
@@ -75,6 +75,7 @@ Route::group(
             ]
         );
 
+        // EXCHANGE
         Route::get(
             '/{id}/exchange',
             [
@@ -91,6 +92,7 @@ Route::group(
             ]
         );
 
+        // CATEGORIES
         Route::get(
             '/{id}/cat',
             [
@@ -107,6 +109,7 @@ Route::group(
             ]
         );
 
+        // BUDGET
         Route::get(
             '/{id}/budget',
             [
@@ -123,6 +126,7 @@ Route::group(
             ]
         );
 
+        // USER
         Route::get(
             '/{id}/user',
             [
@@ -131,7 +135,7 @@ Route::group(
             ]
         );
 
-        // GEO HERE
+        // GEO
         Route::get(
             '/{id}/geo',
             [
@@ -140,6 +144,7 @@ Route::group(
             ]
         );
 
+        // CREATIVES
         Route::get(
             '/{id}/creatives',
             [
@@ -147,6 +152,12 @@ Route::group(
                 'uses' => 'CampaignCreativeController@index',
             ]
         );
+
+        // DEVICE
+        Route::get('/{id}/device', [
+            'as' => 'campaigns.devices.index',
+            'uses' => 'CampaignDeviceController@index'
+        ]);
     }
 );
 

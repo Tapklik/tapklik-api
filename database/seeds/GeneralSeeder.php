@@ -17,5 +17,10 @@ class GeneralSeeder extends Seeder
         $user     = factory(\App\User::class)->create(['account_id' => $account->id]);
         $campaign = factory(App\Campaign::class)->create(['account_id' => $account->id]);
         $folders  = factory(\App\Folder::class, 20)->create(['account_id' => $account->id]);
+
+        (new CategoriesSeeder)->run();
+        (new DeviceTypeSeeder)->run();
+        (new DeviceModelSeeder)->run();
+        (new DeviceOsSeeder)->run();
     }
 }

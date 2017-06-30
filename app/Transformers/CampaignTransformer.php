@@ -19,7 +19,7 @@ class CampaignTransformer extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['adomain', 'exchange', 'cat', 'budget', 'user', 'geo', 'creatives'];
+    protected $defaultIncludes = ['adomain', 'exchange', 'cat', 'budget', 'user', 'geo', 'creatives', 'device'];
 
     //    protected $defaultIncludes = [ 'device'];
 
@@ -43,16 +43,7 @@ class CampaignTransformer extends TransformerAbstract
             'weight'      => $campaign->weight,
             'node'        => $campaign->node,
             'approved'    => $campaign->approved,
-            'status'      => $campaign->status,
-            'device'      => [
-                'data' => [
-                    'type'  => [],
-                    'make'  => [],
-                    'model' => [],
-                    'os'    => [],
-                    'ua'    => [],
-                ],
-            ],
+            'status'      => $campaign->status
         ];
     }
 
@@ -141,6 +132,6 @@ class CampaignTransformer extends TransformerAbstract
     public function includeDevice(Campaign $campaign)
     {
 
-        return $this->item($campaign->devices->first() ?: new Device, new DeviceTransformer);
+        return $this->item($campaign, new DeviceTransformer);
     }
 }

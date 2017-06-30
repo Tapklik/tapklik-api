@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDevicesTable extends Migration
+class CampaignDeviceModel extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreateDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('devices', function (Blueprint $table) {
+        Schema::create('campaign_device_model', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('campaign_id');
-            $table->string('value')->nullable();
-            $table->integer('devicable_id');
-            $table->string('devicable_type');
+            $table->unsignedInteger('device_model_id');
             $table->timestamps();
 
-            $table->foreign('campaign_id')
-                  ->references('id')
-                  ->on('campaigns')
-                  ->onDelete('cascade');
+            $table->foreign('campaign_id')->references('id')->on('campaigns');
+            $table->foreign('device_model_id')->references('id')->on('device_models');
         });
     }
 
@@ -35,6 +31,6 @@ class CreateDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devices');
+        Schema::dropIfExists('campaign_device_model');
     }
 }
