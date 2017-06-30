@@ -174,6 +174,21 @@ Route::group(
             'as' => 'campaigns.devices.index',
             'uses' => 'CampaignDeviceController@index'
         ]);
+
+        Route::post('/{id}/device/type', [
+            'as' => 'campaigns.devices.storeType',
+            'uses' => 'CampaignDeviceController@storeType'
+        ]);
+
+        Route::post('/{id}/device/model', [
+            'as' => 'campaigns.devices.storeModel',
+            'uses' => 'CampaignDeviceController@storeModel'
+        ]);
+
+        Route::post('/{id}/device/os', [
+            'as' => 'campaigns.devices.storeOs',
+            'uses' => 'CampaignDeviceController@storeOs'
+        ]);
     }
 );
 

@@ -12,7 +12,7 @@ class DeviceOsSeeder extends Seeder
     public function run()
     {
         collect([
-            'Android', 'BlackBerry', 'iOS', 'Mac OS', 'Linux', 'Windows'
+            'Android', 'BlackBerry', 'iOS', 'Mac', 'Linux', 'Windows'
         ])->each(function($os) {
 
             DB::insert('INSERT INTO device_os(name) VALUES("'. $os .'")');

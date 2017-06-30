@@ -4,8 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeviceModel extends Model
 {
-    public function device()
-    {
-        return $this->morphMany(Device::class, 'devicable');
+    public static function findByModelName(string $name) {
+
+        return self::where(['name' => $name])->firstOrFail();
     }
 }

@@ -2,8 +2,8 @@
 
 class DeviceOs extends ModelSetup
 {
-    public function device()
-    {
-        return $this->morphMany(Device::class, 'devicable');
+    public static function findByOsName(string $name) {
+
+        return self::where(['name' => $name])->firstOrFail();
     }
 }
