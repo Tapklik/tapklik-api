@@ -17,7 +17,7 @@ $factory->define(
     function (Faker\Generator $faker) {
 
         return [
-            'gender'   => 'o',
+            'gender'   => 'O',
             'from_age' => 1,
             'to_age'   => 120,
         ];

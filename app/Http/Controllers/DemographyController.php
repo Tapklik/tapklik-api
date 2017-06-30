@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Campaign;
 use App\Demography;
 use App\Transformers\DemographyTransformer;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -40,58 +41,48 @@ class DemographyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Demography  $demography
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Demography $demography)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Demography  $demography
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Demography $demography)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Demography  $demography
+     * @param $uuid
+     *
      * @return \Illuminate\Http\Response
+     * @internal param \App\Demography $demography
+     *
      */
-    public function update(Request $request, Demography $demography)
+    public function store($uuid)
     {
-        //
+
+        try {
+            $campaign = Campaign::findByUuId($uuid);
+
+            try {
+                $user = $campaign->demography()->firstOrFail();
+                $user->delete();
+            } catch (ModelNotFoundException $e) {}
+
+            try {
+                $gender = request('gender');
+                $age    = request('age');
+
+                $demography = Demography::saveDemography(
+                    $gender,
+                    $age['min'],
+                    $age['max'],
+                    $campaign->id
+                );
+
+                return $this->item($demography, new DemographyTransformer);
+            } catch (Exception $e) {
+
+                return $this->error(Response::HTTP_BAD_REQUEST, $e->getMessage());
+            }
+
+
+
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, $e->getMessage());
+        }
     }
 
     /**

@@ -135,6 +135,14 @@ Route::group(
             ]
         );
 
+        Route::post(
+            '/{id}/user',
+            [
+                'as'   => 'campaigns.user.store',
+                'uses' => 'DemographyController@store',
+            ]
+        );
+
         // GEO
         Route::get(
             '/{id}/geo',

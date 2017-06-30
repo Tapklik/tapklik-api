@@ -35,15 +35,25 @@ class DemographyControllerTest extends TestCase
             );
     }
 
-//    /** @test */
-//    public function user_can_create_exchange()
-//    {
-//        $exchange = factory(Exchange::class)->make();
-//
-//        $this->post('/v1/campaigns/' . $this->campaign->uuid . '/exchange', $exchange->toArray())
-//            ->assertStatus(Response::HTTP_OK)
-//            ->assertExactJson(
-//                $this->collection($this->campaign->exchanges, new ExchangeTransformer)
-//            );
-//    }
+    /** @test */
+    public function user_data_can_be_updated()
+    {
+
+        $this->put('v1/campaigns/' . $this->campaign->uuid . '/user', ['gender' => 'M', 'from_age' => 55, 'to_age' => 120])
+            ->assertStatus(Response::HTTP_OK);
+    }
+
+    /** @test */
+    public function it_can_delete_previous_user_from_campaign_targeting()
+    {
+
+        $this->put('v1/campaigns/' . $this->campaign->uuid . '/user', ['gender' => 'M', 'from_age' => 55, 'to_age' => 120])
+            ->assertStatus(Response::HTTP_OK);
+
+        $this->put('v1/campaigns/' . $this->campaign->uuid . '/user', ['gender' => 'M', 'from_age' => 18, 'to_age' =>
+            120])
+            ->assertStatus(Response::HTTP_OK);
+
+        $this->assertEquals(1, $this->campaign->demography->count());
+    }
 }
