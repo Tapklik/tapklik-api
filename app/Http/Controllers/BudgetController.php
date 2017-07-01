@@ -57,6 +57,8 @@ class BudgetController extends Controller
         try {
             $campaign = Campaign::findByUuId($uuid);
 
+            Budget::deleteForCampaignId($campaign->id);
+
             $budget = Budget::create([
                 'type' => request('type'),
                 'amount' => request('amount'),
@@ -73,18 +75,6 @@ class BudgetController extends Controller
             return $this->error(Response::HTTP_NOT_FOUND, 'Unknown error', $e->getMessage() . ' = ' . $e->getFile()
             . ' | ' . $e->getLine());
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Budget $budget
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Budget $budget)
-    {
-        //
     }
 
     /**

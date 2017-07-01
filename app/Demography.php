@@ -48,7 +48,7 @@ class Demography extends ModelSetup
     public function setGenderAttribute($value) {
 
         if(!$value) $value = ['M', 'F'];
-        
+
         $this->attributes['gender'] = (count($value) == 2) ? 'O' : implode('', $value);
     }
 
