@@ -24,6 +24,7 @@ class FolderTransformer extends TransformerAbstract
             'name'   => $folder->name,
             'status' => $folder->status,
             'items'  => $folder->creatives()->count(),
+            'key'    => $folder->id,
         ];
     }
 }
