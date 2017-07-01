@@ -1,5 +1,9 @@
 <?php
 
+use App\Account;
+use App\Campaign;
+use App\Creative;
+use App\Folder;
 use Illuminate\Database\Seeder;
 
 class GeneralSeeder extends Seeder
@@ -13,15 +17,16 @@ class GeneralSeeder extends Seeder
     public function run()
     {
 
-        $account  = factory(\App\Account::class)->create();
-        $user     = factory(\App\User::class)->create(['account_id' => $account->id]);
-        $campaign = factory(App\Campaign::class)->create(['account_id' => $account->id]);
-        $folders  = factory(\App\Folder::class, 20)->create(['account_id' => $account->id]);
+        $account   = factory(Account::class)->create();
+        $campaign  = factory(Campaign::class)->create(['account_id' => $account->id]);
+        $folder    = factory(Folder::class)->create(['account_id' => $account->id]);
+        $creatives = factory(Creative::class)->create(['folder_id' => $folder->id]);
 
         (new CategoriesSeeder)->run();
         (new DeviceTypeSeeder)->run();
         (new DeviceModelSeeder)->run();
         (new DeviceOsSeeder)->run();
         (new UserSeeder)->run();
+        (new DemographySeeder)->run();
     }
 }

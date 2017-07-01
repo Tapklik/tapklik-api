@@ -19,7 +19,7 @@ class CampaignTransformer extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['adomain', 'exchange', 'cat', 'budget', 'user', 'geo', 'creatives', 'device'];
+    protected $defaultIncludes = ['exchange', 'cat', 'budget', 'user', 'geo', 'creatives', 'device'];
 
     //    protected $defaultIncludes = [ 'device'];
 
@@ -39,6 +39,7 @@ class CampaignTransformer extends TransformerAbstract
             'end_time'    => $campaign->end,
             'bid'         => $campaign->bid,
             'ctrurl'      => $campaign->ctrurl,
+            'adomain'      => $campaign->adomain,
             'test'        => $campaign->test,
             'weight'      => $campaign->weight,
             'node'        => $campaign->node,
@@ -67,17 +68,6 @@ class CampaignTransformer extends TransformerAbstract
     {
 
         return $this->collection($campaign->categories, new CategoryTransformer);
-    }
-
-    /**
-     * @param \App\Campaign $campaign
-     *
-     * @return \League\Fractal\Resource\Collection
-     */
-    public function includeAdomain(Campaign $campaign)
-    {
-
-        return $this->collection($campaign->advertiserDomains, new AdvertiserDomainTransformer);
     }
 
     /**

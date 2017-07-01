@@ -13,7 +13,8 @@ class UserSeeder extends Seeder
     {
         factory(\App\User::class)->create([
             'email' => 'root',
-            'password' => bcrypt('root')
+            'password' => bcrypt('root'),
+            'account_id' => 1
         ]);
     }
 }

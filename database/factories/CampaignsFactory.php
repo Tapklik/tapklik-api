@@ -29,6 +29,7 @@ $factory->define(
             'end'         => $start->addDays(3)->toDateString(),
             'bid'         => rand(10, 100),
             'ctrurl'      => $faker->url,
+            'adomain'     => $faker->domainName,
             'test'        => rand(0, 1),
             'weight'      => rand(0, 5),
             'node'        => "",

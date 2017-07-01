@@ -7,6 +7,7 @@
  */
 class AdvertiserDomain extends ModelSetup
 {
+
     // Methods
 
     /**
@@ -16,6 +17,18 @@ class AdvertiserDomain extends ModelSetup
      */
     public static function findByCampaignUuId($uuid)
     {
+
         return Campaign::findByUuId($uuid)->advertiserDomains;
+    }
+
+    public static function deleteForCampaignId($id)
+    {
+        $advertiserDomains = self::where(['campaign_id' => $id]);
+
+        if(!$advertiserDomains->count()) return;
+
+        $advertiserDomains->each(function($adomain) {
+            $adomain->delete();
+        });
     }
 }

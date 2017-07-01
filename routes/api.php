@@ -169,6 +169,14 @@ Route::group(
             ]
         );
 
+        Route::post(
+            '/{id}/creatives',
+            [
+                'as'   => 'campaigns.creatives.store',
+                'uses' => 'CampaignCreativeController@store',
+            ]
+        );
+
         // DEVICE
         Route::get('/{id}/device', [
             'as' => 'campaigns.devices.index',

@@ -39,14 +39,18 @@ class AdvertiserDomainController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param $uuid
+     *
      * @return \Illuminate\Http\Response
+     * @internal param \Illuminate\Http\Request $request
      */
-    public function store(Request $request, $uuid)
+    public function store($uuid)
     {
         try {
-            $advertiserDomain = (new AdvertiserDomain())->fill($request->input());
+            $advertiserDomain = (new AdvertiserDomain())->fill(request('url'));
             $campaign         = Campaign::findByUuId($uuid);
+
+            AdvertiserDomain::deleteForCampaignId($campaign->id);
 
             $campaign->advertiserDomains()->save($advertiserDomain);
 

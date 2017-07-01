@@ -27,7 +27,8 @@ class CreateCampaignsTable extends Migration
                 $table->date('start');
                 $table->date('end');
                 $table->integer('bid');
-                $table->string('ctrurl');
+                $table->string('ctrurl')->nullable();
+                $table->string('adomain')->nullable();
                 $table->tinyInteger('test')->default(0);
                 $table->integer('weight')->default(0);
                 $table->string('node')->nullable()->default("");

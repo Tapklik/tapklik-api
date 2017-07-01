@@ -16,7 +16,7 @@ class Creative extends ModelSetup
      */
     public static function findByUuId(string $uuid) {
 
-        return self::where(['uuid' => $uuid]);
+        return self::where(['uuid' => $uuid])->firstOrFail();
     }
 
     /**
