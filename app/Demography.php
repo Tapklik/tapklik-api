@@ -18,7 +18,7 @@ class Demography extends ModelSetup
      * @internal param string $uuid
      *
      */
-    public static function saveDemography(string $gender = "O", int $from_age = 18, int $to_age = 55, string
+    public static function saveDemography(array $gender = [], int $from_age = 18, int $to_age = 55, string
     $campaignId =
     '')
     {
@@ -37,4 +37,19 @@ class Demography extends ModelSetup
             throw new Exception($e->getMessage(), $e->getCode());
         }
     }
+
+    // Getters
+    public function getGenderAttribute($value)
+    {
+        return ($value == "O") ? ["F", "M"] : [$value];
+    }
+
+    // Getters
+    public function setGenderAttribute($value) {
+
+        if(!$value) $value = ['M', 'F'];
+        
+        $this->attributes['gender'] = (count($value) == 2) ? 'O' : implode('', $value);
+    }
+
 }

@@ -22,5 +22,6 @@ class GeneralSeeder extends Seeder
         (new DeviceTypeSeeder)->run();
         (new DeviceModelSeeder)->run();
         (new DeviceOsSeeder)->run();
+        (new UserSeeder)->run();
     }
 }
