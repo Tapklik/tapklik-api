@@ -260,6 +260,10 @@ Route::group(
 Route::group(
     ['prefix' => 'creatives', 'middleware' => JWT::class],
     function () {
+        Route::post('/', [
+            'as' => 'creatives.upload',
+            'uses' => 'UploadController@upload'
+        ]);
 
         Route::get(
             '/folders',
