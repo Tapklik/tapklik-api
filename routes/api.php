@@ -307,6 +307,17 @@ Route::group(
             ]);
         });
 
+        Route::group([
+            'prefix' => '/erlang',
+        ], function (){
+
+
+            Route::get('/campaigns', [
+                'as' => 'core.erlang.campaigns',
+                'uses' => 'Core\ErlangCampaignsController@index'
+            ]);
+        });
+
         // Email sending
     }
 );
