@@ -60,9 +60,9 @@ class BudgetController extends Controller
             Budget::deleteForCampaignId($campaign->id);
 
             $budget = Budget::create([
-                'type' => request('type'),
+                'type' => request('type') ?: 'daily',
                 'amount' => request('amount'),
-                'pacing' => request('pacing'),
+                'pacing' => request('pacing') ?: 0,
                 'campaign_id' => $campaign->id
             ]);
 
