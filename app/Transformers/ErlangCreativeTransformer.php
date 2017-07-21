@@ -20,6 +20,7 @@ class ErlangCreativeTransformer extends TransformerAbstract
      */
     public function transform(Creative $creative)
     {
+        if($creative->status == 'declined') return '';
 
         return [
             'id' => $creative->id
