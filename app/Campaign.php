@@ -21,6 +21,12 @@ class Campaign extends ModelSetup
         return Campaign::where(['uuid' => $uuid])->firstOrFail();
     }
 
+    public function approvedCreatives() {
+
+        return Creative::where(['campaign_id' => $this->$id, 'status' => 'approved']);
+    }
+
+    
     /**
      * @param $id
      *
