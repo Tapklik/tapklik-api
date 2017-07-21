@@ -10,7 +10,7 @@ use League\Fractal\TransformerAbstract;
  */
 class ErlangCampaignTransformer extends TransformerAbstract
 {
-    //    protected $defaultIncludes = [ 'device'];
+    protected $defaultIncludes = [ 'creatives'];
 
     /**
      * @param \App\Campaign $campaign
@@ -34,10 +34,16 @@ class ErlangCampaignTransformer extends TransformerAbstract
             'node'        => $campaign->node,
             'approved'    => $campaign->approved,
             'status'      => $campaign->status,
-
-            //'creatives' => Creative::where(['campaign_id' => $campaign->id])
-            //'creatives' => DB::query("SQL");
+            'device'      => $campaign->device,
         ];
     }
+
+    public function includeCreatives(Campaign $campaign) 
+    {
+
+        return $this->collection($campaign->creatives, new ErlangCreativeTransformer);
+    }
+
+
 
 }

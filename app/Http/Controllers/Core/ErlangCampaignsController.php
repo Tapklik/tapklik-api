@@ -14,9 +14,9 @@ class ErlangCampaignsController extends Controller
      */
     public function index()
     {
-        $campaign = Campaign::findOrFail(1);
+        $campaign = Campaign::with(['approvedCreatives'])->where(['status' => 'archived'])->get();
 
-        return $this->item($campaign, new ErlangCampaignTransformer);
+        return $this->collection($campaign, new ErlangCampaignTransformer);
     }
 
     /**
