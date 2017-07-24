@@ -22,26 +22,22 @@ class CreativeTransformer extends TransformerAbstract
     {
 
         return [
-            'id'       => $creative->uuid,
-            'class'    => $creative->class,
-            'name'   => $creative->name,
-            'h'        => $creative->h,
-            'w'        => $creative->w,
-            'responsive'=> $creative->responsive,
-            'expdir'   => $creative->expdir,
-            'adm'      => $creative->adm,
-            'ctrurl'   => $creative->ctrurl,
-            'iurl'     => $creative->iurl,
-            'pos'      => $creative->pos,
-            'approved' => $creative->status,
-            'folder'   => ['key' => $creative->folder->id, 'name' => $creative->folder->name],
+            'id'         => $creative->uuid,
+            'class'      => $creative->class,
+            'name'       => $creative->name,
+            'h'          => $creative->h,
+            'w'          => $creative->w,
+            'responsive' => $creative->responsive,
+            'expdir'     => $creative->expdir,
+            'adm'        => $creative->adm,
+            'ctrurl'     => $creative->ctrurl,
+            'iurl'       => $creative->iurl,
+            'type'       => $creative->type,
+            'pos'        => $creative->pos,
+            'approved'   => $creative->status,
+            'folder'     => ['key' => $creative->folder->id, 'name' => $creative->folder->name],
         ];
     }
-
-    // public function includeType(Creative $creative)
-    // {
-    //    return $this->collection($creative->type, new TypeTransformer);
-    // }
     
      public function includeAttr(Creative $creative)
      {

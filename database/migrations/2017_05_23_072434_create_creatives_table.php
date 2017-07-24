@@ -26,6 +26,7 @@ class CreateCreativesTable extends Migration
             $table->text('adm');
             $table->string('ctrurl');
             $table->string('iurl');
+            $table->integer('type')->nullable()->default(0);
             $table->smallInteger('pos')->default(0);
             $table->string('status')->default('pending');
             $table->timestamps();
