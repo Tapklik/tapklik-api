@@ -27,6 +27,11 @@ class Creative extends ModelSetup
         return $this->belongsTo(Folder::class);
     }
 
+    public function attributes() {
+
+        return $this->hasMany(Attribute::class);
+    }
+
     public function makeCreative($object = [])
     {
 

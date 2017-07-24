@@ -15,10 +15,12 @@ class AttrTransformer extends TransformerAbstract
      * @param \App\Attribute $attribute
      *
      * @return mixed
+     * @internal param \App\Attribute $attr
+     *
      */
-    public function transform(Attr $attr)
+    public function transform(Attribute $attribute)
     {
 
-        return $attr->attr;
+        return $attribute->attr;
     }
 }
