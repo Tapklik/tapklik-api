@@ -43,7 +43,6 @@ class CampaignTransformer extends TransformerAbstract
             'test'        => $campaign->test,
             'weight'      => $campaign->weight,
             'node'        => $campaign->node,
-            'approved'    => $campaign->approved,
             'status'      => $campaign->status
         ];
     }

@@ -17,7 +17,6 @@ $factory->define(
     function (Faker\Generator $faker) {
 
         $uuid     = \Ramsey\Uuid\Uuid::uuid1();
-        $approved = collect(['approved', 'pending', 'declined'])->offsetGet(2);
         $status   = collect(['running', 'stopped', 'archived', 'pending'])->offsetGet(2);
 
         return [
@@ -33,7 +32,6 @@ $factory->define(
             'test'        => rand(0, 1),
             'weight'      => rand(0, 5),
             'node'        => "",
-            'approved'    => $approved,
             'status'      => $status,
         ];
     }

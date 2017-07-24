@@ -21,11 +21,15 @@ $factory->define(
 
         return [
             'uuid'       => $uuid->toString(),
+            'class'      => "banner",
+            'name'      => "test1",
+            'h'          => 250,
+            'w'          => 300,
             'expdir'     => 0,
+            'repsonsive'      => false,
             'adm'        => "<iframe id='a3b53e1d' name='a3b53e1d' src='http://adserver.tapklik.com/www/delivery/afr.php?zoneid=1&amp;cb=12323' frameborder='0' scrolling='no' width='300' height='250'><a href='http://adserver.tapklik.com/www/delivery/ck.php?n=a9d047cc&amp;cb=123432' target='_blank'><img src='http://adserver.tapklik.com/www/delivery/avw.php?zoneid=1&amp;cb=12343&amp;n=a9d047cc' border='0' alt='' /></a></iframe>",
             'ctrurl'     => $faker->domainName,
             'iurl'       => $faker->imageUrl(),
-            'type'       => 1077,
             'pos'        => 0,
             'status'     => $approved,
         ];

@@ -10,7 +10,7 @@ use League\Fractal\TransformerAbstract;
  */
 class ErlangCampaignTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = [ 'creatives'];
+    protected $defaultIncludes = [ 'creatives', 'device', 'exchange', 'budget', 'geo', 'user'];
 
     /**
      * @param \App\Campaign $campaign
@@ -23,25 +23,56 @@ class ErlangCampaignTransformer extends TransformerAbstract
         return [
             'id'          => $campaign->uuid,
             'name'        => $campaign->name,
+            'account_id'  => $campaign->account_id,
             'description' => $campaign->description,
             'start_time'  => $campaign->start,
             'end_time'    => $campaign->end,
             'bid'         => $campaign->bid,
             'ctrurl'      => $campaign->ctrurl,
-            'adomain'      => $campaign->adomain,
+            'adomain'     => $campaign->adomain,
             'test'        => $campaign->test,
             'weight'      => $campaign->weight,
             'node'        => $campaign->node,
-            'approved'    => $campaign->approved,
             'status'      => $campaign->status,
-            'device'      => $campaign->device,
         ];
+    }
+
+    public function includeExchange(Campaign $campaign)
+    {
+
+        return $this->collection($campaign->exchanges, new ExchangeTransformer);
+    }
+
+    public function includeBudget(Campaign $campaign)
+    {
+
+        return $this->item($campaign->budget ?: new Budget, new BudgetTransformer);
     }
 
     public function includeCreatives(Campaign $campaign) 
     {
 
         return $this->collection($campaign->creatives, new ErlangCreativeTransformer);
+    }
+
+
+
+    public function includeUser(Campaign $campaign)
+    {
+
+        return $this->item($campaign->demography ?: new Demography, new DemographyTransformer);
+    }
+
+    public function includeGeo(Campaign $campaign)
+    {
+
+        return $this->collection($campaign->geography ?: new Geography, new GeographyTransformer);
+    }
+
+    public function includeDevice(Campaign $campaign)
+    {
+
+        return $this->item($campaign, new DeviceTransformer);
     }
 
 

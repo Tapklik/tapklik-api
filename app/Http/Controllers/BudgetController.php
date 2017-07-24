@@ -62,7 +62,7 @@ class BudgetController extends Controller
             $budget = Budget::create([
                 'type' => request('type') ?: 'daily',
                 'amount' => request('amount'),
-                'pacing' => request('pacing') ?: 0,
+                'pacing' => request('pacing'),
                 'campaign_id' => $campaign->id
             ]);
 

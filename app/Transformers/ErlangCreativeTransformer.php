@@ -20,10 +20,21 @@ class ErlangCreativeTransformer extends TransformerAbstract
      */
     public function transform(Creative $creative)
     {
-        if($creative->status == 'declined') return '';
+        if($creative->status == '') return '';
 
         return [
-            'id' => $creative->id
+            'crid' => $creative->uuid,
+            'class' => $creative->class,
+            'type' => $creative->type,
+            'h' => $creative->h,
+            'w' => $creative->w,
+            'attr' => $creative->attr,
+            'expdir'=> $creative->expdir,
+            'pos' => $creative->pos,
+            'ctrurl' => $creative->ctrurl,
+            'iurl' => $creative->iurl,
+            'adm' => $creative->adm,
+            'status'=> $creative->status
         ];
     }
 

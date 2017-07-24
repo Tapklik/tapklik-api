@@ -1,7 +1,6 @@
 <?php namespace App\Transformers;
 
-use App\Btype;
-use App\Exchange;
+use App\Attribute;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -9,17 +8,17 @@ use League\Fractal\TransformerAbstract;
  *
  * @package \app\Transformers
  */
-class BtypeTransformer extends TransformerAbstract
+class AttrTransformer extends TransformerAbstract
 {
 
     /**
-     * @param \App\Btype $btype
+     * @param \App\Attribute $attribute
      *
      * @return mixed
      */
-    public function transform(Btype $btype)
+    public function transform(Attr $attr)
     {
 
-        return $btype->type;
+        return $attr->attr;
     }
 }
