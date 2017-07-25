@@ -26,6 +26,11 @@ class Account extends ModelSetup implements Uuidable
         return $this->hasMany(Campaign::class);
     }
 
+    public function banker()
+    {
+        return $this->morphMany(Banker::class, 'bankerable');
+    }
+
     // Methods
 
     /**

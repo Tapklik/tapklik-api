@@ -124,4 +124,9 @@ class Campaign extends ModelSetup implements Uuidable
         return $this->belongsToMany(DeviceOs::class);
     }
 
+    public function banker()
+    {
+        return $this->morphMany(Banker::class, 'bankerable');
+    }
+
 }
