@@ -17,7 +17,7 @@ $factory->define(
     function (Faker\Generator $faker) {
 
         $uuid     = \Ramsey\Uuid\Uuid::uuid1();
-        $status   = collect(['running', 'stopped', 'archived', 'pending'])->offsetGet(2);
+        $status   = collect(['active', 'stopped', 'archived'])->offsetGet(2);
 
         return [
             'uuid'        => $uuid->toString(),
@@ -32,7 +32,7 @@ $factory->define(
             'test'        => rand(0, 1),
             'weight'      => rand(0, 5),
             'node'        => "",
-            'status'      => $status,
+            'status'      => 'active',
         ];
     }
 );
