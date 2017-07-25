@@ -6,8 +6,17 @@ use App\Transformers\BankerTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 
+/**
+ * Class BankerController
+ *
+ * @package App\Http\Controllers
+ */
 class BankerController extends Controller
 {
+
+    /**
+     * @var array
+     */
     private $_allowedModelBag = [
         'campaigns' => 'Campaign',
         'accounts'  => 'Account'
@@ -39,6 +48,11 @@ class BankerController extends Controller
         }
     }
 
+    /**
+     * @param $uuid
+     *
+     * @return array
+     */
     public function getBalance($uuid)
     {
         $model = $this->_getModel();
@@ -62,6 +76,7 @@ class BankerController extends Controller
             $obj = $model::findByUuId($uuid);
 
             $banker = new Banker([
+                'uuid'        => request('id') ?: '',
                 'updated_at'  => request('timestamp') ?: Carbon::now(),
                 'debit'       => request('debit') ?: 0,
                 'credit'      => request('credit') ?: 0,
@@ -80,6 +95,9 @@ class BankerController extends Controller
         }
     }
 
+    /**
+     * @return mixed
+     */
     private function _getModel()
     {
         $model = $this->_allowedModelBag[$this->parentEndpoint];

@@ -74,7 +74,4 @@ class ErlangCampaignTransformer extends TransformerAbstract
 
         return $this->item($campaign, new DeviceTransformer);
     }
-
-
-
 }
