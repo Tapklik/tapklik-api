@@ -3,6 +3,7 @@
 use App\Banker;
 use App\Transformers\BankerBalanceTransformer;
 use App\Transformers\BankerTransformer;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
 
 class BankerController extends Controller
@@ -61,6 +62,7 @@ class BankerController extends Controller
             $obj = $model::findByUuId($uuid);
 
             $banker = new Banker([
+                'updated_at'  => request('timestamp') ?: Carbon::now(),
                 'debit'       => request('debit') ?: 0,
                 'credit'      => request('credit') ?: 0,
                 'description' => request('description') ?: '',
