@@ -23,7 +23,7 @@ class ErlangCampaignTransformer extends TransformerAbstract
         return [
             'id'          => $campaign->uuid,
             'name'        => $campaign->name,
-            'account_id'  => $campaign->account_id,
+            'account_id'  => $campaign->account->uuid,
             'description' => $campaign->description,
             'start_time'  => $campaign->start,
             'end_time'    => $campaign->end,
