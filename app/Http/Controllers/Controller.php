@@ -30,6 +30,8 @@ class Controller extends BaseController
      */
     private $_fractal;
 
+    protected $parentEndpoint = '';
+
     /**
      * Controller constructor.
      *
@@ -43,6 +45,8 @@ class Controller extends BaseController
 
         $this->_fractal = $fractal;
         $this->req      = $request;
+
+        $this->_setCurrentEndpoint();
     }
 
     /**
@@ -110,5 +114,14 @@ class Controller extends BaseController
             ],
             $code
         );
+    }
+
+    private function _setCurrentEndpoint()
+    {
+        $rootUriSegment = collect(
+            explode('/', $this->req->getUri())
+        );
+
+        $this->parentEndpoint = $rootUriSegment->offsetGet(4);
     }
 }

@@ -32,6 +32,16 @@ class Campaign extends ModelSetup implements Uuidable
         return Campaign::where(['account_id' => $id])->get();
     }
 
+    public static function balance($uuid)
+    {
+        $campaign = self::where(['uuid' => $uuid])->firstOrFail();
+
+        $credit = $campaign->banker()->sum('credit');
+        $debit  = $campaign->banker()->sum('debit');
+
+        return $credit - $debit;
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

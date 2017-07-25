@@ -18,9 +18,9 @@ class CreateBankerTable extends Migration
             $table->string('uuid')->nullable();
             $table->string('bankerable_type');
             $table->unsignedInteger('bankerable_id');
-            $table->bigInteger('amount');
             $table->bigInteger('debit');
             $table->bigInteger('credit');
+            $table->text('description');
             $table->timestamps();
         });
     }

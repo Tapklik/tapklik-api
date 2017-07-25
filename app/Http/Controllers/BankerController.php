@@ -1,11 +1,17 @@
 <?php namespace App\Http\Controllers;
 
+use App\Banker;
 use App\Campaign;
+use App\Transformers\BankerBalanceTransformer;
 use App\Transformers\BankerTransformer;
 use Illuminate\Http\Response;
 
 class BankerController extends Controller
 {
+    private $_allowedModelBag = [
+        'campaigns' => 'Campaign',
+        'accounts'  => 'Account'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -17,9 +23,11 @@ class BankerController extends Controller
     public function index($uuid)
     {
         try {
-            $campaign = Campaign::findByUuId($uuid);
+            $model = $this->_getModel();
 
-            return $this->collection($campaign->banker, new BankerTransformer);
+            if($this->req->get('query') == 'balance') return $this->getBalance($uuid);
+
+            return $this->collection($model->banker, new BankerTransformer);
 
         } catch (ModelNotFoundException $e) {
 
@@ -30,58 +38,46 @@ class BankerController extends Controller
         }
     }
 
+    public function getBalance($uuid)
+    {
+        $model = $this->_getModel();
+        $obj = $model::findByUuId($uuid);
+
+        return $this->item($obj, new BankerBalanceTransformer);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store($uuid)
     {
+        try {
+            $campaign = Campaign::findByUuId($uuid);
+            $banker = new Banker([
+                'debit'       => request['debit'] ?: 0,
+                'credit'      => request['credit'] ?: 0,
+                'description' => request['description'] ?: '',
+            ]);
 
+            $campaign->banker()->save($banker);
+
+            return $this->item($banker, new BankerTransformer);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    private function _getModel()
     {
-        //
-    }
+        $model = $this->_allowedModelBag[$this->parentEndpoint];
+        $model = "App\\{$model}";
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return new $model();
     }
 }
