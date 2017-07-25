@@ -5,7 +5,7 @@
  *
  * @package App
  */
-class Campaign extends ModelSetup
+class Campaign extends ModelSetup implements Uuidable
 {
 
     // Relationships
@@ -15,7 +15,7 @@ class Campaign extends ModelSetup
      *
      * @return mixed
      */
-    public static function findByUuId($uuid)
+    public static function findByUuId(string $uuid)
     {
 
         return Campaign::where(['uuid' => $uuid])->firstOrFail();

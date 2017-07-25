@@ -5,7 +5,7 @@
  *
  * @package App
  */
-class Creative extends ModelSetup
+class Creative extends ModelSetup implements Uuidable
 {
     // Methods
 
@@ -29,7 +29,7 @@ class Creative extends ModelSetup
 
     public function attributes() {
 
-        return $this->hasMany(Attribute::class);
+        return $this->hasManywq(Attribute::class);
     }
 
     public function makeCreative($object = [])
