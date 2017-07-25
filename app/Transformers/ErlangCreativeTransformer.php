@@ -11,7 +11,7 @@ use League\Fractal\TransformerAbstract;
  */
 class ErlangCreativeTransformer extends TransformerAbstract
 {
-    //    protected $defaultIncludes = [ 'device'];
+    protected $defaultIncludes = [ 'attr'];
 
     /**
      * @param \App\Campaign $campaign
@@ -28,16 +28,20 @@ class ErlangCreativeTransformer extends TransformerAbstract
             'type' => $creative->type,
             'h' => $creative->h,
             'w' => $creative->w,
-            'attr' => $creative->attr,
             'expdir'=> $creative->expdir,
             'pos' => $creative->pos,
             'ctrurl' => $creative->ctrurl,
             'iurl' => $creative->iurl,
             'adm' => $creative->adm,
-            'status'=> $creative->status
+            'status'=> $creative->status,
+            'dim' => [ $creative->w . 'x' . $creative->h ]
         ];
     }
 
+    public function includeAttr(Creative $creative)
+     {
+         return $this->collection($creative->attributes, new AttrTransformer);
+     }
 
 
 }
