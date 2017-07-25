@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBtypesTable extends Migration
+class CreateBankerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateBtypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('btypes', function (Blueprint $table) {
+        Schema::create('bankers', function(Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('creative_id');
-            $table->integer('type')->default(0);
+            $table->string('uuid')->nullable();
+            $table->string('bankerable_type');
+            $table->unsignedInteger('bankerable_id');
+            $table->bigInteger('debit');
+            $table->bigInteger('credit');
+            $table->text('description');
             $table->timestamps();
-
-            $table->foreign('creative_id')
-                  ->references('id')
-                  ->on('creatives')
-                  ->onDelete('cascade');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateBtypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('btypes');
+        Schema::drop('bankers');
     }
 }

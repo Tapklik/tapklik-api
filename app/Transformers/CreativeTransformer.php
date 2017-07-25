@@ -11,7 +11,7 @@ use League\Fractal\TransformerAbstract;
 class CreativeTransformer extends TransformerAbstract
 {
 
-    //protected $defaultIncludes = ['btype', 'attr'];
+    protected $defaultIncludes = ['attr'];
 
     /**
      * @param \App\Creative $creative
@@ -22,24 +22,25 @@ class CreativeTransformer extends TransformerAbstract
     {
 
         return [
-            'id'       => $creative->uuid,
-            'expdir'   => $creative->expdir,
-            'adm'      => $creative->adm,
-            'ctrurl'   => $creative->ctrurl,
-            'iurl'     => $creative->iurl,
-            'pos'      => $creative->pos,
-            'approved' => $creative->status,
-            'folder'   => ['key' => $creative->folder->id, 'name' => $creative->folder->name],
+            'id'         => $creative->uuid,
+            'class'      => $creative->class,
+            'name'       => $creative->name,
+            'h'          => $creative->h,
+            'w'          => $creative->w,
+            'responsive' => $creative->responsive,
+            'expdir'     => $creative->expdir,
+            'adm'        => $creative->adm,
+            'ctrurl'     => $creative->ctrurl,
+            'iurl'       => $creative->iurl,
+            'type'       => $creative->type,
+            'pos'        => $creative->pos,
+            'approved'   => $creative->status,
+            'folder'     => ['key' => $creative->folder->id, 'name' => $creative->folder->name],
         ];
     }
-
-    //    public function includeBtype(Creative $creative)
-    //    {
-    //        return $this->collection($creative->btypes, new BtypeTransformer);
-    //    }
-    //
-    //    public function includeAttr(Creative $creative)
-    //    {
-    //        return $this->collection($creative->attributes, new AttributeTransformer);
-    //    }
+    
+     public function includeAttr(Creative $creative)
+     {
+         return $this->collection($creative->attributes, new AttrTransformer);
+     }
 }

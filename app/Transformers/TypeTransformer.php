@@ -9,7 +9,7 @@ use League\Fractal\TransformerAbstract;
  *
  * @package \app\Transformers
  */
-class BtypeTransformer extends TransformerAbstract
+class TypeTransformer extends TransformerAbstract
 {
 
     /**
@@ -17,9 +17,9 @@ class BtypeTransformer extends TransformerAbstract
      *
      * @return mixed
      */
-    public function transform(Btype $btype)
+    public function transform(type $type)
     {
 
-        return $btype->type;
+        return $type->type;
     }
 }

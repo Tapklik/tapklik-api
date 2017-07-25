@@ -19,7 +19,7 @@ $factory->define(
         return [
             'type'   => 'daily',
             'amount' => 0,
-            'pacing' => 0,
+            'pacing' => '1111110111111011111101111110111111011111101111110',
         ];
     }
 );

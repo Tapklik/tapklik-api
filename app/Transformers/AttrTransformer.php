@@ -8,17 +8,19 @@ use League\Fractal\TransformerAbstract;
  *
  * @package \app\Transformers
  */
-class AttributeTransformer extends TransformerAbstract
+class AttrTransformer extends TransformerAbstract
 {
 
     /**
      * @param \App\Attribute $attribute
      *
      * @return mixed
+     * @internal param \App\Attribute $attr
+     *
      */
     public function transform(Attribute $attribute)
     {
 
-        return $attribute->type;
+        return $attribute->attr;
     }
 }

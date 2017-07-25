@@ -5,7 +5,7 @@
  *
  * @package App
  */
-class Creative extends ModelSetup
+class Creative extends ModelSetup implements Uuidable
 {
     // Methods
 
@@ -25,6 +25,11 @@ class Creative extends ModelSetup
     public function folder() {
 
         return $this->belongsTo(Folder::class);
+    }
+
+    public function attributes() {
+
+        return $this->hasMany(Attribute::class);
     }
 
     public function makeCreative($object = [])

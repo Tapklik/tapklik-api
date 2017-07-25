@@ -17,11 +17,16 @@ class CreateCreativesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('folder_id');
             $table->string('uuid')->unique()->nullable();
+            $table->string('name');            
+            $table->string('class');
+            $table->integer('h');
+            $table->integer('w');
             $table->integer('expdir');
+            $table->tinyinteger('responsive')->default(0);            
             $table->text('adm');
             $table->string('ctrurl');
             $table->string('iurl');
-            $table->integer('type');
+            $table->integer('type')->nullable()->default(0);
             $table->smallInteger('pos')->default(0);
             $table->string('status')->default('pending');
             $table->timestamps();

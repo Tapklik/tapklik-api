@@ -32,7 +32,6 @@ class CreateCampaignsTable extends Migration
                 $table->tinyInteger('test')->default(0);
                 $table->integer('weight')->default(0);
                 $table->string('node')->nullable()->default("");
-                $table->string('approved')->default('pending');
                 $table->string('status')->default('pending');
                 $table->timestamps();
 
