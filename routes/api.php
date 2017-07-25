@@ -268,6 +268,16 @@ Route::group(
                 'uses' => 'UserController@show',
             ]
         );
+
+        Route::get('/{id}/banker', [
+            'as' => 'account.banker.index',
+            'uses' => 'BankerController@index'
+        ]);
+
+        Route::post('/{id}/banker', [
+            'as' => 'account.banker.store',
+            'uses' => 'BankerController@store'
+        ]);
     }
 );
 

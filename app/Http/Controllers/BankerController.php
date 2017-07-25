@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers;
 
 use App\Banker;
-use App\Campaign;
 use App\Transformers\BankerBalanceTransformer;
 use App\Transformers\BankerTransformer;
 use Illuminate\Http\Response;
@@ -24,10 +23,11 @@ class BankerController extends Controller
     {
         try {
             $model = $this->_getModel();
+            $obj = $model::findByUuId($uuid);
 
             if($this->req->get('query') == 'balance') return $this->getBalance($uuid);
 
-            return $this->collection($model->banker, new BankerTransformer);
+            return $this->collection($obj->banker, new BankerTransformer);
 
         } catch (ModelNotFoundException $e) {
 
@@ -49,19 +49,24 @@ class BankerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param $uuid
+     *
      * @return \Illuminate\Http\Response
      */
     public function store($uuid)
     {
         try {
-            $campaign = Campaign::findByUuId($uuid);
+            $model = $this->_getModel();
+
+            $obj = $model::findByUuId($uuid);
+
             $banker = new Banker([
-                'debit'       => request['debit'] ?: 0,
-                'credit'      => request['credit'] ?: 0,
-                'description' => request['description'] ?: '',
+                'debit'       => request('debit') ?: 0,
+                'credit'      => request('credit') ?: 0,
+                'description' => request('description') ?: '',
             ]);
 
-            $campaign->banker()->save($banker);
+            $obj->banker()->save($banker);
 
             return $this->item($banker, new BankerTransformer);
         } catch (ModelNotFoundException $e) {
