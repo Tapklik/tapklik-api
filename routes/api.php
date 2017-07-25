@@ -213,6 +213,11 @@ Route::group(
             ]
         );
 
+        Route::get('/info', [
+            'as' => 'accounts.info',
+            'uses' => 'UserController@info'
+        ]);
+
         Route::post(
             '/',
             [

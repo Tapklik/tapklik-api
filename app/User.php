@@ -42,7 +42,6 @@ class User extends Authenticatable
 
     public static function apiToken(User $user)
     {
-
         return (new Builder)->setIssuer(
             'http://api.tapklik.com'
         )->setAudience(
@@ -65,6 +64,8 @@ class User extends Authenticatable
             'accountUuId', $user->account->uuid
         )->set(
             'name', $user->name
+        )->set(
+            'campaigns', Campaign::findByAccountId($user->account_id)->pluck('id')
         )->getToken();
     }
 }
