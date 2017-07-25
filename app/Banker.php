@@ -2,6 +2,8 @@
 
 class Banker extends ModelSetup
 {
+    protected $guarded = [];
+
     public function bankerable()
     {
         return $this->morphTo();

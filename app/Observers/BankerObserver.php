@@ -22,7 +22,7 @@ class BankerObserver
 
         // Set defaults
         $uuid           = Uuid::uuid1();
-        $banker->uuid   = $uuid->toString();
+        $banker->uuid   = $banker->uuid ?: $uuid->toString();
         $banker->save();
     }
 }

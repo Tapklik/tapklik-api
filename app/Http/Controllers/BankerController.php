@@ -70,13 +70,14 @@ class BankerController extends Controller
      */
     public function store($uuid)
     {
+
         try {
             $model = $this->_getModel();
 
             $obj = $model::findByUuId($uuid);
 
             $banker = new Banker([
-                'uuid'        => request('id') ?: '',
+                'uuid'        => request('id') ?: null,
                 'updated_at'  => request('timestamp') ?: Carbon::now(),
                 'debit'       => request('debit') ?: 0,
                 'credit'      => request('credit') ?: 0,
