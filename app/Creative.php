@@ -29,7 +29,7 @@ class Creative extends ModelSetup implements Uuidable
 
     public function attributes() {
 
-        return $this->hasManywq(Attribute::class);
+        return $this->hasMany(Attribute::class);
     }
 
     public function makeCreative($object = [])
