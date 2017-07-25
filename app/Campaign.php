@@ -5,7 +5,7 @@
  *
  * @package App
  */
-class Campaign extends ModelSetup
+class Campaign extends ModelSetup implements Uuidable
 {
 
     // Relationships
@@ -15,7 +15,7 @@ class Campaign extends ModelSetup
      *
      * @return mixed
      */
-    public static function findByUuId($uuid)
+    public static function findByUuId(string $uuid)
     {
 
         return Campaign::where(['uuid' => $uuid])->firstOrFail();
@@ -30,6 +30,16 @@ class Campaign extends ModelSetup
     {
 
         return Campaign::where(['account_id' => $id])->get();
+    }
+
+    public static function balance($uuid)
+    {
+        $campaign = self::where(['uuid' => $uuid])->firstOrFail();
+
+        $credit = $campaign->banker()->sum('credit');
+        $debit  = $campaign->banker()->sum('debit');
+
+        return $credit - $debit;
     }
 
     /**
@@ -122,6 +132,11 @@ class Campaign extends ModelSetup
     {
 
         return $this->belongsToMany(DeviceOs::class);
+    }
+
+    public function banker()
+    {
+        return $this->morphMany(Banker::class, 'bankerable');
     }
 
 }

@@ -15,7 +15,7 @@ class CreateBudgetsTable extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('amount');
+            $table->bigInteger('amount');
             $table->string('pacing');
             $table->string('type');
             $table->unsignedInteger('campaign_id');

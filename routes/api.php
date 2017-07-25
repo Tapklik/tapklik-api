@@ -92,6 +92,16 @@ Route::group(
             ]
         );
 
+        Route::get('/{id}/banker', [
+            'as' => 'campaigns.banker.index',
+            'uses' => 'BankerController@index'
+        ]);
+
+        Route::post('/{id}/banker', [
+            'as' => 'campaigns.banker.store',
+            'uses' => 'BankerController@store'
+        ]);
+
         // CATEGORIES
         Route::get(
             '/{id}/cat',
@@ -213,6 +223,11 @@ Route::group(
             ]
         );
 
+        Route::get('/info', [
+            'as' => 'accounts.info',
+            'uses' => 'UserController@info'
+        ]);
+
         Route::post(
             '/',
             [
@@ -253,6 +268,16 @@ Route::group(
                 'uses' => 'UserController@show',
             ]
         );
+
+        Route::get('/{id}/banker', [
+            'as' => 'account.banker.index',
+            'uses' => 'BankerController@index'
+        ]);
+
+        Route::post('/{id}/banker', [
+            'as' => 'account.banker.store',
+            'uses' => 'BankerController@store'
+        ]);
     }
 );
 

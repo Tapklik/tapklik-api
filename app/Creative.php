@@ -5,7 +5,7 @@
  *
  * @package App
  */
-class Creative extends ModelSetup
+class Creative extends ModelSetup implements Uuidable
 {
     // Methods
 

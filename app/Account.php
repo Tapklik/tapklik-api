@@ -5,7 +5,7 @@
  *
  * @package App
  */
-class Account extends ModelSetup
+class Account extends ModelSetup implements Uuidable
 {
 
     // Relationships
@@ -26,6 +26,11 @@ class Account extends ModelSetup
         return $this->hasMany(Campaign::class);
     }
 
+    public function banker()
+    {
+        return $this->morphMany(Banker::class, 'bankerable');
+    }
+
     // Methods
 
     /**
@@ -33,7 +38,7 @@ class Account extends ModelSetup
      *
      * @return mixed
      */
-    public static function findByUuId($uuid)
+    public static function findByUuId(string $uuid)
     {
         return self::where(['uuid' => $uuid])->firstOrFail();
     }

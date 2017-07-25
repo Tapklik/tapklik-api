@@ -5,7 +5,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lcobucci\JWT\Builder;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Uuidable
 {
     use Notifiable;
 
@@ -27,7 +27,7 @@ class User extends Authenticatable
 
     // Mehtods
 
-    public static function findByUuId($uuid)
+    public static function findByUuId(string $uuid)
     {
         return self::where([
             'uuid' => $uuid
@@ -42,7 +42,6 @@ class User extends Authenticatable
 
     public static function apiToken(User $user)
     {
-
         return (new Builder)->setIssuer(
             'http://api.tapklik.com'
         )->setAudience(
@@ -65,6 +64,8 @@ class User extends Authenticatable
             'accountUuId', $user->account->uuid
         )->set(
             'name', $user->name
+        )->set(
+            'campaigns', Campaign::findByAccountId($user->account_id)->pluck('id')
         )->getToken();
     }
 }
