@@ -278,6 +278,11 @@ Route::group(
             'as' => 'account.banker.store',
             'uses' => 'BankerController@store'
         ]);
+
+        Route::delete('/{id}/banker', [
+            'as' => 'account.banker.destroy',
+            'uses' => 'BankerController@destroy'
+        ]);
     }
 );
 

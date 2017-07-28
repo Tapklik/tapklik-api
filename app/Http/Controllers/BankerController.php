@@ -109,6 +109,25 @@ class BankerController extends Controller
         }
     }
 
+    public function destroy($uuid)
+    {
+        try {
+            $model = $this->_getModel();
+            $obj = $model::findByUuId($uuid);
+
+            $obj->banker()->delete();
+
+            return $this->collection($obj->banker, new BankerTransformer);
+
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+        }
+    }
+
     /**
      * @return mixed
      */
@@ -119,4 +138,6 @@ class BankerController extends Controller
 
         return new $model();
     }
+
+
 }
