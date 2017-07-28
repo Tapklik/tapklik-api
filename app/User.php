@@ -65,7 +65,7 @@ class User extends Authenticatable implements Uuidable
         )->set(
             'name', $user->name
         )->set(
-            'campaigns', Campaign::findByAccountId($user->account_id)->pluck('id')
+            'campaigns', Campaign::findByAccountId($user->account_id)->pluck('uuid')
         )->getToken();
     }
 }
