@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Banker;
+use App\Exceptions\TransformerException;
 use App\Transformers\BankerBalanceTransformer;
 use App\Transformers\BankerTransformer;
 use Carbon\Carbon;
@@ -31,11 +32,11 @@ class BankerController extends Controller
      */
     public function index($uuid)
     {
+        if($this->req->get('query')) return $this->_filter($uuid, $this->req->get('query'));
+
         try {
             $model = $this->_getModel();
             $obj = $model::findByUuId($uuid);
-
-            if($this->req->get('query') == 'balance') return $this->getBalance($uuid);
 
             return $this->collection($obj->banker, new BankerTransformer);
 
@@ -49,16 +50,28 @@ class BankerController extends Controller
     }
 
     /**
-     * @param $uuid
+     * @param string $uuid
+     *
+     * @param string $query
      *
      * @return array
      */
-    public function getBalance($uuid)
+    private function _filter(string $uuid, string $query)
     {
+        $transformer = $this->_getTransformer($query);
         $model = $this->_getModel();
         $obj = $model::findByUuId($uuid);
 
-        return $this->item($obj, new BankerBalanceTransformer);
+        return $this->item($obj, $transformer);
+    }
+
+    private function _getTransformer(string $query)
+    {
+        $lookUpTransformer = "App\Transformers\\Banker" . ucfirst(strtolower($query)) . 'Transformer';
+
+        if(!class_exists($lookUpTransformer)) throw new TransformerException('Transformer ' . $lookUpTransformer . ' does not exist');
+
+        return new $lookUpTransformer;
     }
 
     /**
