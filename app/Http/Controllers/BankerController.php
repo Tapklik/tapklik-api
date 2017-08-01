@@ -2,7 +2,6 @@
 
 use App\Banker;
 use App\Exceptions\TransformerException;
-use App\Transformers\BankerBalanceTransformer;
 use App\Transformers\BankerTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
@@ -32,8 +31,13 @@ class BankerController extends Controller
      */
     public function index($uuid)
     {
-        if($this->req->get('query')) return $this->_filter($uuid, $this->req->get('query'));
+       return ($this->req->get('query')) ?
+           $this->_filter($uuid, $this->req->get('query')) :
+           $this->_report($uuid);
+    }
 
+    private function _report($uuid)
+    {
         try {
             $model = $this->_getModel();
             $obj = $model::findByUuId($uuid);
@@ -67,7 +71,7 @@ class BankerController extends Controller
 
     private function _getTransformer(string $query)
     {
-        $lookUpTransformer = "App\Transformers\\Banker" . ucfirst(strtolower($query)) . 'Transformer';
+        $lookUpTransformer = "App\\Transformers\\Banker" . ucfirst(strtolower($query)) . 'Transformer';
 
         if(!class_exists($lookUpTransformer)) throw new TransformerException('Transformer ' . $lookUpTransformer . ' does not exist');
 
