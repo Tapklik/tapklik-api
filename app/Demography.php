@@ -44,7 +44,7 @@ class Demography extends ModelSetup
         return ($value == "O") ? ["F", "M"] : [$value];
     }
 
-    // Getters
+    // Setters
     public function setGenderAttribute($value) {
 
         if(!$value) $value = ['M', 'F'];

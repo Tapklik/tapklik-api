@@ -139,4 +139,14 @@ class Campaign extends ModelSetup implements Uuidable
         return $this->morphMany(Banker::class, 'bankerable');
     }
 
+    public function setBidAttribute($value) {
+
+        $this->attributes['bid'] = $value * 1000000;
+    }
+
+    public function getBidAttribute($value)
+    {
+        return number_format($value / 1000000, 2);
+    }
+
 }

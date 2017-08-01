@@ -18,4 +18,14 @@ class Budget extends ModelSetup
             $budget->delete();
         });
     }
+
+    public function setAmountAttribute($value) {
+
+        $this->attributes['amount'] = $value * 1000000;
+    }
+
+    public function getAmountAttribute($value)
+    {
+        return number_format($value / 1000000, 2);
+    }
 }
