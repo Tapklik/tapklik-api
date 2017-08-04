@@ -20,7 +20,7 @@ class BankerCreditTransformer extends TransformerAbstract
     {
 
         return [
-            'credit' => $model->banker()->sum('credit')
+            'credit' => (int) $model->banker()->sum('credit')
         ];
     }
 }

@@ -20,7 +20,7 @@ class BankerDebitTransformer extends TransformerAbstract
     {
 
         return [
-            'debit' => $model->banker()->sum('debit')
+            'debit' => (int) $model->banker()->sum('debit')
         ];
     }
 }
