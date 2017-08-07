@@ -190,8 +190,7 @@ return [
         /*
          * Custom Service Providers...
          */
-        App\Providers\FractalResponseProvider::class,
-        Jenssegers\Mongodb\MongodbServiceProvider::class
+        App\Providers\FractalResponseProvider::class
     ],
 
     /*
