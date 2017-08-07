@@ -134,9 +134,19 @@ class Campaign extends ModelSetup implements Uuidable
         return $this->belongsToMany(DeviceOs::class);
     }
 
-    public function banker()
+    public function mainable()
     {
-        return $this->morphMany(Banker::class, 'bankerable');
+        return $this->morphMany(BankerMain::class, 'mainable');
+    }
+
+    public function flightable()
+    {
+        return $this->morphMany(BankerFlight::class, 'flightable');
+    }
+
+    public function spendable()
+    {
+        return $this->morphMany(BankerSpend::class, 'spendable');
     }
 
     public function setBidAttribute($value) {
