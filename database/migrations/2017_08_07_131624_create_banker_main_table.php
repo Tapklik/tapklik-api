@@ -20,7 +20,7 @@ class CreateBankerMainTable extends Migration
             $table->unsignedInteger('mainable_id');
             $table->bigInteger('debit');
             $table->bigInteger('credit');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
