@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Banker;
+use App\Exceptions\BankerException;
 use App\Exceptions\TransformerException;
 use App\Transformers\BankerTransformer;
 use Carbon\Carbon;
@@ -18,9 +18,10 @@ class BankerController extends Controller
      * @var array
      */
     private $_allowedModelBag = [
-        'campaigns' => 'Campaign',
-        'accounts'  => 'Account'
+        'BankerMain', 'BankerFlight', 'BankerSpend'
     ];
+
+    protected $model = '';
 
     /**
      * Display a listing of the resource.
@@ -29,9 +30,11 @@ class BankerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($uuid)
+    public function index($uuid, $table)
     {
-       return ($this->req->get('query')) ?
+        $this->model = 'Banker' . ucfirst(strtolower($table));
+
+        return ($this->req->get('query')) ?
            $this->_filter($uuid, $this->req->get('query')) :
            $this->_report($uuid);
     }
@@ -64,6 +67,7 @@ class BankerController extends Controller
     {
         $transformer = $this->_getTransformer($query);
         $model = $this->_getModel();
+
         $obj = $model::findByUuId($uuid);
 
         return $this->item($obj, $transformer);
@@ -90,7 +94,6 @@ class BankerController extends Controller
 
         try {
             $model = $this->_getModel();
-
             $obj = $model::findByUuId($uuid);
 
             $banker = new Banker([
@@ -132,13 +135,11 @@ class BankerController extends Controller
         }
     }
 
-    /**
-     * @return mixed
-     */
     private function _getModel()
     {
-        $model = $this->_allowedModelBag[$this->parentEndpoint];
-        $model = "App\\{$model}";
+        if(!in_array($this->model, $this->_allowedModelBag)) throw new BankerException('Incompatible model chosen.');
+
+        $model = "App\\{$this->model}";
 
         return new $model();
     }

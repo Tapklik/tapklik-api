@@ -269,12 +269,12 @@ Route::group(
             ]
         );
 
-        Route::get('/{id}/banker', [
+        Route::get('/{id}/banker/{table}', [
             'as' => 'account.banker.index',
             'uses' => 'BankerController@index'
         ]);
 
-        Route::post('/{id}/banker', [
+        Route::post('/{id}/banker/{table}', [
             'as' => 'account.banker.store',
             'uses' => 'BankerController@store'
         ]);

@@ -185,7 +185,6 @@ return [
         App\Providers\AccountObserverProvider::class,
         App\Providers\UserObserverProvider::class,
         App\Providers\FolderObserverProvider::class,
-        App\Providers\BankerObserverProvider::class,
 
         /*
          * Custom Service Providers...
