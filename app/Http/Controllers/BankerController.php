@@ -22,6 +22,10 @@ class BankerController extends Controller
         'accounts'  => 'Account'
     ];
 
+    private $_allowedRelationshipsBag = [
+        'main', 'flight', 'spend'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -146,5 +150,5 @@ class BankerController extends Controller
         return new $model();
     }
 
-
+    private function _getRelationship() {}
 }
