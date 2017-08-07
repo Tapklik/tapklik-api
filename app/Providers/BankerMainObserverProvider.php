@@ -1,12 +1,10 @@
-<?php
+<?php namespace App\Providers;
 
-namespace App\Providers;
-
-use App\Banker;
+use App\BankerMain;
 use App\Observers\BankerObserver;
 use Illuminate\Support\ServiceProvider;
 
-class BankerObserverProvider extends ServiceProvider
+class BankerMainObserverProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -15,7 +13,7 @@ class BankerObserverProvider extends ServiceProvider
      */
     public function boot()
     {
-        Banker::observe(BankerObserver::class);
+        BankerMain::observe(BankerMainObserver::class);
     }
 
     /**

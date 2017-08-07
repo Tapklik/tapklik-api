@@ -1,7 +1,11 @@
 <?php namespace App;
 
-class BankerFlight extends ModelSetup
+use App\Contracts\BankerInterface;
+
+class BankerFlight extends ModelSetup implements BankerInterface
 {
+    protected $table = 'banker_flight';
+
     public function flightable()
     {
         return $this->morphTo();

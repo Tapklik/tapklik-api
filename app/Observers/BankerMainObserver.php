@@ -1,6 +1,6 @@
 <?php namespace App\Observers;
 
-use App\Banker;
+use App\BankerMain;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -8,16 +8,13 @@ use Ramsey\Uuid\Uuid;
  *
  * @package \App\Observers
  */
-class BankerObserver
+class BankerMainObserver
 {
 
     /**
-     *
-     * @internal param \App\Creative $creative
-     *
-     * @param \App\Banker $banker
+     * @param \App\BankerMain $banker
      */
-    public function created(Banker $banker)
+    public function created(BankerMain $banker)
     {
 
         // Set defaults

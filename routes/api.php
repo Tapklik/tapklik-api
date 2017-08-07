@@ -92,12 +92,12 @@ Route::group(
             ]
         );
 
-        Route::get('/{id}/banker', [
+        Route::get('/{id}/banker/{table}', [
             'as' => 'campaigns.banker.index',
             'uses' => 'BankerController@index'
         ]);
 
-        Route::post('/{id}/banker', [
+        Route::post('/{id}/banker/{table}', [
             'as' => 'campaigns.banker.store',
             'uses' => 'BankerController@store'
         ]);
@@ -279,7 +279,7 @@ Route::group(
             'uses' => 'BankerController@store'
         ]);
 
-        Route::delete('/{id}/banker', [
+        Route::delete('/{id}/banker/{table}', [
             'as' => 'account.banker.destroy',
             'uses' => 'BankerController@destroy'
         ]);

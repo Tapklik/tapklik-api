@@ -1,11 +1,13 @@
 <?php namespace App;
 
+use App\Contracts\Bankerable;
+
 /**
  * Class Account
  *
  * @package App
  */
-class Account extends ModelSetup implements Uuidable
+class Account extends ModelSetup implements Uuidable, Bankerable
 {
 
     // Relationships
@@ -26,17 +28,17 @@ class Account extends ModelSetup implements Uuidable
         return $this->hasMany(Campaign::class);
     }
 
-    public function mainable()
+    public function main()
     {
         return $this->morphMany(BankerMain::class, 'mainable');
     }
 
-    public function flightable()
+    public function flight()
     {
         return $this->morphMany(BankerFlight::class, 'flightable');
     }
 
-    public function spendable()
+    public function spend()
     {
         return $this->morphMany(BankerSpend::class, 'spendable');
     }

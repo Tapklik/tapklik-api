@@ -18,35 +18,35 @@ class BankerController extends Controller
      * @var array
      */
     private $_allowedModelBag = [
-        'BankerMain', 'BankerFlight', 'BankerSpend'
+        'campaigns' => 'Campaign',
+        'accounts'  => 'Account'
     ];
-
-    protected $model = '';
 
     /**
      * Display a listing of the resource.
      *
      * @param $uuid
      *
+     * @param $table
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index($uuid, $table)
+    public function index($uuid, $relationship)
     {
-        $this->model = 'Banker' . ucfirst(strtolower($table));
-
         return ($this->req->get('query')) ?
            $this->_filter($uuid, $this->req->get('query')) :
-           $this->_report($uuid);
+           $this->_report($uuid, $relationship);
     }
 
-    private function _report($uuid)
+    private function _report($uuid, $relationship)
     {
         try {
-            $model = $this->_getModel();
-            $obj = $model::findByUuId($uuid);
 
-            return $this->collection($obj->banker, new BankerTransformer);
+            $model        = $this->_getModel();
+            $obj          = $model::findByUuId($uuid);
+            $relationship = ucfirst(strtolower($relationship));
 
+            return $this->collection($obj->{$relationship}, new BankerTransformer);
         } catch (ModelNotFoundException $e) {
 
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
@@ -65,10 +65,10 @@ class BankerController extends Controller
      */
     private function _filter(string $uuid, string $query)
     {
-        $transformer = $this->_getTransformer($query);
-        $model = $this->_getModel();
 
-        $obj = $model::findByUuId($uuid);
+        $transformer = $this->_getTransformer($query);
+        $model       = $this->_getModel();
+        $obj         = $model::findByUuId($uuid);
 
         return $this->item($obj, $transformer);
     }
@@ -89,14 +89,17 @@ class BankerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store($uuid)
+    public function store($uuid, $relationship)
     {
 
         try {
-            $model = $this->_getModel();
-            $obj = $model::findByUuId($uuid);
+            $model             = $this->_getModel();
+            $obj               = $model::findByUuId($uuid);
+            $rel               = strtolower($relationship);
+            $relationshipModel = 'App\\Banker' . ucfirst($rel);
 
-            $banker = new Banker([
+
+            $banker = new $relationshipModel([
                 'uuid'        => request('id') ?: null,
                 'updated_at'  => request('timestamp') ?: Carbon::now(),
                 'debit'       => request('debit') ?: 0,
@@ -104,7 +107,7 @@ class BankerController extends Controller
                 'description' => request('description') ?: '',
             ]);
 
-            $obj->banker()->save($banker);
+            $obj->{$rel}()->save($banker);
 
             return $this->item($banker, new BankerTransformer);
         } catch (ModelNotFoundException $e) {
@@ -137,9 +140,8 @@ class BankerController extends Controller
 
     private function _getModel()
     {
-        if(!in_array($this->model, $this->_allowedModelBag)) throw new BankerException('Incompatible model chosen.');
-
-        $model = "App\\{$this->model}";
+        $model = $this->_allowedModelBag[$this->parentEndpoint];
+        $model = "App\\{$model}";
 
         return new $model();
     }

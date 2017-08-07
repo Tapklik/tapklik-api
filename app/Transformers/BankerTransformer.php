@@ -1,6 +1,6 @@
 <?php namespace App\Transformers;
 
-use App\Banker;
+use App\Contracts\BankerInterface;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -12,11 +12,11 @@ class BankerTransformer extends TransformerAbstract
 {
 
     /**
-     * @param \App\Banker $banker
+     * @param \App\Contracts\BankerInterface $banker
      *
      * @return array
      */
-    public function transform(Banker $banker)
+    public function transform(BankerInterface $banker)
     {
 
         return [

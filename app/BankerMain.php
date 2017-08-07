@@ -1,6 +1,8 @@
 <?php namespace App;
 
-class BankerMain extends ModelSetup
+use App\Contracts\BankerInterface;
+
+class BankerMain extends ModelSetup implements BankerInterface
 {
     protected $table = 'banker_main';
 
