@@ -31,14 +31,15 @@ class BankerController extends Controller
      *
      * @param $uuid
      *
-     * @param $table
+     * @param $relationship
      *
      * @return \Illuminate\Http\Response
      */
     public function index($uuid, $relationship)
     {
+
         return ($this->req->get('query')) ?
-           $this->_filter($uuid, $this->req->get('query')) :
+           $this->_filter($uuid, $this->req->get('query'), $relationship) :
            $this->_report($uuid, $relationship);
     }
 
@@ -67,12 +68,12 @@ class BankerController extends Controller
      *
      * @return array
      */
-    private function _filter(string $uuid, string $query)
+    private function _filter(string $uuid, string $query, $relationship)
     {
-
         $transformer = $this->_getTransformer($query);
         $model       = $this->_getModel();
         $obj         = $model::findByUuId($uuid);
+        $relationship = strtolower($relationship);
 
         return $this->item($obj, $transformer);
     }

@@ -1,6 +1,7 @@
 <?php namespace App\Transformers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -18,9 +19,15 @@ class BankerCreditTransformer extends TransformerAbstract
      */
     public function transform(Model $model)
     {
+        $relationship = $this->_getRelationship();
 
         return [
-            'credit' => (int) $model->banker()->sum('credit')
+            'credit' => (int) $model->{$relationship}()->sum('credit')
         ];
+    }
+
+    private function _getRelationship()
+    {
+        return ucfirst(strtolower(Request::segment(5)));
     }
 }
