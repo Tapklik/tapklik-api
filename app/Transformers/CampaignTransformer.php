@@ -37,13 +37,13 @@ class CampaignTransformer extends TransformerAbstract
             'description' => $campaign->description,
             'start_time'  => $campaign->start,
             'end_time'    => $campaign->end,
-            'bid'         => $campaign->bid,
+            'bid'         => (int)$campaign->bid,
             'ctrurl'      => $campaign->ctrurl,
-            'adomain'      => $campaign->adomain,
+            'adomain'     => $campaign->adomain,
             'test'        => $campaign->test,
             'weight'      => $campaign->weight,
             'node'        => $campaign->node,
-            'status'      => $campaign->status
+            'status'      => $campaign->status,
         ];
     }
 

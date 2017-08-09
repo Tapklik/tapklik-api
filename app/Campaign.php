@@ -151,14 +151,14 @@ class Campaign extends ModelSetup implements Uuidable, Bankerable
         return $this->morphMany(BankerSpend::class, 'spendable');
     }
 
-    public function setBidAttribute($value) {
-
-        $this->attributes['bid'] = $value * 1000000;
-    }
-
-    public function getBidAttribute($value)
-    {
-        return number_format($value / 1000000, 2);
-    }
+//    public function setBidAttribute($value) {
+//
+//        $this->attributes['bid'] = $value * 1000000;
+//    }
+//
+//    public function getBidAttribute($value)
+//    {
+//        return number_format($value / 1000000, 2);
+//    }
 
 }
