@@ -19,13 +19,13 @@ class Budget extends ModelSetup
         });
     }
 
-    public function setAmountAttribute($value) {
-
-        $this->attributes['amount'] = $value * 1000000;
-    }
-
-    public function getAmountAttribute($value)
-    {
-        return number_format($value / 1000000, 2);
-    }
+//    public function setAmountAttribute($value) {
+//
+//        $this->attributes['amount'] = $value * 1000000;
+//    }
+//
+//    public function getAmountAttribute($value)
+//    {
+//        return number_format($value / 1000000, 2);
+//    }
 }
