@@ -52,7 +52,7 @@ class ErlangCampaignTransformer extends TransformerAbstract
     public function includeBudget(Campaign $campaign)
     {
 
-        return $this->item($campaign->budget ?: new Budget, new BudgetTransformer);
+        return $this->item($campaign->budget ?: new Budget, new ErlangBudgetTransformer);
     }
 
     public function includeCreatives(Campaign $campaign) 
