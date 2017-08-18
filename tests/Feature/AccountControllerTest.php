@@ -109,6 +109,35 @@ class AccountControllerTest extends TestCase {
         ])->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseHas('accounts', ['id' => $account->id, 'name' => 'Legend']);
+    }
 
+    /** @test */
+    public function user_data_can_be_updated()
+    {
+        $campaign = factory(\App\Campaign::class)->create();
+
+        $user = factory(\App\User::class)->create(['first_name' => 'rok', 'account_id' => $campaign->account->id]);
+
+
+        $this->assertDatabaseHas('users', ['first_name' => 'rok', 'id' => $user->id]);
+
+        $result = $this->put(
+            'v1/accounts/'.$campaign->account->uuid.'/users/'.$user->uuid,
+            ['first_name' => 'halid']
+        )->assertStatus(Response::HTTP_OK);
+
+        $this->assertDatabaseHas('users', ['first_name' => 'halid', 'id' => $user->id]);
+
+        $result->assertExactJson([
+            'data' => [
+                'id'         => $user->uuid,
+                'first_name' => 'halid',
+                'last_name'  => $user->last_name,
+                'name'       => 'halid ' . $user->last_name,
+                'email'      => $user->email,
+                'phone'      => $user->phone,
+                'status'     => $user->status
+            ]
+        ]);
     }
 }
