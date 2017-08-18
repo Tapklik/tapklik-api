@@ -153,14 +153,6 @@ Route::group(
             ]
         );
 
-        Route::put(
-            '/{id}/users/{userId}',
-            [
-                'as'   => 'campaigns.user.update',
-                'uses' => 'DemographyController@update',
-            ]
-        );
-
         // GEO
         Route::get(
             '/{id}/geo',
@@ -268,12 +260,19 @@ Route::group(
             ]
         );
 
-
         Route::get(
             '/{id}/users/{userId}',
             [
                 'as'   => 'accounts.users.show',
                 'uses' => 'UserController@show',
+            ]
+        );
+
+        Route::put(
+            '/{id}/users/{userId}',
+            [
+                'as'   => 'campaigns.user.update',
+                'uses' => 'DemographyController@update',
             ]
         );
 

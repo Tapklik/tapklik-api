@@ -39,12 +39,14 @@ class DemographyControllerTest extends TestCase
     public function user_data_can_be_updated()
     {
 
-        $user = factory(\App\User::class)->create(['first_name' => 'rok']);
+        $user = factory(\App\User::class)->create(['first_name' => 'rok', 'account_id' =>
+            $this->campaign->account->id]);
+
 
         $this->assertDatabaseHas('users', ['first_name' => 'rok', 'id' => $user->id]);
 
         $result = $this->put(
-            'v1/campaigns/'.$this->campaign->uuid.'/user/'.$user->uuid,
+            'v1/accounts/'.$this->campaign->account->uuid.'/users/'.$user->uuid,
             ['first_name' => 'halid']
         )->assertStatus(Response::HTTP_OK);
 
