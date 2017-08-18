@@ -98,4 +98,17 @@ class AccountControllerTest extends TestCase {
                 $this->item($user, new UserTransformer)
             );
     }
+
+    /** @test */
+    public function user_can_update_account()
+    {
+        $account = factory(Account::class)->create();
+
+        $result = $this->put('/v1/accounts/' . $account->uuid, [
+            'name' => 'Legend'
+        ])->assertStatus(Response::HTTP_OK);
+
+        $this->assertDatabaseHas('accounts', ['id' => $account->id, 'name' => 'Legend']);
+
+    }
 }

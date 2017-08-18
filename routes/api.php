@@ -244,6 +244,14 @@ Route::group(
             ]
         );
 
+        Route::put(
+            '/{id}',
+            [
+                'as'   => 'accounts.update',
+                'uses' => 'AccountController@update',
+            ]
+        );
+
         Route::get(
             '/{id}/users',
             [

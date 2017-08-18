@@ -86,26 +86,25 @@ class AccountController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Account  $account
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Account $account)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Account  $account
+     * @param $uuid
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Account $account)
+    public function update($uuid)
     {
-        //
+        try {
+            $account = Account::findByUuId($uuid);
+
+            $account->update($this->req->input());
+
+            return $this->item($account, new AccountTransformer);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Account can\'t be found');
+        }
+
+
     }
 
     /**
