@@ -119,11 +119,13 @@ class AccountControllerTest extends TestCase {
         $user = factory(\App\User::class)->create(['first_name' => 'rok', 'account_id' => $campaign->account->id]);
 
 
-        $this->assertDatabaseHas('users', ['first_name' => 'rok', 'id' => $user->id]);
+        $this->assertDatabaseHas('users', ['id' => $user->id, 'first_name' => 'rok']);
 
         $result = $this->put(
-            'v1/accounts/'.$campaign->account->uuid.'/users/'.$user->uuid,
-            ['first_name' => 'halid']
+            'v1/accounts/'.$campaign->account->uuid.'/users/'.$user->uuid, [
+                'first_name' => 'halid',
+                'password' => 'rok'
+            ]
         )->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseHas('users', ['first_name' => 'halid', 'id' => $user->id]);

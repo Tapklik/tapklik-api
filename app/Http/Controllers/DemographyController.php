@@ -41,15 +41,6 @@ class DemographyController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param $uuid
-     *
-     * @return \Illuminate\Http\Response
-     * @internal param \App\Demography $demography
-     *
-     */
     public function store($uuid)
     {
 
@@ -90,7 +81,10 @@ class DemographyController extends Controller
     {
         try {
             $user = User::findByUuId($userId);
-            $user->update($this->req->input());
+
+            $data = $this->req->input();
+            if(isset($data['password'])) $data['password'] = bcrypt(request('password'));
+            $user->update($data);
 
             return $this->item($user, new UserTransformer);
         } catch (ModelNotFoundException $e) {
