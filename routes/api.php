@@ -138,7 +138,7 @@ Route::group(
 
         // USER
         Route::get(
-            '/{id}/user',
+            '/{id}/users',
             [
                 'as'   => 'campaigns.user.index',
                 'uses' => 'DemographyController@index',
@@ -146,7 +146,7 @@ Route::group(
         );
 
         Route::post(
-            '/{id}/user',
+            '/{id}/users',
             [
                 'as'   => 'campaigns.user.store',
                 'uses' => 'DemographyController@store',
@@ -154,7 +154,7 @@ Route::group(
         );
 
         Route::put(
-            '/{id}/user/{userId}',
+            '/{id}/users/{userId}',
             [
                 'as'   => 'campaigns.user.update',
                 'uses' => 'DemographyController@update',
