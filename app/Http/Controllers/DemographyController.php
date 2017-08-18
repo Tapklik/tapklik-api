@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Campaign;
 use App\Demography;
 use App\Transformers\DemographyTransformer;
+use App\Transformers\UserTransformer;
+use App\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 
 /**
  * Class DemographyController
@@ -79,6 +80,19 @@ class DemographyController extends Controller
 
 
 
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, $e->getMessage());
+        }
+    }
+
+    public function update($accountId, $userId)
+    {
+        try {
+            $user = User::findByUuId($userId);
+            $user->update($this->req->input());
+
+            return $this->item($user, new UserTransformer);
         } catch (ModelNotFoundException $e) {
 
             return $this->error(Response::HTTP_NOT_FOUND, $e->getMessage());

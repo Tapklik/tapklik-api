@@ -32,15 +32,15 @@ class UploadController extends Controller
     private function _makeCreative($object, $config = []) {
 
         $creative = new Creative([
-            'expdir' => 0,
+            'expdir' => request('expdir'),
             'adm' => "<iframe id='' name='' src='http://adserver.tapklik.com/www/delivery/afr.php?zoneid=1&amp;cb=' frameborder='0' scrolling='no' width='' height=''><a href='http://adserver.tapklik.com/www/delivery/ck.php?n=&amp;cb=' target='_blank'><img src='http://adserver.tapklik.com/www/delivery/avw.php?zoneid=1&amp;cb=&amp;n=' border='0' alt='' /></a></iframe>",
-            'ctrurl' => '',
-            'class'  => 'banner',
+            'ctrurl' => request('ctrurl'),
+            'class'  => request('class'),
             'iurl' => $object->getFileName(),
-            'type' => 1,
-            'h'     => 250,
-            'w'     => 300,
-            'attr'  => [4, 15],
+            'type' => request('type'),
+            'h'     => request('h'),
+            'w'     => request('w'),
+            'attr'  => request('attr'),
             'folder_id' => $config['folder_id']
         ]);
 

@@ -23,13 +23,13 @@ class DemographyControllerTest extends TestCase
     /** @test */
     public function user_can_view_user_endpoint_on_campaign()
     {
-        $this->get('v1/campaigns/' . $this->campaign->uuid . '/user')
-            ->assertStatus(Response::HTTP_OK)
-            ->assertExactJson(
+
+        $this->get('v1/campaigns/'.$this->campaign->uuid.'/user')->assertStatus(Response::HTTP_OK)->assertExactJson(
                 $this->item(
-                    $this->campaign->demography ?: factory(\App\Demography::class)->create([
-                        'campaign_id' => $this->campaign->id
-                    ]),
+                    $this->campaign->demography
+                        ?: factory(\App\Demography::class)->create(
+                        ['campaign_id' => $this->campaign->id]
+                    ),
                     new DemographyTransformer
                 )
             );
@@ -39,20 +39,43 @@ class DemographyControllerTest extends TestCase
     public function user_data_can_be_updated()
     {
 
-        $this->put('v1/campaigns/' . $this->campaign->uuid . '/user', ['gender' => 'M', 'from_age' => 55, 'to_age' => 120])
-            ->assertStatus(Response::HTTP_OK);
+        $user = factory(\App\User::class)->create(['first_name' => 'rok']);
+
+        $this->assertDatabaseHas('users', ['first_name' => 'rok', 'id' => $user->id]);
+
+        $result = $this->put(
+            'v1/campaigns/'.$this->campaign->uuid.'/user/'.$user->uuid,
+            ['first_name' => 'halid']
+        )->assertStatus(Response::HTTP_OK);
+
+        $this->assertDatabaseHas('users', ['first_name' => 'halid', 'id' => $user->id]);
+
+        $result->assertExactJson([
+            'data' => [
+                'id'         => $user->uuid,
+                'first_name' => 'halid',
+                'last_name'  => $user->last_name,
+                'name'       => 'halid ' . $user->last_name,
+                'email'      => $user->email,
+                'phone'      => $user->phone,
+                'status'     => $user->status
+            ]
+        ]);
     }
 
     /** @test */
     public function it_can_delete_previous_user_from_campaign_targeting()
     {
 
-        $this->put('v1/campaigns/' . $this->campaign->uuid . '/user', ['gender' => 'M', 'from_age' => 55, 'to_age' => 120])
+        $this->put('v1/campaigns/'.$this->campaign->uuid.'/user', ['gender' => 'M', 'from_age' => 55, 'to_age' => 120])
             ->assertStatus(Response::HTTP_OK);
 
-        $this->put('v1/campaigns/' . $this->campaign->uuid . '/user', ['gender' => 'M', 'from_age' => 18, 'to_age' =>
-            120])
-            ->assertStatus(Response::HTTP_OK);
+        $this->put(
+            'v1/campaigns/'.$this->campaign->uuid.'/user',
+            ['gender'   => 'M',
+             'from_age' => 18,
+             'to_age'   => 120]
+        )->assertStatus(Response::HTTP_OK);
 
         $this->assertEquals(1, $this->campaign->demography->count());
     }
