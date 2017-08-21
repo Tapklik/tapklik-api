@@ -37,21 +37,24 @@ class BankerController extends Controller
      */
     public function index($uuid, $relationship)
     {
-
         return ($this->req->get('query')) ?
            $this->_filter($uuid, $this->req->get('query'), $relationship) :
-           $this->_report($uuid, $relationship);
+           $this->_report($uuid, $relationship, $this->req->input('type'));
     }
 
-    private function _report($uuid, $relationship)
+    private function _report($uuid, $relationship, $type = false)
     {
         try {
 
             $model        = $this->_getModel();
             $obj          = $model::findByUuId($uuid);
-            $relationship = ucfirst(strtolower($relationship));
 
-            return $this->collection($obj->{$relationship}, new BankerTransformer);
+            $relationship = ucfirst(strtolower($relationship));
+            $query = $obj->{$relationship}();
+
+            if($type) $query->where(['type' => $type]);
+
+            return $this->collection($query->get(), new BankerTransformer);
         } catch (ModelNotFoundException $e) {
 
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
@@ -68,7 +71,7 @@ class BankerController extends Controller
      *
      * @return array
      */
-    private function _filter(string $uuid, string $query, $relationship)
+    private function _filter(string $uuid, string $query, $relationship, $type = false)
     {
         $transformer = $this->_getTransformer($query);
         $model       = $this->_getModel();

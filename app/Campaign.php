@@ -13,24 +13,22 @@ class Campaign extends ModelSetup implements Uuidable, Bankerable
     // Relationships
 
     /**
-     * @param $uuid
+     * @param string $uuid
      *
      * @return mixed
      */
     public static function findByUuId(string $uuid)
     {
-
-        return Campaign::where(['uuid' => $uuid])->firstOrFail();
+       return Campaign::where(['uuid' => $uuid])->firstOrFail();
     }
 
     /**
-     * @param $id
+     * @param        $id
      *
      * @return mixed
      */
     public static function findByAccountId($id)
     {
-
         return Campaign::where(['account_id' => $id])->get();
     }
 
