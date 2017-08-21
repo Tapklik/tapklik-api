@@ -20,6 +20,7 @@ class CreateBankerSpendTable extends Migration
             $table->unsignedInteger('spendable_id');
             $table->bigInteger('debit');
             $table->bigInteger('credit');
+            $table->string('type', 10)->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

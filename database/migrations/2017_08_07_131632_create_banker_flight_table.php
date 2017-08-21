@@ -20,6 +20,7 @@ class CreateBankerFlightTable extends Migration
             $table->unsignedInteger('flightable_id');
             $table->bigInteger('debit');
             $table->bigInteger('credit');
+            $table->string('type', 10)->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });
