@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use App\Exceptions\BankerException;
 use App\Exceptions\TransformerException;
 use App\Transformers\BankerTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class BankerController
@@ -95,6 +95,8 @@ class BankerController extends Controller
      *
      * @param $uuid
      *
+     * @param $relationship
+     *
      * @return \Illuminate\Http\Response
      */
     public function store($uuid, $relationship)
@@ -106,13 +108,15 @@ class BankerController extends Controller
             $rel               = strtolower($relationship);
             $relationshipModel = 'App\\Banker' . ucfirst($rel);
 
+            $systemGeneratedUuid = Uuid::uuid1();
 
             $banker = new $relationshipModel([
-                'uuid'        => request('id') ?: null,
+                'uuid'        => request('uuid') ?: $systemGeneratedUuid,
                 'updated_at'  => request('timestamp') ?: Carbon::now(),
                 'debit'       => request('debit') ?: 0,
                 'credit'      => request('credit') ?: 0,
                 'description' => request('description') ?: '',
+                'type'        => request('type') ?: 'system'
             ]);
 
             $obj->{$rel}()->save($banker);

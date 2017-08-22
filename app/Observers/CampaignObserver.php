@@ -2,6 +2,8 @@
 
 use App\Budget;
 use App\Campaign;
+use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class CampaignObserver
@@ -13,9 +15,8 @@ class CampaignObserver
 
     public function created(Campaign $campaign)
     {
-
         // Set defaults
-        $uuid                  = \Ramsey\Uuid\Uuid::uuid1();
+        $uuid                  = Uuid::uuid1();
         $campaign->uuid        = $uuid->toString();
         $campaign->description = $campaign->description ?: '';
         $campaign->save();

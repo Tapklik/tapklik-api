@@ -23,4 +23,16 @@ class BankerControllerTest extends TestCase {
 
         $this->assertCount($bankerBilling->count(), $json);
     }
+
+    /** @test */
+    public function it_can_add_spend_to_banker_main_table()
+    {
+        $campaign = factory(\App\Campaign::class)->create();
+        $bankerBilling = factory(\App\BankerMain::class)->states(['withTypeBilling'])->make();
+
+        $response = $this->post('/v1/campaigns/' . $campaign->uuid . '/banker/main', $bankerBilling->toArray())
+        ->assertStatus(\Illuminate\Http\Response::HTTP_OK);
+
+        $this->assertDatabaseHas('banker_main', ['credit' => $bankerBilling->credit]);
+    }
 }

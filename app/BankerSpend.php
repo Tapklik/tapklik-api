@@ -2,6 +2,9 @@
 
 use App\Contracts\BankerInterface;
 
+/**
+ * @property string uuid
+ */
 class BankerSpend extends ModelSetup implements BankerInterface
 {
     protected $table = 'banker_spend';

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Campaign;
-use App\Http\Middleware\JWT;
 use App\Transformers\CampaignTransformer;
 use Illuminate\Http\Response;
 use Tests\TestCase;
