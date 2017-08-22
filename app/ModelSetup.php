@@ -13,5 +13,5 @@ class ModelSetup extends Model
     /**
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'uuid'];
 }
