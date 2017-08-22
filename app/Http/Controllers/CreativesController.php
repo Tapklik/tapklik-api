@@ -3,7 +3,7 @@
 use App\Creative;
 use App\Transformers\CreativeTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CreativesController extends Controller
 {
