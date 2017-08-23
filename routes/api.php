@@ -310,11 +310,6 @@ Route::group(
             'uses' => 'UploadController@upload'
         ]);
 
-        Route::get('/{id}', [
-            'as' => 'creatives.show',
-            'uses' => 'CreativesController@show'
-        ]);
-
         Route::get(
             '/folders',
             [
@@ -322,6 +317,11 @@ Route::group(
                 'uses' => 'FolderController@index',
             ]
         );
+
+        Route::get('/{id}', [
+            'as' => 'creatives.show',
+            'uses' => 'CreativesController@show'
+        ]);
 
         Route::post(
             '/folders',

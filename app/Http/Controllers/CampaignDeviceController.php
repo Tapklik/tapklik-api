@@ -65,14 +65,7 @@ class CampaignDeviceController extends Controller
 
             $models = collect(request('models'))->map(function($model) {
 
-                try {
-
-                    $model = DeviceModel::findByModelName($model);
-
-                    return $model->id;
-                } catch (ModelNotFoundException $e) {
-                    // skip
-                }
+                return $model;
             });
 
             $campaign->deviceModels()->sync($models);
@@ -94,14 +87,7 @@ class CampaignDeviceController extends Controller
 
             $operatingSystems = collect(request('os'))->map(function($os) {
 
-                try {
-
-                    $model = DeviceOs::findByOsName($os);
-
-                    return $model->id;
-                } catch (ModelNotFoundException $e) {
-                    // skip
-                }
+                return $os;
             });
 
             $campaign->deviceOperatingSystems()->sync($operatingSystems);

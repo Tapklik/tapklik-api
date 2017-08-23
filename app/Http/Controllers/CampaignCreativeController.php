@@ -43,10 +43,12 @@ class CampaignCreativeController extends Controller
         try {
             $campaign = Campaign::findByUuId($uuid);
 
-            $ids = collect(request('creatives'))->map(function($uid){
+            $ids = collect(request('creatives'))->map(function($uid) use ($campaign) {
 
                 try{
                     $creative = Creative::findByUuId($uid);
+                    $creative->adm = Creative::generateAdm($campaign->uuid, $uid);
+                    $creative->save();
                 } catch (ModelNotFoundException $e) {}
 
                 return $creative->id;

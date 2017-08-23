@@ -37,4 +37,9 @@ class Creative extends ModelSetup implements Uuidable
 
         return new self($object);
     }
+
+    public static function generateAdm($campaignId, $creativeId)
+    {
+        return '<iframe src="' . getenv('AD_SERVER_URL') .'/deliver/' . $campaignId . '/' . $creativeId . '" ></iframe>';
+    }
 }
