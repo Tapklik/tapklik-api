@@ -45,8 +45,10 @@ class CampaignController extends Controller
     {
 
         try {
+            $payload = $request->input();
+            $payload['account_id'] = $this->getJwtUserClaim('accountId');
 
-            $campaign = Campaign::create($request->input());
+            $campaign = Campaign::create($payload);
 
             return $this->item($campaign, new CampaignTransformer);
         } catch (\Exception $e) {
