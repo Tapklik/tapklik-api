@@ -1,6 +1,8 @@
 <?php namespace App\Transformers;
 
 use App\Campaign;
+use App\Geography;
+use App\Demography;
 use League\Fractal\TransformerAbstract;
 
 /**
