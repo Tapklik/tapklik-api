@@ -6,6 +6,7 @@ use App\Account;
 use App\Transformers\CampaignTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AccountsCampaignController extends Controller
 {
