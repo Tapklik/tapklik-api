@@ -219,6 +219,11 @@ Route::group(
              'uses' => 'AccountController@destroy']
         );
 
+        Route::get('/{id}/campaigns ', [
+            'as' => 'accounts.campaigns.index',
+            'uses' => 'AccountsCampaignController@index'
+        ]);
+
         Route::get(
             '/{id}/users',
             ['as'   => 'accounts.users.index',

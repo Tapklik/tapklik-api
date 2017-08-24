@@ -154,4 +154,18 @@ class AccountControllerTest extends TestCase {
              ->assertStatus(Response::HTTP_OK);
 
     }
+
+    /** @test */
+    public function user_can_retrieve_account_campaigns()
+    {
+        $account   = factory(App\Account::class)->create();
+        $campaigns = factory(App\Campaign::class, 5)->create(['account_id' => $account->id]);
+
+        $response = $this->json('GET', '/v1/accounts/' . $account->uuid . '/campaigns')
+            ->assertStatus(Response::HTTP_OK);
+
+        $data = $response->decodeResponseJson();
+
+        $this->assertCount(5, $data['data']);
+    }
 }
