@@ -20,193 +20,161 @@ Route::group(
 
         Route::get(
             '/',
-            [
-                'as'   => 'campaigns.index',
-                'uses' => 'CampaignController@index',
-            ]
+            ['as'   => 'campaigns.index',
+             'uses' => 'CampaignController@index',]
         );
 
         Route::post(
             '/',
-            [
-                'as'   => 'campaigns.store',
-                'uses' => 'CampaignController@store',
-            ]
+            ['as'   => 'campaigns.store',
+             'uses' => 'CampaignController@store',]
         );
 
         Route::get(
             '/{id}',
-            [
-                'as'   => 'campaigns.show',
-                'uses' => 'CampaignController@show',
-            ]
+            ['as'   => 'campaigns.show',
+             'uses' => 'CampaignController@show',]
         );
 
         Route::put(
             '/{id}',
-            [
-                'as'   => 'campaigns.update',
-                'uses' => 'CampaignController@update',
-            ]
+            ['as'   => 'campaigns.update',
+             'uses' => 'CampaignController@update',]
         );
 
         Route::delete(
             '/{id}',
-            [
-                'as'   => 'campaigns.destroy',
-                'uses' => 'CampaignController@destroy',
-            ]
+            ['as'   => 'campaigns.destroy',
+             'uses' => 'CampaignController@destroy',]
         );
 
         // ADVERTISER DOMAIN
         Route::get(
             '/{id}/adomain',
-            [
-                'as'   => 'campaigns.adomain.index',
-                'uses' => 'AdvertiserDomainController@index',
-            ]
+            ['as'   => 'campaigns.adomain.index',
+             'uses' => 'AdvertiserDomainController@index',]
         );
 
         Route::post(
             '/{id}/adomain',
-            [
-                'as'   => 'campaigns.adomain.store',
-                'uses' => 'AdvertiserDomainController@store',
-            ]
+            ['as'   => 'campaigns.adomain.store',
+             'uses' => 'AdvertiserDomainController@store',]
         );
 
         // EXCHANGE
         Route::get(
             '/{id}/exchange',
-            [
-                'as'   => 'campaigns.exchange.index',
-                'uses' => 'ExchangeController@index',
-            ]
+            ['as'   => 'campaigns.exchange.index',
+             'uses' => 'ExchangeController@index',]
         );
 
         Route::post(
             '/{id}/exchange',
-            [
-                'as'   => 'campaigns.exchange.store',
-                'uses' => 'ExchangeController@store',
-            ]
+            ['as'   => 'campaigns.exchange.store',
+             'uses' => 'ExchangeController@store',]
         );
 
-        Route::get('/{id}/banker/{table}', [
-            'as' => 'campaigns.banker.index',
-            'uses' => 'BankerController@index'
-        ]);
+        Route::get(
+            '/{id}/banker/{table}',
+            ['as'   => 'campaigns.banker.index',
+             'uses' => 'BankerController@index']
+        );
 
-        Route::post('/{id}/banker/{table}', [
-            'as' => 'campaigns.banker.store',
-            'uses' => 'BankerController@store'
-        ]);
+        Route::post(
+            '/{id}/banker/{table}',
+            ['as'   => 'campaigns.banker.store',
+             'uses' => 'BankerController@store']
+        );
 
         // CATEGORIES
         Route::get(
             '/{id}/cat',
-            [
-                'as'   => 'campaigns.categories.index',
-                'uses' => 'CategoryController@index',
-            ]
+            ['as'   => 'campaigns.categories.index',
+             'uses' => 'CategoryController@index',]
         );
 
         Route::post(
             '/{id}/cat',
-            [
-                'as'   => 'campaigns.categories.store',
-                'uses' => 'CategoryController@store',
-            ]
+            ['as'   => 'campaigns.categories.store',
+             'uses' => 'CategoryController@store',]
         );
 
         // BUDGET
         Route::get(
             '/{id}/budget',
-            [
-                'as'   => 'campaigns.budget.index',
-                'uses' => 'BudgetController@index',
-            ]
+            ['as'   => 'campaigns.budget.index',
+             'uses' => 'BudgetController@index',]
         );
 
         Route::post(
             '/{id}/budget',
-            [
-                'as'   => 'campaigns.budget.store',
-                'uses' => 'BudgetController@store',
-            ]
+            ['as'   => 'campaigns.budget.store',
+             'uses' => 'BudgetController@store',]
         );
 
         // USER
         Route::get(
             '/{id}/users',
-            [
-                'as'   => 'campaigns.user.index',
-                'uses' => 'DemographyController@index',
-            ]
+            ['as'   => 'campaigns.user.index',
+             'uses' => 'DemographyController@index',]
         );
 
         Route::post(
             '/{id}/users',
-            [
-                'as'   => 'campaigns.user.store',
-                'uses' => 'DemographyController@store',
-            ]
+            ['as'   => 'campaigns.user.store',
+             'uses' => 'DemographyController@store',]
         );
 
         // GEO
         Route::get(
             '/{id}/geo',
-            [
-                'as'   => 'campaigns.geo.index',
-                'uses' => 'GeographyController@index',
-            ]
+            ['as'   => 'campaigns.geo.index',
+             'uses' => 'GeographyController@index',]
         );
 
         Route::post(
             '/{id}/geo',
-            [
-                'as'   => 'campaigns.geo.store',
-                'uses' => 'GeographyController@store',
-            ]
+            ['as'   => 'campaigns.geo.store',
+             'uses' => 'GeographyController@store',]
         );
 
         // CREATIVES
         Route::get(
             '/{id}/creatives',
-            [
-                'as'   => 'campaigns.creatives.index',
-                'uses' => 'CampaignCreativeController@index',
-            ]
+            ['as'   => 'campaigns.creatives.index',
+             'uses' => 'CampaignCreativeController@index',]
         );
 
         Route::post(
             '/{id}/creatives',
-            [
-                'as'   => 'campaigns.creatives.store',
-                'uses' => 'CampaignCreativeController@store',
-            ]
+            ['as'   => 'campaigns.creatives.store',
+             'uses' => 'CampaignCreativeController@store',]
         );
 
         // DEVICE
-        Route::get('/{id}/device', [
-            'as' => 'campaigns.devices.index',
-            'uses' => 'CampaignDeviceController@index'
-        ]);
+        Route::get(
+            '/{id}/device',
+            ['as'   => 'campaigns.devices.index',
+             'uses' => 'CampaignDeviceController@index']
+        );
 
-        Route::post('/{id}/device/type', [
-            'as' => 'campaigns.devices.storeType',
-            'uses' => 'CampaignDeviceController@storeType'
-        ]);
+        Route::post(
+            '/{id}/device/type',
+            ['as'   => 'campaigns.devices.storeType',
+             'uses' => 'CampaignDeviceController@storeType']
+        );
 
-        Route::post('/{id}/device/model', [
-            'as' => 'campaigns.devices.storeModel',
-            'uses' => 'CampaignDeviceController@storeModel'
-        ]);
+        Route::post(
+            '/{id}/device/model',
+            ['as'   => 'campaigns.devices.storeModel',
+             'uses' => 'CampaignDeviceController@storeModel']
+        );
 
-        Route::post('/{id}/device/os', [
-            'as' => 'campaigns.devices.storeOs',
-            'uses' => 'CampaignDeviceController@storeOs'
-        ]);
+        Route::post(
+            '/{id}/device/os',
+            ['as'   => 'campaigns.devices.storeOs',
+             'uses' => 'CampaignDeviceController@storeOs']
+        );
     }
 );
 
@@ -217,87 +185,81 @@ Route::group(
 
         Route::get(
             '/',
-            [
-                'as'   => 'accounts.index',
-                'uses' => 'AccountController@index',
-            ]
+            ['as'   => 'accounts.index',
+             'uses' => 'AccountController@index',]
         );
 
-        Route::get('/info', [
-            'as' => 'accounts.info',
-            'uses' => 'UserController@info'
-        ]);
+        Route::get(
+            '/info',
+            ['as'   => 'accounts.info',
+             'uses' => 'UserController@info']
+        );
 
         Route::post(
             '/',
-            [
-                'as'   => 'accounts.store',
-                'uses' => 'AccountController@store',
-            ]
+            ['as'   => 'accounts.store',
+             'uses' => 'AccountController@store',]
         );
 
         Route::get(
             '/{id}',
-            [
-                'as'   => 'accounts.show',
-                'uses' => 'AccountController@show',
-            ]
+            ['as'   => 'accounts.show',
+             'uses' => 'AccountController@show',]
         );
 
         Route::put(
             '/{id}',
-            [
-                'as'   => 'accounts.update',
-                'uses' => 'AccountController@update',
-            ]
+            ['as'   => 'accounts.update',
+             'uses' => 'AccountController@update',]
+        );
+
+        Route::delete(
+            '/{id}',
+            ['as'   => 'accounts.destroy',
+             'uses' => 'AccountController@destroy']
         );
 
         Route::get(
             '/{id}/users',
-            [
-                'as'   => 'accounts.users.index',
-                'uses' => 'UserController@index',
-            ]
+            ['as'   => 'accounts.users.index',
+             'uses' => 'UserController@index',]
         );
 
         Route::post(
             '/{id}/users',
-            [
-                'as'   => 'accounts.users.store',
-                'uses' => 'UserController@store',
-            ]
+            ['as'   => 'accounts.users.store',
+             'uses' => 'UserController@store',]
         );
 
         Route::get(
             '/{id}/users/{userId}',
-            [
-                'as'   => 'accounts.users.show',
-                'uses' => 'UserController@show',
-            ]
+            ['as'   => 'accounts.users.show',
+             'uses' => 'UserController@show',]
         );
 
         Route::put(
             '/{id}/users/{userId}',
-            [
-                'as'   => 'campaigns.user.update',
-                'uses' => 'DemographyController@update',
-            ]
+            ['as'   => 'campaigns.user.update',
+             'uses' => 'DemographyController@update',]
         );
 
-        Route::get('/{id}/banker/{table}', [
-            'as' => 'account.banker.index',
-            'uses' => 'BankerController@index'
-        ]);
+        Route::get(
+            '/{id}/banker/{table}',
+            ['as'   => 'account.banker.index',
+             'uses' => 'BankerController@index']
+        );
 
-        Route::post('/{id}/banker/{table}', [
-            'as' => 'account.banker.store',
-            'uses' => 'BankerController@store'
-        ]);
+        Route::post(
+            '/{id}/banker/{table}',
+            ['as'   => 'account.banker.store',
+             'uses' => 'BankerController@store']
+        );
 
-        Route::delete('/{id}/banker/{table}', [
-            'as' => 'account.banker.destroy',
-            'uses' => 'BankerController@destroy'
-        ]);
+        Route::delete(
+            '/{id}/banker/{table}',
+            ['as'   => 'account.banker.destroy',
+             'uses' => 'BankerController@destroy']
+        );
     }
 );
 
@@ -305,38 +267,35 @@ Route::group(
 Route::group(
     ['prefix' => 'creatives', 'middleware' => JWT::class],
     function () {
-        Route::post('/', [
-            'as' => 'creatives.upload',
-            'uses' => 'UploadController@upload'
-        ]);
+
+        Route::post(
+            '/',
+            ['as'   => 'creatives.upload',
+             'uses' => 'UploadController@upload']
+        );
 
         Route::get(
             '/folders',
-            [
-                'as'   => 'creatives.folders.index',
-                'uses' => 'FolderController@index',
-            ]
+            ['as'   => 'creatives.folders.index',
+             'uses' => 'FolderController@index',]
         );
 
-        Route::get('/{id}', [
-            'as' => 'creatives.show',
-            'uses' => 'CreativesController@show'
-        ]);
+        Route::get(
+            '/{id}',
+            ['as'   => 'creatives.show',
+             'uses' => 'CreativesController@show']
+        );
 
         Route::post(
             '/folders',
-            [
-                'as'   => 'creatives.folders.store',
-                'uses' => 'FolderController@store',
-            ]
+            ['as'   => 'creatives.folders.store',
+             'uses' => 'FolderController@store',]
         );
 
         Route::get(
             '/folders/{id}',
-            [
-                'as'   => 'creatives.folders.show',
-                'uses' => 'FolderController@show',
-            ]
+            ['as'   => 'creatives.folders.show',
+             'uses' => 'FolderController@show',]
         );
     }
 );
@@ -345,33 +304,34 @@ Route::group(
  * Core namespace provides utility endpoints, such as fuzzy search
  */
 Route::group(
-    [
-        'prefix' => 'core',
-    ],
+    ['prefix' => 'core',],
     function () {
 
 
-        Route::group([
-            'prefix' => 'search'
-        ], function () {
+        Route::group(
+            ['prefix' => 'search'],
+            function () {
 
-            Route::get('/geo', [
-                'as' => 'core.search.geo',
-                'uses' => 'Core\SearchController@search'
-            ]);
-        });
+                Route::get(
+                    '/geo',
+                    ['as'   => 'core.search.geo',
+                     'uses' => 'Core\SearchController@search']
+                );
+            }
+        );
 
-        Route::group([
-            'prefix' => '/erlang',
-        ], function (){
+        Route::group(
+            ['prefix' => '/erlang',],
+            function () {
 
 
-            Route::get('/campaigns', [
-                'as' => 'core.erlang.campaigns',
-                'uses' => 'Core\ErlangCampaignsController@index'
-            ]);
-        });
-
+                Route::get(
+                    '/campaigns',
+                    ['as'   => 'core.erlang.campaigns',
+                     'uses' => 'Core\ErlangCampaignsController@index']
+                );
+            }
+        );
         // Email sending
     }
 );
@@ -381,8 +341,6 @@ Route::group(
  */
 Route::post(
     '/auth',
-    [
-        'as'   => 'auth',
-        'uses' => 'AuthenticateController@authenticate',
-    ]
+    ['as'   => 'auth',
+     'uses' => 'AuthenticateController@authenticate',]
 );

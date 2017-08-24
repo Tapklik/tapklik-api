@@ -142,4 +142,16 @@ class AccountControllerTest extends TestCase {
             ]
         ]);
     }
+
+    /** @test */
+    public function user_can_delete_an_account()
+    {
+        $account = factory(App\Account::class)->create();
+
+        $this->assertDatabaseHas('accounts', ['id' => $account->id]);
+
+        $this->json('delete', '/v1/accounts/' . $account->uuid)
+             ->assertStatus(Response::HTTP_OK);
+
+    }
 }

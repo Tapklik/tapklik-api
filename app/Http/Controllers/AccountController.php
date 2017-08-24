@@ -110,11 +110,19 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Account  $account
+     * @param $uuid
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Account $account)
+    public function destroy($uuid)
     {
-        //
+        try {
+            $account = Account::findByUuId($uuid);
+            $account->delete();
+
+            return [];
+        } catch (ModelNotFoundException $e) {
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Account can\'t be found');
+        }
     }
 }
