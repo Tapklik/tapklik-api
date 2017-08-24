@@ -120,7 +120,7 @@ class AccountController extends Controller
             $account = Account::findByUuId($uuid);
             $account->delete();
 
-            return [];
+            return ['data' => []];
         } catch (ModelNotFoundException $e) {
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Account can\'t be found');
         }

@@ -101,6 +101,6 @@ class DemographyController extends Controller
      */
     public function destroy(Demography $demography)
     {
-        //
+
     }
 }

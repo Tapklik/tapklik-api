@@ -243,6 +243,12 @@ Route::group(
              'uses' => 'DemographyController@update',]
         );
 
+        Route::delete(
+            '/{id}/users/{userId}',
+            ['as'   => 'user.destroy',
+             'uses' => 'UsersController@destroy',]
+        );
+
         Route::get(
             '/{id}/banker/{table}',
             ['as'   => 'account.banker.index',
