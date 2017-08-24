@@ -19,7 +19,7 @@ class CampaignDeviceModel extends Migration
             $table->unsignedInteger('device_model_id');
             $table->timestamps();
 
-            $table->foreign('campaign_id')->references('id')->on('campaigns');
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
             $table->foreign('device_model_id')->references('id')->on('device_models')->onDelete('cascade');
         });
     }

@@ -28,5 +28,6 @@ class GeneralSeeder extends Seeder
         (new DeviceOsSeeder)->run();
         (new UserSeeder)->run();
         (new DemographySeeder)->run();
+        (new CampaignSeeder())->run();
     }
 }

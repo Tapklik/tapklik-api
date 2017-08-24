@@ -24,8 +24,14 @@ class CampaignDeviceType extends Migration
                 $table->unsignedInteger('device_type_id');
                 $table->timestamps();
 
-                $table->foreign('campaign_id')->references('id')->on('campaigns');
-                $table->foreign('device_type_id')->references('id')->on('device_types')->onDelete('cascade');
+                $table->foreign('campaign_id')
+                    ->references('id')
+                    ->on('campaigns')
+                    ->onDelete('cascade');;
+
+                $table->foreign('device_type_id')
+                    ->references('id')
+                    ->on('device_types')->onDelete('cascade');
             }
         );
     }
