@@ -25,7 +25,7 @@ class CampaignDeviceOs extends Migration
                 $table->timestamps();
 
                 $table->foreign('campaign_id')->references('id')->on('campaigns');
-                $table->foreign('device_os_id')->references('id')->on('device_os');
+                $table->foreign('device_os_id')->references('id')->on('device_os')->onDelete('cascade');;
             }
         );
     }
