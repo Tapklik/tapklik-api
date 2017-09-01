@@ -86,29 +86,4 @@ class FolderController extends Controller
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Folder              $folder
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Folder $folder)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Folder $folder
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Folder $folder)
-    {
-        //
-    }
 }

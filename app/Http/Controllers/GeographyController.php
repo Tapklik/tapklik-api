@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use App\Campaign;
 use App\Geography;
@@ -63,30 +61,5 @@ class GeographyController extends Controller
 
             return $this->error(Response::HTTP_NOT_FOUND, 'Unknown error', $e->getMessage());
         }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Geography           $geography
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Geography $geography)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Geography $geography
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Geography $geography)
-    {
-        //
     }
 }

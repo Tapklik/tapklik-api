@@ -4,8 +4,19 @@ use App\Campaign;
 use App\Transformers\DeviceTransformer;
 use Illuminate\Http\Response;
 
+/**
+ * Class CampaignsModelController
+ *
+ * @package App\Http\Controllers
+ */
 class CampaignsModelController extends Controller
 {
+
+    /**
+     * @param $uuid
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function store($uuid)
     {
         try {

@@ -38,6 +38,13 @@ class CampaignCreativeController extends Controller
         }
     }
 
+    /**
+     * Save campaign.
+     *
+     * @param $uuid
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function store($uuid)
     {
         try {

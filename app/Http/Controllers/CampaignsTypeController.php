@@ -4,9 +4,21 @@ use App\Campaign;
 use App\DeviceType;
 use App\Transformers\DeviceTransformer;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
+/**
+ * Class CampaignsTypeController
+ *
+ * @package App\Http\Controllers
+ */
 class CampaignsTypeController extends Controller
 {
+
+    /**
+     * @param $uuid
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function store($uuid)
     {
 
@@ -21,7 +33,7 @@ class CampaignsTypeController extends Controller
 
                     return $type->id;
                 } catch (ModelNotFoundException $e) {
-                    // skip
+                    Log::error($e->getMessage());
                 }
             });
 

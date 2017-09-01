@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Middleware\JWT;
 use App\Http\Response\FractalResponse;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -8,7 +7,6 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use League\Fractal\Manager;
 
 /**
  * Class Controller
@@ -30,6 +28,9 @@ class Controller extends BaseController
      */
     private $_fractal;
 
+    /**
+     * @var string
+     */
     protected $parentEndpoint = '';
 
     /**
@@ -94,6 +95,8 @@ class Controller extends BaseController
     }
 
     /**
+     * Return an error response.
+     *
      * @param int    $code
      * @param string $message
      * @param string $details
@@ -116,6 +119,9 @@ class Controller extends BaseController
         );
     }
 
+    /**
+     * Sets appropriate endpoint.
+     */
     private function _setCurrentEndpoint()
     {
         $rootUriSegment = collect(

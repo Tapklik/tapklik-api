@@ -22,6 +22,9 @@ class BankerController extends Controller
         'accounts'  => 'Account'
     ];
 
+    /**
+     * @var array
+     */
     private $_allowedRelationshipsBag = [
         'main', 'flight', 'spend'
     ];
@@ -42,6 +45,16 @@ class BankerController extends Controller
            $this->_report($uuid, $relationship, $this->req->input('type'));
     }
 
+    /**
+     * Return all banker entries.
+     * You may limit result-set further by applying the type query string.
+     *
+     * @param      $uuid
+     * @param      $relationship
+     * @param bool $type
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     private function _report($uuid, $relationship, $type = false)
     {
         try {
@@ -65,9 +78,14 @@ class BankerController extends Controller
     }
 
     /**
+     * Return data based on used filters
+     *
      * @param string $uuid
      *
      * @param string $query
+     *
+     * @param        $relationship
+     * @param bool   $type
      *
      * @return array
      */
@@ -81,6 +99,14 @@ class BankerController extends Controller
         return $this->item($obj, $transformer);
     }
 
+    /**
+     * Guess appropriate transformer to be used.
+     *
+     * @param string $query
+     *
+     * @return mixed
+     * @throws \App\Exceptions\TransformerException
+     */
     private function _getTransformer(string $query)
     {
         $lookUpTransformer = "App\\Transformers\\Banker" . ucfirst(strtolower($query)) . 'Transformer';
@@ -131,6 +157,13 @@ class BankerController extends Controller
         }
     }
 
+    /**
+     * Delete entry from appropriate banker table.
+     *
+     * @param $uuid
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function destroy($uuid)
     {
         try {
@@ -150,6 +183,11 @@ class BankerController extends Controller
         }
     }
 
+    /**
+     * Returns the instance of a polymorphic model
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
     private function _getModel()
     {
         $model = $this->_allowedModelBag[$this->parentEndpoint];

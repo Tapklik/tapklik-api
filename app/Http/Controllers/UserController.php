@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use App\Account;
 use App\Transformers\UserTransformer;
@@ -99,6 +97,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function info()
     {
         return $this->req->get('session');

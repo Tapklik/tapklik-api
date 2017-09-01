@@ -6,6 +6,11 @@ use Aws\S3\S3Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * Class UploadController
+ *
+ * @package App\Http\Controllers
+ */
 class UploadController extends Controller
 {
 

@@ -41,6 +41,11 @@ class DemographyController extends Controller
         }
     }
 
+    /**
+     * @param $uuid
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function store($uuid)
     {
 
@@ -77,6 +82,12 @@ class DemographyController extends Controller
         }
     }
 
+    /**
+     * @param $accountId
+     * @param $userId
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function update($accountId, $userId)
     {
         try {
@@ -91,16 +102,5 @@ class DemographyController extends Controller
 
             return $this->error(Response::HTTP_NOT_FOUND, $e->getMessage());
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Demography  $demography
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Demography $demography)
-    {
-
     }
 }

@@ -5,9 +5,19 @@ use App\Transformers\DeviceTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 
+/**
+ * Class CampaignDeviceController
+ *
+ * @package App\Http\Controllers
+ */
 class CampaignDeviceController extends Controller
 {
 
+    /**
+     * @param $uuid
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function index($uuid)
     {
 
