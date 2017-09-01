@@ -160,20 +160,20 @@ Route::group(
 
         Route::post(
             '/{id}/device/type',
-            ['as'   => 'campaigns.devices.storeType',
-             'uses' => 'CampaignDeviceController@storeType']
+            ['as'   => 'campaigns.type.store',
+             'uses' => 'CampaignTypeController@store']
         );
 
         Route::post(
             '/{id}/device/model',
-            ['as'   => 'campaigns.devices.storeModel',
-             'uses' => 'CampaignDeviceController@storeModel']
+            ['as'   => 'campaigns.model.store',
+             'uses' => 'CampaignModelController@store']
         );
 
         Route::post(
             '/{id}/device/os',
-            ['as'   => 'campaigns.devices.storeOs',
-             'uses' => 'CampaignDeviceController@storeOs']
+            ['as'   => 'campaigns.os.store',
+             'uses' => 'CampaignsOsController@store']
         );
     }
 );
@@ -282,7 +282,7 @@ Route::group(
         Route::post(
             '/',
             ['as'   => 'creatives.upload',
-             'uses' => 'UploadController@upload']
+             'uses' => 'UploadController@store']
         );
 
         Route::get(
@@ -326,7 +326,7 @@ Route::group(
                 Route::get(
                     '/geo',
                     ['as'   => 'core.search.geo',
-                     'uses' => 'Core\SearchController@search']
+                     'uses' => 'Core\SearchController@index']
                 );
             }
         );

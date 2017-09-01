@@ -6,10 +6,13 @@ use App\Transformers\GeographyTransformer;
 
 class SearchController extends Controller
 {
-    public function search()
-    {
-        $results = Geography::findByKey(request('key'));
 
-        return $this->collection($results, new GeographyTransformer);
+    public function index()
+    {
+
+        return $this->collection(
+            Geography::findByKey(request('key')),
+            new GeographyTransformer
+        );
     }
 }

@@ -157,6 +157,4 @@ class BankerController extends Controller
 
         return new $model();
     }
-
-    private function _getRelationship() {}
 }

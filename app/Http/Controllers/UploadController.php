@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 class UploadController extends Controller
 {
 
-    public function upload(Request $request)
+    public function store(Request $request)
     {
 
         if ( !$request->hasFile('file'))

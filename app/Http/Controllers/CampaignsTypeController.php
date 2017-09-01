@@ -1,18 +1,30 @@
 <?php namespace App\Http\Controllers;
 
 use App\Campaign;
-use App\Transformers\DeviceTransformer;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\DeviceType;
 use Illuminate\Http\Response;
 
-class CampaignDeviceController extends Controller
+class CampaignsTypeController extends Controller
 {
-
-    public function index($uuid)
+    public function store($uuid)
     {
 
         try {
             $campaign = Campaign::findByUuId($uuid);
+
+            $types = collect(request('types'))->map(function($type) {
+
+                try {
+
+                    $type = DeviceType::findByTypeId($type);
+
+                    return $type->id;
+                } catch (ModelNotFoundException $e) {
+                    // skip
+                }
+            });
+
+            $campaign->deviceTypes()->sync($types);
 
             return $this->item($campaign, new DeviceTransformer);
         } catch (ModelNotFoundException $e) {

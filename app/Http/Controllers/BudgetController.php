@@ -76,41 +76,4 @@ class BudgetController extends Controller
             . ' | ' . $e->getLine());
         }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Budget $budget
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Budget $budget)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Budget              $budget
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Budget $budget)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Budget $budget
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Budget $budget)
-    {
-        //
-    }
 }
