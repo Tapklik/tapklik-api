@@ -2,6 +2,7 @@
 
 use App\Campaign;
 use App\DeviceType;
+use App\Transformers\DeviceTransformer;
 use Illuminate\Http\Response;
 
 class CampaignsTypeController extends Controller

@@ -161,13 +161,13 @@ Route::group(
         Route::post(
             '/{id}/device/type',
             ['as'   => 'campaigns.type.store',
-             'uses' => 'CampaignTypeController@store']
+             'uses' => 'CampaignsTypeController@store']
         );
 
         Route::post(
             '/{id}/device/model',
             ['as'   => 'campaigns.model.store',
-             'uses' => 'CampaignModelController@store']
+             'uses' => 'CampaignsModelController@store']
         );
 
         Route::post(

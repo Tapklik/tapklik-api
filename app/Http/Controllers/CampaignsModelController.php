@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Campaign;
+use App\Transformers\DeviceTransformer;
 use Illuminate\Http\Response;
 
 class CampaignsModelController extends Controller
