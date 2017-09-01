@@ -17,7 +17,7 @@ $factory->define(
     function (Faker\Generator $faker) {
 
         return [
-           'code' => 'IAB-' . rand(1, 20)
+           'code' => 'IAB-' . rand(999, 9999)
         ];
     }
 );

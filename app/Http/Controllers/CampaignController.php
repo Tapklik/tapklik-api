@@ -45,8 +45,21 @@ class CampaignController extends Controller
     {
 
         try {
-            $payload = $request->input();
-            $payload['account_id'] = $this->getJwtUserClaim('accountId');
+
+            $payload = [
+                'account_id'  => $this->getJwtUserClaim('accountId') ?: 1,
+                'name'        => request('name'),
+                'description' => request('description'),
+                'start'       => request('start'),
+                'end'         => request('end'),
+                'bid'         => request('bid'),
+                'ctrurl'      => request('ctrurl'),
+                'adomain'     => request('adomain'),
+                'test'        => request('test'),
+                'weight'      => request('weight'),
+                'node'        => request('node'),
+                'status'      => request('status'),
+            ];
 
             $campaign = Campaign::create($payload);
 

@@ -24,7 +24,7 @@ class DemographyControllerTest extends TestCase
     public function user_can_view_user_endpoint_on_campaign()
     {
 
-        $repsonse = $this->get('v1/campaigns/'.$this->campaign->uuid.'/user')
+        $repsonse = $this->get('v1/campaigns/'.$this->campaign->uuid.'/users')
             ->assertStatus(Response::HTTP_OK);
 
         $repsonse->assertExactJson(
@@ -35,22 +35,5 @@ class DemographyControllerTest extends TestCase
                     new DemographyTransformer
                 )
             );
-    }
-
-    /** @test */
-    public function it_can_delete_previous_user_from_campaign_targeting()
-    {
-
-        $this->put('v1/campaigns/'.$this->campaign->uuid.'/user', ['gender' => 'M', 'from_age' => 55, 'to_age' => 120])
-            ->assertStatus(Response::HTTP_OK);
-
-        $this->put(
-            'v1/campaigns/'.$this->campaign->uuid.'/user',
-            ['gender'   => 'M',
-             'from_age' => 18,
-             'to_age'   => 120]
-        )->assertStatus(Response::HTTP_OK);
-
-        $this->assertEquals(1, $this->campaign->demography->count());
     }
 }

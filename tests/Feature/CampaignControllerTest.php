@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Account;
 use App\Campaign;
 use App\Transformers\CampaignTransformer;
 use Illuminate\Http\Response;
@@ -28,17 +29,18 @@ class CampaignControllerTest extends TestCase
     /** @test */
     public function user_can_create_campaign()
     {
-        $campaign = factory(Campaign::class)->make(['name' => 'new campaign created']);
+        $withName = 'Test name';
+        $campaign = factory(Campaign::class)->make(['name' => $withName]);
 
         $this->assertDatabaseMissing('campaigns', [
-            'name' => 'new campaign created'
+            'name' => $withName
         ]);
 
-        $this->post('/v1/campaigns', $campaign->toArray())
-            ->assertStatus(Response::HTTP_OK);
+        $response = $this->post('/v1/campaigns', $campaign->toArray());
+
 
         $this->assertDatabaseHas('campaigns', [
-            'name' => 'new campaign created'
+            'name' => $withName
         ]);
     }
 
@@ -98,17 +100,15 @@ class CampaignControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_not_updated_crucial_keys()
+    public function it_should_not_updated_id()
     {
         $this->put('/v1/campaigns/' . $this->campaign->uuid, [
             'id'   => 999,
-            'uuid' => 'updating-to-new-uuid-here-should-not-work',
         ])
         ->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseHas('campaigns', [
             'id'   => $this->campaign->id,
-            'uuid' => $this->campaign->uuid,
         ]);
     }
 

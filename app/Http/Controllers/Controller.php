@@ -90,7 +90,7 @@ class Controller extends BaseController
     {
         $currentJwtSession = collect($this->req->attributes->get('session'));
 
-        return $currentJwtSession->get($claim);
+        return $currentJwtSession->get($claim) ?? '';
     }
 
     /**
