@@ -353,5 +353,10 @@ Route::group(
 Route::post(
     '/auth',
     ['as'   => 'auth',
-     'uses' => 'AuthenticateController@authenticate',]
+     'uses' => 'AuthenticateController@authenticate']
 );
+
+Route::get('/health', [
+    'as' => 'health',
+    'uses' => 'HealthCheckController@index'
+]);
