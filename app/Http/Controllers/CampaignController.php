@@ -1,10 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use App\Account;
 use App\Campaign;
 use App\Transformers\CampaignTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class CampaignController
@@ -26,6 +28,10 @@ class CampaignController extends Controller
             $campaigns = Campaign::findByAccountId(
                 $this->req->get('session')['accountId']
             );
+
+            Log::info("Listed campaigns {account}", [
+                'account' => $this->req->get('session')['accountId']
+            ]);
 
             return $this->collection($campaigns, new CampaignTransformer);
         } catch (ModelNotFoundException $e) {
