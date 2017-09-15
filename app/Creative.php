@@ -40,6 +40,8 @@ class Creative extends ModelSetup implements Uuidable
 
     public static function generateAdm($campaignId, $creativeId)
     {
-        return '<iframe src="' . getenv('AD_SERVER_URL') . '/serve/' . $campaignId . '/' . $creativeId . '?{{BIDDER_ATTR}}" ></iframe>';
+        $creative = self::findByUuId($creativeId);
+
+        return '<iframe src="' . getenv('AD_SERVER_URL') . '/serve/' . $campaignId . '/' . $creativeId . '?{{BIDDER_ATTR}}" frameborder="0" height="' . $creative->h . '" width="' . $creative->w . '"></iframe>';
     }
 }

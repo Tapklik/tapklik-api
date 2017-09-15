@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c5708195f1cb929b2644f158992b3596",
-    "content-hash": "60ca8ae1f690cb98df3eda1bd68a94cb",
+    "hash": "5c62cca4c3d25b45b36cc60ba78648e2",
+    "content-hash": "01011e9076563db303697e73d2be9630",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2547,6 +2547,59 @@
                 "instantiate"
             ],
             "time": "2015-06-14 21:17:01"
+        },
+        {
+            "name": "etsy/phan",
+            "version": "0.8.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phan/phan.git",
+                "reference": "e6ee68b7bf97a22acec2cb5a8d441153ab54b3bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phan/phan/zipball/e6ee68b7bf97a22acec2cb5a8d441153ab54b3bd",
+                "reference": "e6ee68b7bf97a22acec2cb5a8d441153ab54b3bd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ast": "^0.1.4",
+                "php": "~7.0.0 || ~7.1.0",
+                "symfony/console": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.2.1"
+            },
+            "bin": [
+                "phan",
+                "phan_client",
+                "tocheckstyle"
+            ],
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Phan\\": "src/Phan"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rasmus Lerdorf"
+                },
+                {
+                    "name": "Andrew S. Morrison"
+                }
+            ],
+            "description": "A static analyzer for PHP",
+            "keywords": [
+                "analyzer",
+                "php",
+                "static"
+            ],
+            "time": "2017-08-15 19:39:40"
         },
         {
             "name": "fzaninotto/faker",
