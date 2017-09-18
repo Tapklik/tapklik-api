@@ -65,7 +65,7 @@ class UserActionLogger
 
     }
 
-    private function _validateToken(string $token = '')
+    private function _validateToken($token = '')
     {
 
         if(!$token) return null;
