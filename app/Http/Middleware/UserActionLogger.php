@@ -23,6 +23,8 @@ class UserActionLogger
 
         $payload = $this->_validateToken($request->header('Authorization'));
 
+        if(!$payload) return $next($request);
+
         $this->_user = collect(
             ['id'          => $payload->getClaim('id'),
              'uuid'        => $payload->getClaim('uuid'),
@@ -65,6 +67,8 @@ class UserActionLogger
 
     private function _validateToken(string $token = '')
     {
+
+        if(!$token) return null;
 
         // Validate bearer
         $token = str_replace('Bearer ', '', $token);
