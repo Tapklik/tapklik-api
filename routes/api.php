@@ -201,6 +201,12 @@ Route::group(
              'uses' => 'AccountController@store',]
         );
 
+        /** LOGS */
+        Route::get('/log', [
+            'as' => 'accounts.log.index',
+            'uses' => 'AccountsLogController@index'
+        ]);
+
         Route::get(
             '/{id}',
             ['as'   => 'accounts.show',
