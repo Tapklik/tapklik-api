@@ -145,7 +145,7 @@ class Controller extends BaseController
         ]);
 
         try {
-            $client->post('inputs/67a90950-78f3-4a24-86be-0a57c3461280/tag/account-' . $this->_user->get('id'), [
+            $client->post('inputs/67a90950-78f3-4a24-86be-0a57c3461280/tag/account-' . $this->getJwtUserClaim('id'), [
                 'json' => [
                     'message' => $sentence,
                     'attr'    => $attr,
