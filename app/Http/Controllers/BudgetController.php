@@ -66,6 +66,14 @@ class BudgetController extends Controller
                 'campaign_id' => $campaign->id
             ]);
 
+            $actionToLog = sprintf('%s topped up account with $%i as type %s',
+                $this->getJwtUserClaim('name'),
+                $budget->amount,
+                $budget->type
+            );
+
+            $this->logActionToLoggerProvider($actionToLog);
+
             return $this->item($budget, new BudgetTransformer);
         } catch (ModelNotFoundException $e) {
 

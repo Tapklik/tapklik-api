@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Response\FractalResponse;
+use GuzzleHttp\Client;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -129,5 +130,30 @@ class Controller extends BaseController
         );
 
         $this->parentEndpoint = $rootUriSegment->offsetGet(4);
+    }
+
+    protected function logActionToLoggerProvider($sentence, $attr = [])
+    {
+        if(!$attr) $attr = [
+            'id'   => $this->getJwtUserClaim('id'),
+            'name' => $this->getJwtUserClaim('name')
+        ];
+
+
+        $client = new Client([
+            'base_uri' => 'http://logs-01.loggly.com'
+        ]);
+
+        try {
+            $client->post('inputs/67a90950-78f3-4a24-86be-0a57c3461280/tag/account-' . $this->_user->get('id'), [
+                'json' => [
+                    'message' => $sentence,
+                    'attr'    => $attr,
+                ]
+            ]);
+        } catch (GuzzleException $e) {
+            // drop it here
+            //dd('UserActionLogger Middleware:' . $e->getMessage());
+        }
     }
 }

@@ -23,6 +23,7 @@ class CampaignController extends Controller
      */
     public function index()
     {
+
         try {
 
             $campaigns = Campaign::findByAccountId(
@@ -69,6 +70,14 @@ class CampaignController extends Controller
 
             $campaign = Campaign::create($payload);
 
+            $actionToLog = sprintf('%s created a new campaign named %s with ID#%s',
+                $this->getJwtUserClaim('name'),
+                $campaign->name,
+                $campaign->uuid
+            );
+
+            $this->logActionToLoggerProvider($actionToLog);
+
             return $this->item($campaign, new CampaignTransformer);
         } catch (\Exception $e) {
 
@@ -114,6 +123,14 @@ class CampaignController extends Controller
             $campaign = Campaign::findByUuId($uuid);
             $campaign->update($request->input());
 
+            $actionToLog = sprintf('%s created a new campaign #%s named %s',
+                $this->getJwtUserClaim('name'),
+                $campaign->uuid,
+                $campaign->name
+            );
+
+            $this->logActionToLoggerProvider($actionToLog);
+
             return $this->item($campaign, new CampaignTransformer);
         } catch (ModelNotFoundException $e) {
 
@@ -136,6 +153,13 @@ class CampaignController extends Controller
 
         try {
             Campaign::findByUuId($uuid)->delete();
+
+            $actionToLog = sprintf('%s deleted campaign ID#%s',
+                $this->getJwtUserClaim('name'),
+                $uuid
+            );
+
+            $this->logActionToLoggerProvider($actionToLog);
 
             return response()->json(['data' => '']);
         } catch (ModelNotFoundException $e) {

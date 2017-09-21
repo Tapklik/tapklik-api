@@ -40,7 +40,6 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:1000,1',
             'bindings',
-            UserActionLogger::class
         ],
     ];
 

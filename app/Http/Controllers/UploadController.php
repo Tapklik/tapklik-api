@@ -35,6 +35,13 @@ class UploadController extends Controller
             $creative->iurl = $s3Url;
             $creative->save();
 
+            $actionToLog = sprintf('%s uploaded creative ID#%s',
+                $this->getJwtUserClaim('name'),
+                $creative->uuid
+            );
+
+            $this->logActionToLoggerProvider($actionToLog);
+
             return $this->item($creative, new CreativeTransformer);
         } else {
             return $this->error(Response::HTTP_BAD_REQUEST, 'Something went wrong');

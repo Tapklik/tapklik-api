@@ -56,6 +56,14 @@ class CampaignCreativeController extends Controller
                     $creative = Creative::findByUuId($uid);
                     $creative->adm = Creative::generateAdm($campaign->uuid, $uid);
                     $creative->save();
+
+                    $actionToLog = sprintf('%s attached a creative ID%s to campaign ID#%s',
+                        $this->getJwtUserClaim('name'),
+                        $creative->uuid,
+                        $campaign->uuid
+                    );
+
+                    $this->logActionToLoggerProvider($actionToLog);
                 } catch (ModelNotFoundException $e) {}
 
                 return $creative->id;
