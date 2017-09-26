@@ -23,8 +23,8 @@ class DeviceTransformer extends TransformerAbstract
             'type'  => $campaign->deviceTypes()->pluck('type_id'),
             'make'  => [],
             'model' => [],
-            'os'    => $campaign->deviceOperatingSystems()->pluck('name'),
-            'ua'    => $campaign->deviceModels()->pluck('name'),
+            'os'    => $campaign->deviceOperatingSystems()->pluck('id'),
+            'ua'    => $campaign->deviceModels()->pluck('id'),
         ];
     }
 }

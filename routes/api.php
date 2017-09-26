@@ -365,5 +365,4 @@ Route::post(
 Route::get('/health', [
     'as' => 'health',
     'uses' => 'HealthCheckController@index'
-
 ]);
