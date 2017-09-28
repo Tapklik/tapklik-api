@@ -81,7 +81,8 @@ class JWT
                     'accountUuId' => $payload->getClaim('accountUuId'),
                     'name'        => $payload->getClaim('name'),
                     'email'       => $payload->getClaim('email'),
-                    'campaigns'   => $payload->getClaim('campaigns')
+                    'campaigns'   => $payload->getClaim('campaigns'),
+                    'role'        => $payload->getClaim('role')
                 ],
         ]);
 

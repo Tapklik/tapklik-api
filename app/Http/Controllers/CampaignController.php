@@ -25,6 +25,7 @@ class CampaignController extends Controller
     {
 
         try {
+            if($this->getJwtUserClaim('role') == 1) return $this->collection(Campaign::all(), new CampaignTransformer());
 
             $campaigns = Campaign::findByAccountId(
                 $this->req->get('session')['accountId']

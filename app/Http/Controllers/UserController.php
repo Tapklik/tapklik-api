@@ -25,6 +25,8 @@ class UserController extends Controller
     {
 
         try {
+            if($this->getJwtUserClaim('role') == 1) return $this->collection(User::all(), new UserTransformer);
+
             $account = Account::findByUuId($uuid);
 
             return $this->collection($account->users, new UserTransformer);
