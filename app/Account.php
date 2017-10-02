@@ -43,6 +43,11 @@ class Account extends ModelSetup implements Uuidable, Bankerable
         return $this->morphMany(BankerSpend::class, 'spendable');
     }
 
+    public function folders()
+    {
+        return $this->hasMany(Folder::class);
+    }
+
     // Methods
 
     /**

@@ -25,7 +25,6 @@ class FolderController extends Controller
     public function index()
     {
         try {
-
             $folders = Folder::findByAccountId($this->getJwtUserClaim('accountId'));
 
             return $this->collection($folders, new FolderTransformer);

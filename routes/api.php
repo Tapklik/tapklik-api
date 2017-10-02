@@ -291,10 +291,20 @@ Route::group(
              'uses' => 'UploadController@store']
         );
 
+        Route::get('/{id}/folders', [
+            'as' => 'creatives.folder.admin.index',
+            'uses' => 'AdminFolderController@index'
+        ]);
+
+        Route::get('/{id}/folders/{folderId}', [
+            'as' => 'creatives.folder.admin.show',
+            'uses' => 'AdminFolderController@show'
+        ]);
+
         Route::get(
             '/folders',
             ['as'   => 'creatives.folders.index',
-             'uses' => 'FolderController@index',]
+             'uses' => 'FolderController@index']
         );
 
         Route::get(
@@ -323,7 +333,6 @@ Route::group(
 Route::group(
     ['prefix' => 'core',],
     function () {
-
 
         Route::group(
             ['prefix' => 'search'],
