@@ -45,6 +45,10 @@ class CreateCreativesTable extends Migration
      */
     public function down()
     {
+        Schema::table('creatives', function(Blueprint $table) {
+            $table->dropForeign('creatives_folder_id_foreign');
+        });
+
         Schema::dropIfExists('creatives');
     }
 }

@@ -43,9 +43,9 @@ class User extends Authenticatable implements Uuidable
     public static function apiToken(User $user)
     {
         return (new Builder)->setIssuer(
-            'http://api.tapklik.com'
+            'https://api.tapklik.com'
         )->setAudience(
-            'http://api.tapklik.com'
+            'https://api.tapklik.com'
         )->setId(
             12345, true
         )->setIssuedAt(
