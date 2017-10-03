@@ -25,6 +25,19 @@ class CreativesController extends Controller
 
             return $this->error(Response::HTTP_NOT_FOUND, 'Creative not found');
         }
+    }
 
+    public function update($uuid)
+    {
+        try {
+            $creative = Creative::findByUuId($uuid);
+            $creative->status = request('status');
+            $creative->save();
+
+            return $this->item($creative, new CreativeTransformer);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Creative not found');
+        }
     }
 }

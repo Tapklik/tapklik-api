@@ -307,6 +307,11 @@ Route::group(
              'uses' => 'FolderController@index']
         );
 
+        Route::put('/{id}', [
+            'as' => 'creatives.update',
+            'uses' => 'CreativesController@update'
+        ]);
+
         Route::get(
             '/{id}',
             ['as'   => 'creatives.show',
