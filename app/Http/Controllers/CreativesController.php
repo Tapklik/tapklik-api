@@ -3,6 +3,7 @@
 use App\Creative;
 use App\Transformers\CreativeTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CreativesController extends Controller
@@ -27,11 +28,11 @@ class CreativesController extends Controller
         }
     }
 
-    public function update($uuid)
+    public function update(Request $request, $uuid)
     {
         try {
             $creative = Creative::findByUuId($uuid);
-            $creative->status = request('status');
+            $creative->update($request->input());
             $creative->save();
 
             return $this->item($creative, new CreativeTransformer);
