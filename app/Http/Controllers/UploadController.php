@@ -82,17 +82,18 @@ class UploadController extends Controller
 
         $creative = new Creative(
             [
-                 'name'      => request('name') ?: md5($object->getFileName()),
-                 'expdir'    => request('expdir') ?: 0,
-                 'adm'       => '',
-                 'ctrurl'    => request('ctrurl'),
-                 'class'     => request('class'),
-                 'iurl'      => $object->getFileName(),
-                 'type'      => request('type'),
-                 'h'         => request('h'),
-                 'w'         => request('w'),
-                 'folder_id' => $config['folder_id'],
-                 'thumb'     => request('thumb')
+                 'name'       => request('name') ?: md5($object->getFileName()),
+                 'expdir'     => request('expdir') ?: 0,
+                 'adm'        => '',
+                 'ctrurl'     => request('ctrurl'),
+                 'class'      => request('class'),
+                 'iurl'       => $object->getFileName(),
+                 'type'       => request('type'),
+                 'h'          => request('h'),
+                 'w'          => request('w'),
+                 'folder_id'  => $config['folder_id'],
+                 'responsive' => request('responsive'),
+                 'thumb'      => request('thumb')
             ]
         );
 
