@@ -12,7 +12,8 @@
         "league/fractal": "0.14.*",
         "ramsey/uuid": "^3.6",
         "jenssegers/mongodb": "^3.2",
-        "aws/aws-sdk-php": "^3.34"
+        "aws/aws-sdk-php": "^3.34",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
