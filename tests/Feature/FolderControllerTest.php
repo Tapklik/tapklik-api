@@ -81,6 +81,44 @@ class FolderControllerTest extends TestCase
         $page->assertExactJson(
             $this->item($expectingFolder, new FolderTransformer)
         );
+    }
 
+
+
+    /** @test */
+    public function it_throws_an_error_if_folder_deleted_contains_creatives()
+    {
+        $this->withoutMiddleware();
+
+        $creative = factory(\App\Creative::class)->create(['folder_id' => $this->folder->id]);
+
+        $response = $this->delete('v1/creatives/folders/' . $this->folder->uuid);
+
+        $this->assertDatabaseHas('folders', ['id' => $this->folder->id]);
+
+        $response->assertStatus(Response::HTTP_BAD_REQUEST);
+
+        $response->assertExactJson([
+            'error' => [
+                'code' => Response::HTTP_BAD_REQUEST,
+                'message' => 'Folder is not empty',
+                'details' => 'N/A',
+                'request' => ''
+            ]
+        ]);
+    }
+
+    /** @test */
+    public function it_can_delete_empty_folder()
+    {
+        $this->withoutMiddleware();
+
+        $this->assertDatabaseHas('folders', ['id' => $this->folder->id]);
+
+        $response = $this->delete('v1/creatives/folders/' . $this->folder->uuid);
+
+        $this->assertDatabaseMissing('folders', ['id' => $this->folder->id]);
+
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
     }
 }

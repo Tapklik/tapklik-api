@@ -85,4 +85,24 @@ class FolderController extends Controller
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
         }
     }
+
+    public function delete($uuid)
+    {
+        try {
+            $folder = Folder::findByUuId($uuid);
+
+            if($folder->creatives->count() > 0) return $this->error(Response::HTTP_BAD_REQUEST, 'Folder is not empty');
+
+            $folder->delete();
+
+            return response([], Response::HTTP_NO_CONTENT);
+
+        }  catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Folders ' . $uuid . ' does not exist.');
+        } catch (\Exception $e) {
+
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+        }
+    }
 }

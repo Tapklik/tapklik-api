@@ -307,6 +307,12 @@ Route::group(
              'uses' => 'FolderController@index']
         );
 
+        Route::delete(
+            '/folders/{id}',
+            ['as'   => 'creatives.folders.delete',
+             'uses' => 'FolderController@delete']
+        );
+
         Route::put('/{id}', [
             'as' => 'creatives.update',
             'uses' => 'CreativesController@update'
