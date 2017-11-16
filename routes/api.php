@@ -318,6 +318,11 @@ Route::group(
              'uses' => 'CreativesController@show']
         );
 
+        Route::delete('/{id}', [
+            'as' => 'creatives.delete',
+            'uses' => 'CreativesController@delete'
+        ]);
+
         Route::post(
             '/folders',
             ['as'   => 'creatives.folders.store',

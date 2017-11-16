@@ -23,4 +23,18 @@ class CreativesControllerTest extends TestCase {
         );
 
     }
+
+    /** @test */
+    public function it_can_delete_a_creative()
+    {
+        $creative = factory(\App\Creative::class)->states(['withFolder'])->create();
+
+        $this->assertDatabaseHas('creatives', ['id' => $creative->id]);
+
+        $response = $this->delete('v1/creatives/' . $creative->uuid);
+
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertDatabaseMissing('creatives', ['id' => $creative->id]);
+    }
 }
