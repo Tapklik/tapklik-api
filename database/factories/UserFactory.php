@@ -23,6 +23,7 @@ $factory->define(
             'email'          => $faker->unique()->safeEmail,
             'password'       => bcrypt('secret'),
             'remember_token' => str_random(10),
+            'tutorial'       => rand(0,1),
             'status'         => rand(0, 1),
         ];
     }

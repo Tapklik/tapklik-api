@@ -15,15 +15,19 @@
 $factory->define(
     App\Account::class,
     function (Faker\Generator $faker) {
+
         $uuid = \Ramsey\Uuid\Uuid::uuid1();
 
-        return [
-            'name'     => $faker->company,
-            'country'  => $faker->countryISOAlpha3,
-            'city'     => $faker->city,
-            'timezone' => $faker->timezone,
-            'language' => $faker->languageCode,
-            'status'   => rand(0, 1),
-        ];
+        return ['name'            => $faker->company,
+                'country'         => $faker->countryISOAlpha3,
+                'city'            => $faker->city,
+                'timezone'        => $faker->timezone,
+                'language'        => $faker->languageCode,
+                'company'         => $faker->company,
+                'billing_address' => $faker->address,
+                'billing_email'   => $faker->companyEmail,
+                'billing_country' => $faker->country,
+                'billing_city'    => $faker->city,
+                'status'          => rand(0, 1),];
     }
 );

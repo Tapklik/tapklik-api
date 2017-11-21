@@ -22,6 +22,15 @@ class UsersTest extends TestCase {
             ->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseMissing('users', ['email' => $user->email]);
+    }
 
+    /** @test */
+    public function user_response_has_tutorial_key()
+    {
+        $user = factory(\App\User::class)->make();
+
+        $transformed = $this->item($user, new \App\Transformers\UserTransformer);
+
+        $this->assertArrayHasKey('tutorial', $transformed['data']);
     }
 }

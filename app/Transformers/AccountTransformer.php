@@ -33,6 +33,13 @@ class AccountTransformer extends TransformerAbstract
                 'timezone' => $account->timezone,
                 'language' => $account->language,
             ],
+            'billing'      => [
+                'company' => $account->company,
+                'email'   => $account->billing_email,
+                'address' => $account->billing_address,
+                'country' => $account->billing_country,
+                'city'    => $account->billing_city,
+            ],
             'status'       => $account->status,
         ];
     }
