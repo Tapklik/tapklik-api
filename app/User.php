@@ -15,7 +15,7 @@ class User extends Authenticatable implements Uuidable
      * @var array
      */
     protected $fillable = [
-        'account_id', 'first_name', 'last_name', 'phone', 'email', 'password', 'status'
+        'account_id', 'first_name', 'last_name', 'phone', 'email', 'password', 'status', 'tutorial'
     ];
 
     // Relationships
