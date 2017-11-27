@@ -19,12 +19,12 @@ class BankerTransformer extends TransformerAbstract
     public function transform(BankerInterface $banker)
     {
 
-        return [
-            'id'          => $banker->uuid,
-            'debit'       => $banker->debit,
-            'credit'      => $banker->credit,
-            'timestamp'   => $banker->updated_at->toDateTimeString(),
-            'description' => $banker->description,
-        ];
+        return ['id'             => $banker->uuid,
+                'debit'          => $banker->debit,
+                'credit'         => $banker->credit,
+                'timestamp'      => $banker->updated_at->toDateTimeString(),
+                'description'    => $banker->description,
+                'invoice_id'     => $banker->invoice_id,
+                'transaction_id' => $banker->transaction_id,];
     }
 }
