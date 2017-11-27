@@ -347,7 +347,7 @@ Route::group(
  * Core namespace provides utility endpoints, such as fuzzy search
  */
 Route::group(
-    ['prefix' => 'core',],
+    ['prefix' => 'core', 'namespace' => 'Core'],
     function () {
 
         Route::group(
@@ -357,7 +357,7 @@ Route::group(
                 Route::get(
                     '/geo',
                     ['as'   => 'core.search.geo',
-                     'uses' => 'Core\SearchController@index']
+                     'uses' => 'SearchController@index']
                 );
             }
         );
@@ -370,11 +370,20 @@ Route::group(
                 Route::get(
                     '/campaigns',
                     ['as'   => 'core.erlang.campaigns',
-                     'uses' => 'Core\ErlangCampaignsController@index']
+                     'uses' => 'ErlangCampaignsController@index']
                 );
             }
         );
-        // Email sending
+
+        Route::group(['prefix' => 'mail'], function () {
+
+            // Email sending
+            Route::post('send', [
+                'as' => 'core.mail.index',
+                'uses' => 'MailController@index'
+            ]);
+        });
+
     }
 );
 
