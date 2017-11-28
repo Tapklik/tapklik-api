@@ -1,15 +1,14 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Response\FractalResponse;
-use GuzzleHttp\Client;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Tapklik\Logger\Contracts\LoggerInterface;
 use Tapklik\Logger\Exceptions\LoggerException;
+use Tapklik\Logger\Providers\MySqlLogger2Provider;
 use Tapklik\Logger\Providers\MySqlLoggerProvider;
 
 /**

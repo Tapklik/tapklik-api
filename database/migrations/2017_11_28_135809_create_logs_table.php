@@ -15,11 +15,11 @@ class CreateLogsTable extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('account_id');
             $table->string('action');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 
@@ -31,7 +31,7 @@ class CreateLogsTable extends Migration
     public function down()
     {
         Schema::table('logs', function (Blueprint $table) {
-            $table->dropForeign('logs_user_id_foreign');
+            $table->dropForeign('logs_account_id_foreign');
         });
 
         Schema::drop('logs');
