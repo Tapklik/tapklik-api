@@ -8,6 +8,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Tapklik\Logger\Contracts\LoggerInterface;
+use Tapklik\Logger\Exceptions\LoggerException;
+use Tapklik\Logger\Providers\MySqlLoggerProvider;
 
 /**
  * Class Controller
@@ -134,29 +137,13 @@ class Controller extends BaseController
 
     protected function logActionToLoggerProvider($sentence, $attr = [])
     {
-
-        return true;
-
-        if(!$attr) $attr = [
-            'id'   => $this->getJwtUserClaim('id'),
-            'name' => $this->getJwtUserClaim('name')
-        ];
-
-
-        $client = new Client([
-            'base_uri' => env('LOGGLY_URI')
-        ]);
+        $logger = new MySqlLoggerProvider();
 
         try {
-            $client->post('inputs/67a90950-78f3-4a24-86be-0a57c3461280/tag/account-' . $attr['id'], [
-                'json' => [
-                    'message' => $sentence,
-                    'attr'    => $attr,
-                ]
-            ]);
-        } catch (GuzzleException $e) {
-            // drop it here
-            //dd('UserActionLogger Middleware:' . $e->getMessage());
+            $logger->logAction($this->getJwtUserClaim('id'), $sentence);
+        } catch (LoggerException $e) {
+            // Skip for now
         }
+
     }
 }
