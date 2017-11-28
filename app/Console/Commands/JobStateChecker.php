@@ -39,7 +39,7 @@ class JobStateChecker extends Command
      */
     public function handle()
     {
-        $toStart = Campaign::where('start', '>=', Carbon::now())->where(['status' => 'pending'])->get();
+        $toStart = Campaign::where('start', '>=', Carbon::now())->where(['status' => 'not started'])->get();
         $toEnd   = Campaign::where('end', '<', Carbon::now())->where(['status' => 'active'])->get();
 
         $toStart->each(function($campaign) {
@@ -48,7 +48,7 @@ class JobStateChecker extends Command
         });
 
         $toEnd->each(function($campaign) {
-           $campaign->status = 'stopped';
+           $campaign->status = 'expired';
            $campaign->save();
         });
     }
