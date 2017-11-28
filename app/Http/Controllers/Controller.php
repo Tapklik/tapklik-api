@@ -136,10 +136,11 @@ class Controller extends BaseController
 
     protected function logActionToLoggerProvider($sentence, $attr = [])
     {
+
         $logger = new MySqlLoggerProvider();
 
         try {
-            $logger->logAction($this->getJwtUserClaim('id'), $sentence);
+            $logger->logAction($this->getJwtUserClaim('accountId'), $sentence);
         } catch (LoggerException $e) {
             echo $e->getMessage(); die;
         }

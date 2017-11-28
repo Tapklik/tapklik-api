@@ -13,7 +13,7 @@ class MySqlLoggerProvider implements LoggerInterface
     {
         try {
             Log::create([
-                'user_id' => $accountId,
+                'account_id' => $accountId,
                 'action'  => $actionTaken
             ]);
         } catch (\Exception $e) {
