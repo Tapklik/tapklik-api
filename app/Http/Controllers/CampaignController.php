@@ -160,7 +160,8 @@ class CampaignController extends Controller
                 $uuid
             );
 
-            $this->logActionToLoggerProvider($actionToLog);
+            // Don't log draft requests
+            if(request('status') !== 'draft') $this->logActionToLoggerProvider($actionToLog);
 
             return response()->json(['data' => '']);
         } catch (ModelNotFoundException $e) {

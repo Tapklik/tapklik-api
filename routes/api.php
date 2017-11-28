@@ -17,7 +17,6 @@ use App\Http\Middleware\JWT;
 Route::group(
     ['prefix' => 'campaigns', 'middleware' => JWT::class],
     function () {
-
         Route::get(
             '/',
             ['as'   => 'campaigns.index',

@@ -142,7 +142,7 @@ class Controller extends BaseController
         try {
             $logger->logAction($this->getJwtUserClaim('id'), $sentence);
         } catch (LoggerException $e) {
-            // Skip for now
+            echo $e->getMessage(); die;
         }
 
     }
