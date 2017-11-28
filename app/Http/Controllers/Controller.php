@@ -134,6 +134,9 @@ class Controller extends BaseController
 
     protected function logActionToLoggerProvider($sentence, $attr = [])
     {
+
+        return true;
+
         if(!$attr) $attr = [
             'id'   => $this->getJwtUserClaim('id'),
             'name' => $this->getJwtUserClaim('name')
@@ -141,11 +144,11 @@ class Controller extends BaseController
 
 
         $client = new Client([
-            'base_uri' => 'http://logs-01.loggly.com'
+            'base_uri' => env('LOGGLY_URI')
         ]);
 
         try {
-            $client->post('inputs/67a90950-78f3-4a24-86be-0a57c3461280/tag/account-' . $this->getJwtUserClaim('id'), [
+            $client->post('inputs/67a90950-78f3-4a24-86be-0a57c3461280/tag/account-' . $attr['id'], [
                 'json' => [
                     'message' => $sentence,
                     'attr'    => $attr,

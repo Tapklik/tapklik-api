@@ -25,7 +25,7 @@ class MailController extends Controller
             $result = $ses->sendEmail([
                 'Source' => 'robot@tapklik.com',
                 'Destination' => [
-                    'ToAddresses' => ['rok@tapklik.com']
+                    'ToAddresses' => [request('to')]
                 ],
                 'Message' => [
                     'Subject' => [
