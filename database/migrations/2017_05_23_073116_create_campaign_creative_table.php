@@ -25,8 +25,7 @@ class CreateCampaignCreativeTable extends Migration
 
             $table->foreign('creative_id')
                   ->references('id')
-                  ->on('creatives')
-                  ->onDelete('cascade');
+                  ->on('creatives');
         });
     }
 

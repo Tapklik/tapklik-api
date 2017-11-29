@@ -26,7 +26,7 @@ class AddThumbnailFieldToCreativesTable extends Migration
     public function down()
     {
         Schema::table('creatives', function (Blueprint $table) {
-            $table->drop('thumb');
+            $table->dropColumn('thumb');
         });
     }
 }

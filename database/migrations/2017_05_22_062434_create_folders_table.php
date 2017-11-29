@@ -23,8 +23,7 @@ class CreateFoldersTable extends Migration
 
             $table->foreign('account_id')
                 ->references('id')
-                ->on('accounts')
-                ->onDelete('cascade');
+                ->on('accounts');
         });
     }
 
@@ -35,10 +34,8 @@ class CreateFoldersTable extends Migration
      */
     public function down()
     {
-        Schema::table('creatives', function(Blueprint $table) {
-            $table->dropForeign('folders_account_id_foreign');
+        Schema::table('folders', function(Blueprint $table) {
+            Schema::dropIfExists('folders');
         });
-
-        Schema::dropIfExists('folders');
     }
 }
