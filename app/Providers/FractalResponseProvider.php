@@ -36,6 +36,9 @@ class FractalResponseProvider extends ServiceProvider
 		    $manager = new Manager();
 		    $serializer = $app[SerializerAbstract::class];
 
+            $request = app()->make('request');
+            if($request->get('include')) $manager->parseIncludes($request->get('include'));
+
 		    return new FractalResponse($manager, $serializer);
 	    });
 

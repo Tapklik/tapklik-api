@@ -12,6 +12,8 @@ class CreativeTransformer extends TransformerAbstract
 {
 
     protected $defaultIncludes = ['attr'];
+    
+    protected $availableIncludes = ['campaigns'];
 
     /**
      * @param \App\Creative $creative
@@ -44,5 +46,10 @@ class CreativeTransformer extends TransformerAbstract
      public function includeAttr(Creative $creative)
      {
          return $this->collection($creative->attributes, new AttrTransformer);
+     }
+     
+     public function includeCampaigns(Creative $creative)
+     {
+         return $this->collection($creative->campaign, new CampaignTransformer);
      }
 }
