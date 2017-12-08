@@ -383,6 +383,18 @@ Route::group(
             ]);
         });
 
+
+        Route::group(['prefix' => 'list'], function () {
+
+            // Categories
+
+            // Types
+
+            // Os
+
+            // Models
+        });
+
     }
 );
 

@@ -25,7 +25,6 @@ class JWT
      */
     public function handle($request, Closure $next)
     {
-
         // Check for bearer
         if ( !$request->header('Authorization')) {
 
@@ -42,10 +41,10 @@ class JWT
 
         // Validate bearer
         $token   = str_replace('Bearer ', '', $request->header('Authorization'));
-
         try {
 
             $payload = (new Parser())->parse((string)$token);
+            
         } catch (\Exception $e) {
 
             return response()->json(
