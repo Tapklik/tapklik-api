@@ -63,7 +63,10 @@ class CampaignCreativeController extends Controller
                         $campaign->uuid
                     );
 
+
+
                     $this->logActionToLoggerProvider($actionToLog);
+
                 } catch (ModelNotFoundException $e) {}
 
                 return $creative->id;
@@ -77,7 +80,7 @@ class CampaignCreativeController extends Controller
             return $this->error(Response::HTTP_NOT_FOUND, 'Not found', 'Campaign '.$uuid.' does not exist.');
         } catch (\Exception $e) {
 
-            return $this->error(Response::HTTP_NOT_FOUND, 'Unknown error', $e->getMessage());
+            return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
         }
     }
 
