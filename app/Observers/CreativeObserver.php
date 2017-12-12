@@ -1,13 +1,14 @@
 <?php namespace App\Observers;
 
 use App\Creative;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class CreativeObserver
  *
  * @package \App\Observers
  */
-class CreativeObserver extends BaseObserver
+class CreativeObserver
 {
 
     /**
@@ -17,8 +18,8 @@ class CreativeObserver extends BaseObserver
     {
 
         // Set defaults
-        $uuid           = self::generateId(6);
-        $creative->uuid = $uuid;
+        $uuid           = Uuid::uuid1();
+        $creative->uuid = $uuid->toString();
         $creative->save();
     }
 }
