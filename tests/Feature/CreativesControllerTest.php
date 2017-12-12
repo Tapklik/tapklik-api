@@ -42,9 +42,8 @@ class CreativesControllerTest extends TestCase {
     public function it_can_attach_attributes_to_creative()
     {
         $creative = factory(\App\Creative::class)->states(['withFolder'])->create();
-        $attribute = new \App\Attribute(['attr' => 2]);
 
-        $response = $this->post('/v1/creatives/' . $creative->uuid . '/attr', $attribute->toArray());
+        $response = $this->post('/v1/creatives/' . $creative->uuid . '/attr', [2,4,6]);
 
         $creative = \App\Creative::findByUuId($creative->uuid);
 
