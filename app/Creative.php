@@ -156,4 +156,11 @@ height="'.$creative->h.'" width="'.$creative->w
 
         return new self($object);
     }
+
+    public function clearAttributes()
+    {
+        $this->attributes()->each(function ($attribute) {
+            $attribute->delete();
+        });
+    }
 }

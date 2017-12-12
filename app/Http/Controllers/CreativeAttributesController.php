@@ -13,10 +13,10 @@ class CreativeAttributesController extends Controller
 
         try {
             $creative = Creative::findByUuId($uuid);
+            $creative->clearAttributes();
 
             collect($request->input())->each(function ($attr) use ($creative) {
                 $attribute = new Attribute(['attr' => $attr]);
-
                 $creative->attributes()->save($attribute);
             });
 
