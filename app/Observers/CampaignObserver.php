@@ -2,22 +2,20 @@
 
 use App\Budget;
 use App\Campaign;
-use Illuminate\Support\Facades\Log;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Class CampaignObserver
  *
  * @package \App\Observers
  */
-class CampaignObserver
+class CampaignObserver extends BaseObserver
 {
 
     public function created(Campaign $campaign)
     {
         // Set defaults
-        $uuid                  = Uuid::uuid1();
-        $campaign->uuid        = $uuid->toString();
+        $uuid                  = self::generateId(10);
+        $campaign->uuid        = $uuid;
         $campaign->description = $campaign->description ?: '';
         $campaign->save();
 
@@ -27,13 +25,5 @@ class CampaignObserver
                 'campaign_id' => $campaign->id,
             ]
         );
-
-        // Set user
-        // Should be left empty
-//        factory(Demography::class)->create(
-//            [
-//                'campaign_id' => $campaign->id,
-//            ]
-//        );
     }
 }

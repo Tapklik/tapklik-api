@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
  *
  * @package \App\Observers
  */
-class UserObserver
+class UserObserver extends BaseObserver
 {
 
     /**
@@ -20,8 +20,8 @@ class UserObserver
     {
 
         // Set defaults
-        $uuid           = Uuid::uuid1();
-        $user->uuid = $uuid->toString();
+        $uuid           = self::generateId(6);
+        $user->uuid = $uuid;
         $user->save();
     }
 }

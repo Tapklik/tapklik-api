@@ -16,8 +16,6 @@ $factory->define(
     App\Account::class,
     function (Faker\Generator $faker) {
 
-        $uuid = \Ramsey\Uuid\Uuid::uuid1();
-
         return ['name'            => $faker->company,
                 'country'         => $faker->countryISOAlpha3,
                 'city'            => $faker->city,

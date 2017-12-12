@@ -1,14 +1,13 @@
 <?php namespace App\Observers;
 
 use App\Account;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Class AccountObserver
  *
  * @package \App\Observers
  */
-class AccountObserver
+class AccountObserver extends BaseObserver
 {
 
     /**
@@ -16,10 +15,9 @@ class AccountObserver
      */
     public function created(Account $account)
     {
-
         // Set defaults
-        $uuid          = Uuid::uuid1();
-        $account->uuid = $uuid->toString();
+        $uuid          = self::generateId(6);
+        $account->uuid = $uuid;
         $account->save();
     }
 }
