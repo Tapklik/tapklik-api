@@ -37,4 +37,19 @@ class CreativesControllerTest extends TestCase {
 
         $this->assertDatabaseMissing('creatives', ['id' => $creative->id]);
     }
+
+    /** @test */
+    public function it_can_attach_attributes_to_creative()
+    {
+        $creative = factory(\App\Creative::class)->states(['withFolder'])->create();
+        $attribute = new \App\Attribute(['attr' => 2]);
+
+        $response = $this->post('/v1/creatives/' . $creative->uuid . '/attr', $attribute->toArray());
+
+        $creative = \App\Creative::findByUuId($creative->uuid);
+
+        $expected = $this->item($creative, new CreativeTransformer);
+
+        $response->assertExactJson($expected);
+    }
 }

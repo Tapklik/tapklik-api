@@ -339,6 +339,12 @@ Route::group(
             ['as'   => 'creatives.folders.show',
              'uses' => 'FolderController@show',]
         );
+
+        // Attributes
+        Route::post('/{id}/attr', [
+            'as' => 'creatives.attributes.store',
+            'uses' => 'CreativeAttributesController@store'
+        ]);
     }
 );
 
