@@ -15,7 +15,6 @@ abstract class AbstractUploader
 
     public function __construct(UploaderInterface $driver, AbstractStorage $storage)
     {
-
         $this->driver  = $driver;
         $this->storage = $storage;
     }

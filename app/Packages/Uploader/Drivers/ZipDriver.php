@@ -3,6 +3,7 @@
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Tapklik\Uploader\Contracts\CanUnzipFiles;
 use Tapklik\Uploader\Contracts\UploaderInterface;
 use Tapklik\Uploader\Exceptions\TapklikUploaderException;
 
@@ -11,7 +12,7 @@ use Tapklik\Uploader\Exceptions\TapklikUploaderException;
  *
  * @package \Tapklik\Uploader\Drivers
  */
-class ZipDriver implements UploaderInterface
+class ZipDriver implements UploaderInterface, CanUnzipFiles
 {
 
     private $_file     = false;
@@ -27,6 +28,8 @@ class ZipDriver implements UploaderInterface
 
         try {
             $this->_file = $file->move($this->_location, $this->makeName($file));
+
+            $this->unzip($this->_file->getPathname(), env('UPLOAD_DIR'));
 
             return $this->getFile();
         } catch (FileException $e) {
@@ -46,5 +49,17 @@ class ZipDriver implements UploaderInterface
     {
 
         return sha1($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+    }
+
+    public function unzip(string $file, string $location)
+    {
+        $tempFolder = str_replace('.zip', '', $this->getFile()->getBasename());
+
+        $zip = new \ZipArchive();
+        $zip->open($file);
+        $zip->extractTo($location . '/' . $tempFolder);
+        $zip->close();
+
+        return $tempFolder;
     }
 }

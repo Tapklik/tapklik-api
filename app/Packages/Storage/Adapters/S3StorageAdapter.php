@@ -24,16 +24,14 @@ class S3StorageAdapter extends AbstractStorageAdapter
 
     public function save(File $file) : Array
     {
-
         try {
-            $object = $this->client->upload(
+            $object = $this->client->uploadDirectory(
+                public_path(str_replace('.zip', '', $file->getPathname())),
                 getenv('AWS_BUCKET'),
-                'creatives'.$file->getFilename(),
-                $file,
-                'public-read'
+                'creatives/html5/' . $file->getFilename()
             );
-
-            return ['iurl' => $object->get('ObjectURL')];
+            return ['iurl' => 'https://s3-us-west-2.amazonaws.com/comtapklik/creatives/html5/' . $file->getFilename()
+                . '/index.html'];
         } catch (S3Exception $e) {
 
             throw new TapklikUploaderException($e->getMessage(), $e->getCode());

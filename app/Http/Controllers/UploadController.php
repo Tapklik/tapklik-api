@@ -3,7 +3,9 @@
 use App\Creative;
 use App\Transformers\CreativeTransformer;
 use Illuminate\Http\Request;
-use Tapklik\Uploader\Contracts\AbstractUploader;
+use Illuminate\Http\Response;
+use Tapklik\Uploader\Contracts\AbstractUploader as Uploader;
+use Tapklik\Uploader\Exceptions\TapklikUploaderException;
 
 /**
  * Class UploadController
@@ -13,12 +15,19 @@ use Tapklik\Uploader\Contracts\AbstractUploader;
 class UploadController extends Controller
 {
 
-    public function store(Request $request, AbstractUploader $uploader)
+    public function store(Request $request, Uploader $uploader)
     {
-        $file      = $uploader->move($request->file('file'));
-        $objectUrl = $uploader->save($file);
-        $creative  = Creative::newCreative(array_merge($request->input(), $objectUrl, (array)$file));
 
-        return $this->item($creative, new CreativeTransformer());
+        try {
+            $file      = $uploader->move($request->file('file'));
+            $objectUrl = $uploader->save($file);
+            $creative  = Creative::newCreative(array_merge($request->input(), $objectUrl, (array)$file));
+
+            return $this->item($creative, new CreativeTransformer());
+        } catch (TapklikUploaderException $e) {
+
+            return $this->error(Response::HTTP_BAD_REQUEST, $e->getMessage());
+        }
+
     }
 }
