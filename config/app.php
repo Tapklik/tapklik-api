@@ -193,6 +193,7 @@ return [
          * Custom Service Providers...
          */
         App\Providers\FractalResponseProvider::class,
+        App\Providers\UploaderServiceProvider::class,
     ],
 
     /*

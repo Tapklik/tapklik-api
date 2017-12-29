@@ -2,6 +2,7 @@
 
 use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
+use Illuminate\Http\Request;
 
 /**
  * Class Creative
@@ -38,6 +39,14 @@ class Creative extends ModelSetup implements Uuidable
     {
 
         return $this->belongsToMany(Campaign::class);
+    }
+
+    public static function newCreative($payload = [])
+    {
+        $payload['expdir'] = 0;
+        $payload['adm'] = '';
+
+        return self::create($payload);
     }
 
     public static function replaceHtml5ClickTag(Creative $creative)

@@ -11,7 +11,6 @@ class Generator
     public function generateUniqueId(int $length = 8)
     {
 
-        // uniqid gives 13 chars, but you could adjust it to your needs.
         if (function_exists("random_bytes")) {
             $bytes = random_bytes(ceil($length / 2));
         } elseif (function_exists("openssl_random_pseudo_bytes")) {
