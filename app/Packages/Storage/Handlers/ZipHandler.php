@@ -29,8 +29,12 @@ class ZipHandler implements FileHandlerInterface
                 getenv('AWS_BUCKET'),
                 'creatives/' . $file->getFilename()
             );
+
+
+            $localZipFileLocation = url('trunk' . str_replace('./trunk', '', $file->getPathname()));
+
             return ['iurl' => 'https://s3-us-west-2.amazonaws.com/comtapklik/creatives/html5/' . $file->getFilename()
-                . '/index.html'];
+                . '/index.html', 'asset' => $localZipFileLocation, 'thumb' => 'https://placehold.it/120x120'];
         } catch (S3Exception $e) {
 
             throw new TapklikUploaderException($e->getMessage(), $e->getCode());
