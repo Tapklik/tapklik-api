@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Tapklik\Storage\Adapters\S3StorageAdapter;
 use Tapklik\Storage\Container;
 use Tapklik\Uploader\Contracts\AbstractUploader;
+use Tapklik\Uploader\Drivers\DefaultDriver;
 use Tapklik\Uploader\Drivers\ZipDriver;
 use Tapklik\Uploader\Service;
 
@@ -33,8 +34,11 @@ class UploaderServiceProvider extends ServiceProvider
         $this->app->bind(AbstractUploader::class, function ($app) {
 
             // Load driver based on extension
+            $type = ucfirst(strtolower($this->request->file('file')->guessClientExtension()));
 
-            $driver   = new ZipDriver(env('UPLOAD_DIR'));
+            $driver = (class_exists($class = "\\Tapklik\\Uploader\\Drivers\\{$type}Driver")) ? new $class(env('UPLOAD_DIR')) : new
+            DefaultDriver(env('UPLOAD_DIR'));
+
             $adapter  = new S3StorageAdapter(
                 ['region'      => getenv('AWS_REGION'),
                  'version'     => '2006-03-01',

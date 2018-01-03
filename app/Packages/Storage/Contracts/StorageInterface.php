@@ -10,4 +10,6 @@ use Symfony\Component\HttpFoundation\File\File;
 interface StorageInterface
 {
     public function save(File $file) : Array;
+
+    public function getStorageDriver();
 }

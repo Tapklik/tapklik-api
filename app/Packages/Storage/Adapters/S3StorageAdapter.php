@@ -4,6 +4,8 @@ use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
 use Symfony\Component\HttpFoundation\File\File;
 use Tapklik\Storage\Contracts\AbstractStorageAdapter;
+use Tapklik\Storage\Contracts\StorageInterface;
+use Tapklik\Storage\Handlers\DefaultHandler;
 use Tapklik\Uploader\Exceptions\TapklikUploaderException;
 
 /**
@@ -22,19 +24,26 @@ class S3StorageAdapter extends AbstractStorageAdapter
         $this->client = S3Client::factory($config);
     }
 
+    public function getStorageDriver()
+    {
+        return $this->client;
+    }
+
     public function save(File $file) : Array
     {
-        try {
-            $object = $this->client->uploadDirectory(
-                public_path(str_replace('.zip', '', $file->getPathname())),
-                getenv('AWS_BUCKET'),
-                'creatives/html5/' . $file->getFilename()
-            );
-            return ['iurl' => 'https://s3-us-west-2.amazonaws.com/comtapklik/creatives/html5/' . $file->getFilename()
-                . '/index.html'];
-        } catch (S3Exception $e) {
+        $type = ucfirst(strtolower($file->getExtension()));
 
-            throw new TapklikUploaderException($e->getMessage(), $e->getCode());
+        $handler = class_exists($class = "\\Tapklik\\Storage\\Handlers\\{$type}Handler") ? new $class : new
+        DefaultHandler;
+
+        try {
+            return $handler->handle($file, $this);
+        } catch (TapklikUploaderException $e) {
+
+            return [
+                'error' => true,
+                'message' => $e->getMessage()
+            ];
         }
     }
 
