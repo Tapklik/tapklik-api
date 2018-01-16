@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tapklik\Uploader\Contracts\CanUnzipFiles;
 use Tapklik\Uploader\Contracts\UploaderInterface;
 use Tapklik\Uploader\Exceptions\TapklikUploaderException;
+use ZipArchive;
 
 /**
  * Class ZipDriver
@@ -55,7 +56,7 @@ class ZipDriver implements UploaderInterface, CanUnzipFiles
     {
         $tempFolder = str_replace('.zip', '', $this->getFile()->getBasename());
 
-        $zip = new \ZipArchive();
+        $zip = new ZipArchive();
         $zip->open($file);
         $zip->extractTo($location . '/' . $tempFolder);
         $zip->close();
