@@ -348,6 +348,19 @@ Route::group(
     }
 );
 
+Route::group(['prefix' => 'exchanges', 'middleware' => JWT::class], function () {
+
+    Route::get('/', [
+        'as' => 'exchanges.index',
+        'uses' => 'AccountExchangesController@index'
+    ]);
+
+    Route::get('/{id}', [
+        'as' => 'exchanges.show',
+        'uses' => 'AccountExchangesController@show'
+    ]);
+});
+
 /**
  * Core namespace provides utility endpoints, such as fuzzy search
  */

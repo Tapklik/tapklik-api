@@ -29,5 +29,6 @@ class GeneralSeeder extends Seeder
         (new UserSeeder)->run();
         (new DemographySeeder)->run();
         (new CampaignSeeder())->run();
+        (new ExchangesSeeder())->run();
     }
 }

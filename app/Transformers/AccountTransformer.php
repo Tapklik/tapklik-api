@@ -40,6 +40,10 @@ class AccountTransformer extends TransformerAbstract
                 'country' => $account->billing_country,
                 'city'    => $account->billing_city,
             ],
+            'fees' => [
+                'variable' => $account->fee_variable,
+                'fixed' => $account->fee_fixed
+            ],
             'status'       => $account->status,
         ];
     }
