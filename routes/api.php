@@ -385,6 +385,18 @@ Route::group(
             }
         );
 
+        Route::group(['prefix' => 'publishers'], function () {
+            Route::get('/', [
+                'as' => 'publishers.index',
+                'uses' => 'PublishersController@index'
+            ]);
+
+            Route::get('/{id}', [
+                'as' => 'publishers.show',
+                'uses' => 'PublishersController@show'
+            ]);
+        });
+
         Route::group(
             ['prefix' => '/erlang',],
             function () {
