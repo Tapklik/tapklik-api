@@ -12,7 +12,7 @@ use League\Fractal\TransformerAbstract;
  */
 class ErlangCampaignTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = [ 'creatives', 'cat', 'device', 'exchange', 'budget', 'geo', 'user'];
+    protected $defaultIncludes = [ 'account', 'creatives', 'cat', 'device', 'exchange', 'budget', 'geo', 'user'];
 
     /**
      * @param \App\Campaign $campaign
@@ -63,7 +63,10 @@ class ErlangCampaignTransformer extends TransformerAbstract
         return $this->collection($campaign->creatives, new ErlangCreativeTransformer);
     }
 
+    public function includeAccount(Campaign $campaign) {
 
+        return $this->item($campaign->account, new AccountTransformer());
+    }
 
     public function includeUser(Campaign $campaign)
     {
