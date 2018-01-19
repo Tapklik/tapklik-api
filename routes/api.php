@@ -224,6 +224,11 @@ Route::group(
              'uses' => 'AccountController@destroy']
         );
 
+        Route::put('/{id}/fees', [
+            'as' => 'accounts.fees.update',
+            'uses' => 'AccountFeesController@update'
+        ]);
+
         Route::get('/{id}/campaigns ', [
             'as' => 'accounts.campaigns.index',
             'uses' => 'AccountsCampaignController@index'

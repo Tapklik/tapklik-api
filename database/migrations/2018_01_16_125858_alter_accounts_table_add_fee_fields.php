@@ -15,7 +15,7 @@ class AlterAccountsTableAddFeeFields extends Migration
     {
         Schema::table('accounts', function (Blueprint $table) {
             $table->bigInteger('fee_fixed')->nullable()->default(0);
-            $table->bigInteger('variable')->nullable()->default(0);
+            $table->bigInteger('fee_variable')->nullable()->default(0);
         });
     }
 
