@@ -12,7 +12,7 @@ use League\Fractal\TransformerAbstract;
 class ErlangCreativeTransformer extends TransformerAbstract
 {
 
-    protected $defaultIncludes = [ 'attr'];
+    protected $defaultIncludes = ['attr'];
 
 
     /**
@@ -23,29 +23,31 @@ class ErlangCreativeTransformer extends TransformerAbstract
     public function transform(Creative $creative)
     {
 
-        if ($creative->status == '')
+        if ($creative->status == '') {
             return '';
+        }
 
-        return [
-            'crid'   => $creative->uuid,
-            'class'  => $creative->class,
-            'type'   => $creative->type,
-            'h'      => $creative->h,
-            'w'      => $creative->w,
-            'attr'   => $creative->attr,
-            'expdir' => $creative->expdir,
-            'pos'    => $creative->pos,
-            'ctrurl' => $creative->ctrurl,
-            'iurl'   => $creative->iurl,
-            'adm'    => $creative->adm,
-            'dim'    => [$creative->w.'x'.$creative->h],
-            'status' => $creative->status,
-        ];
+        return ['crid'       => $creative->uuid,
+                'class'      => $creative->class,
+                'type'       => $creative->type,
+                'h'          => $creative->h,
+                'w'          => $creative->w,
+                'attr'       => $creative->attr,
+                'expdir'     => $creative->expdir,
+                'pos'        => $creative->pos,
+                'ctrurl'     => $creative->ctrurl,
+                'iurl'       => $creative->iurl,
+                'adm'        => $creative->adm,
+                'adm_js'     => $creative->adm_js,
+                'adm_iframe' => $creative->adm_iframe,
+                'dim'        => [$creative->w.'x'.$creative->h],
+                'status'     => $creative->status,];
     }
 
     public function includeAttr(Creative $creative)
-     {
-         return $this->collection($creative->attributes, new AttrTransformer);
-     }
+    {
+
+        return $this->collection($creative->attributes, new AttrTransformer);
+    }
 
 }

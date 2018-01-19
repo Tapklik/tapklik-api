@@ -35,6 +35,7 @@ class ExchangeControllerTest extends TestCase
     public function user_can_create_exchange()
     {
         $exchange = factory(Exchange::class)->make();
+        var_dump($exchange->toArray());
 
         $this->post('/v1/campaigns/' . $this->campaign->uuid . '/exchange', $exchange->toArray())
             ->assertStatus(Response::HTTP_OK)
