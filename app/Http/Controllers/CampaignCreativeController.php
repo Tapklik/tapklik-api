@@ -55,6 +55,8 @@ class CampaignCreativeController extends Controller
                 try{
                     $creative = Creative::findByUuId($uid);
                     $creative->adm = Creative::generateAdm($campaign->uuid, $uid);
+                    $creative->adm_js = Creative::generateAdm($campaign->uuid, $uid, 'js');
+                    $creative->adm_iframe = Creative::generateAdm($campaign->uuid, $uid, 'iframe');
                     $creative->save();
 
                     $actionToLog = sprintf('%s attached a creative ID%s to campaign ID#%s',

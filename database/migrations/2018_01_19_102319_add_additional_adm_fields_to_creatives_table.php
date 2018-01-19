@@ -15,8 +15,8 @@ class AddAdditionalAdmFieldsToCreativesTable extends Migration
     {
         Schema::table('creatives', function (Blueprint $table) {
 
-            $table->string('adm_js')->nullable();
-            $table->string('adm_iframe')->nullable();
+            $table->text('adm_js')->nullable();
+            $table->text('adm_iframe')->nullable();
         });
     }
 

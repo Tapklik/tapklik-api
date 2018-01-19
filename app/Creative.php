@@ -9,19 +9,48 @@ use Illuminate\Http\Request;
  *
  * @package App
  */
-class Creative extends ModelSetup implements Uuidable
+class   Creative extends ModelSetup implements Uuidable
 {
 
     private static $_s3 = false;
 
     // Methods
 
-    public static function generateAdm($campaignId, $creativeId)
+    public static function generateAdm($campaignId, $creativeId, $type = '')
     {
 
         $creative = self::findByUuId($creativeId);
-        
-        return "<iframe src='".getenv('AD_SERVER_URL')."/serve/{$campaignId}/{$creativeId}?{{BIDDER_ATTR}}' frameborder='0' height='{$creative->h}' width='{$creative->w}' style='border: 0px; vertical-align: bottom' scrolling='no'></iframe>";
+
+        switch($type) {
+            case 'iframe':
+                return "<iframe src='".getenv('AD_SERVER_URL')."/serve/{$campaignId}/{$creativeId}?{{BIDDER_ATTR}}' frameborder='0' height='{$creative->h}' width='{$creative->w}' style='border: 0px; vertical-align: bottom' scrolling='no'></iframe>";
+            break;
+
+            case 'js':
+                return "<script type='text/javascript'>
+                        (function() {
+                            var pre_ctr, post_ctr;
+                            var dlvr_u = pre_ctr + 'https://butler.tapklik.com/deliver/{$creativeId}' + post_ctr;
+                            var dlvr_hsh = Math.floor(Math.random() * 999999);
+                    
+                            document.write('<script type=\"text/javascript\" src=\"' + dlvr_u);
+                            document.write('?cid={$creativeId}');
+                    
+                                    document.write('&amp;hashid=' + dlvr_hsh);
+                                    
+                            if(document.referrer) document.write('&amp;ref=' + encodeURI(document.referrer));
+                            
+                            document.write('\"><\/script>');
+                        })();";
+            break;
+
+            default:
+                return '<a href="https://butler.tapklik.com/link/' . $creativeId . '/?c='. $campaignId .'&amp;cr=' .
+                    $creativeId . '&amp;ts='. time() .'&amp;{{BIDDER_ATTR}}" target="_blank" style="display: block; overflow: 
+                hidden; height: auto !important;"><img src="https://butler.tapklik.com/paint/' . $creativeId .'" alt="bann_' . rand(9999, 99999) . '"></a>';
+            break;
+        }
+
     }
 
     /**

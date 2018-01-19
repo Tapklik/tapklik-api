@@ -11,6 +11,8 @@
 |
 */
 
+use App\Campaign;
+use App\Creative;
 use Illuminate\Http\UploadedFile;
 use Tapklik\Uploader\Drivers\ZipDriver;
 use Tapklik\Uploader\Service;
@@ -19,12 +21,12 @@ Route::get(
     '/test',
     function () {
 
-        $file     = new UploadedFile('../tests/data/tapklik.zip', 'tapklik.zip');
-        $driver   = new ZipDriver($file, env('UPLOAD_DIR'));
-        $storage  = new Tapklik\Storage\Adapters\S3StorageAdapter();
-        $uploader = new Service($driver, $storage);
+        $cr = Creative::findOrFail(1);
+        $campaign = Campaign::findOrFail(1);
 
-        dd($uploader->move());
+        $adm = Creative::generateAdm($campaign->uuid,$cr->uuid, 'js');
+
+        echo $adm;
     }
 );
 
