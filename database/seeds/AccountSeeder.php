@@ -11,6 +11,20 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
+        factory(\App\Account::class)->create([
+            'name' => 'Tapklik',
+            'country' => 'UAE',
+            'city' => 'Dubai',
+            'timezone' => 'Dubai/UAE',
+            'language' => 'en',
+            'status' => 1,
+            'company' => 'Tapklik',
+            'billing_address' => 'Dubai',
+            'billing_email' => 'info@tapklik.com',
+            'billing_country' => 'Dubai',
+            'billing_city' => 'Dubai',
+        ]);
+
         factory(\App\Account::class)->create();
     }
 }

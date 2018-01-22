@@ -19,7 +19,7 @@ class CreateExchangesTable extends Migration
            $table->unsignedInteger('campaign_id');
            $table->timestamps();
 
-           $table->foreign('campaign_id')->references('id')->on('campaigns');
+           $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
         });
     }
 

@@ -17,11 +17,7 @@ class GeneralSeeder extends Seeder
     public function run()
     {
 
-        $account   = factory(Account::class)->create();
-        $campaign  = factory(Campaign::class)->create(['account_id' => $account->id]);
-        $folder    = factory(Folder::class)->create(['account_id' => $account->id]);
-        $creatives = factory(Creative::class)->create(['folder_id' => $folder->id]);
-
+        (new AccountSeeder)->run();
         (new CategoriesSeeder)->run();
         (new DeviceTypeSeeder)->run();
         (new DeviceModelSeeder)->run();
