@@ -37,17 +37,17 @@ class   Creative extends ModelSetup implements Uuidable
                             document.write('<script type=\"text/javascript\" src=\"' + dlvr_u);
                             document.write('?cid={$creativeId}');
                     
-                                    document.write('&amp;hashid=' + dlvr_hsh);
+                                    document.write('&hashid=' + dlvr_hsh);
                                     
-                            if(document.referrer) document.write('&amp;ref=' + encodeURI(document.referrer));
+                            if(document.referrer) document.write('&ref=' + encodeURI(document.referrer));
                             
                             document.write('\"><\/script>');
                         })();";
             break;
 
             default:
-                return '<a href="{{PRE_ADM}}https://butler.tapklik.com/link/' . $creativeId . '/?c='. $campaignId .'&amp;cr=' .
-                    $creativeId . '&amp;ts='. time() .'&amp;{{BIDDER_ATTR}}{{POST_ADM}}" target="_blank" style="display: block; overflow: 
+                return '<a href="{{PRE_ADM}}https://butler.tapklik.com/link/' . $creativeId . '/?c='. $campaignId .'&cr=' .
+                    $creativeId . '&ts='. time() .'&{{BIDDER_ATTR}}{{POST_ADM}}" target="_blank" style="display: block; overflow: 
                 hidden; height: auto !important;"><img src="https://butler.tapklik.com/paint/' . $creativeId .'" alt="bann_' . rand(9999, 99999) . '"></a>';
             break;
         }
