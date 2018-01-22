@@ -46,8 +46,7 @@ class   Creative extends ModelSetup implements Uuidable
             break;
 
             default:
-                return '<a href="{{PRE_ADM}}https://butler.tapklik.com/link/' . $creativeId . '/?c='. $campaignId .'&cr=' .
-                    $creativeId . '&ts='. time() .'&{{BIDDER_ATTR}}{{POST_ADM}}" target="_blank" style="display: block; overflow: 
+                return '<a href="{{PRE_ADM}}https://butler.tapklik.com/link/' . $creativeId . '/{{BIDDER_ATTR}}{{POST_ADM}}" target="_blank" style="display: block; overflow: 
                 hidden; height: auto !important;"><img src="https://butler.tapklik.com/paint/' . $creativeId .'" alt="bann_' . rand(9999, 99999) . '"></a>';
             break;
         }
