@@ -23,7 +23,6 @@ class GeneralSeeder extends Seeder
         (new DeviceModelSeeder)->run();
         (new DeviceOsSeeder)->run();
         (new UserSeeder)->run();
-        (new CampaignSeeder())->run();
         (new ExchangesSeeder())->run();
     }
 }

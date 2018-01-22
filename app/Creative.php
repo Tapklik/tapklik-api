@@ -23,7 +23,7 @@ class   Creative extends ModelSetup implements Uuidable
 
         switch($type) {
             case 'iframe':
-                return "<iframe src='".getenv('AD_SERVER_URL')."/serve/{$campaignId}/{$creativeId}?{{BIDDER_ATTR}}' frameborder='0' height='{$creative->h}' width='{$creative->w}' style='border: 0px; vertical-align: bottom' scrolling='no'></iframe>";
+                return "<iframe src='{{PRE_ADM}}".getenv('AD_SERVER_URL')."/serve/{$campaignId}/{$creativeId}?{{BIDDER_ATTR}}{{POST_ADM}}' frameborder='0' height='{$creative->h}' width='{$creative->w}' style='border: 0px; vertical-align: bottom' scrolling='no'></iframe>";
             break;
 
             case 'js':
@@ -45,8 +45,8 @@ class   Creative extends ModelSetup implements Uuidable
             break;
 
             default:
-                return '<a href="https://butler.tapklik.com/link/' . $creativeId . '/?c='. $campaignId .'&amp;cr=' .
-                    $creativeId . '&amp;ts='. time() .'&amp;{{BIDDER_ATTR}}" target="_blank" style="display: block; overflow: 
+                return '<a href="{{PRE_ADM}}https://butler.tapklik.com/link/' . $creativeId . '/?c='. $campaignId .'&amp;cr=' .
+                    $creativeId . '&amp;ts='. time() .'&amp;{{BIDDER_ATTR}}&{{PRE_ADM}}" target="_blank" style="display: block; overflow: 
                 hidden; height: auto !important;"><img src="https://butler.tapklik.com/paint/' . $creativeId .'" alt="bann_' . rand(9999, 99999) . '"></a>';
             break;
         }
