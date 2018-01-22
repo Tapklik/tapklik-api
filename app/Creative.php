@@ -23,7 +23,7 @@ class   Creative extends ModelSetup implements Uuidable
 
         switch($type) {
             case 'iframe':
-                return "<iframe src='{{PRE_ADM}}".getenv('AD_SERVER_URL')."/serve/{$campaignId}/{$creativeId}?{{BIDDER_ATTR}}&amp;{{POST_ADM}}'
+                return "<iframe src='{{PRE_ADM}}".getenv('AD_SERVER_URL')."/serve/{$campaignId}/{$creativeId}?{{BIDDER_ATTR}}{{POST_ADM}}'
  frameborder='0' height='{$creative->h}' width='{$creative->w}' style='border: 0px; vertical-align: bottom' scrolling='no'></iframe>";
             break;
 
@@ -47,7 +47,7 @@ class   Creative extends ModelSetup implements Uuidable
 
             default:
                 return '<a href="{{PRE_ADM}}https://butler.tapklik.com/link/' . $creativeId . '/?c='. $campaignId .'&amp;cr=' .
-                    $creativeId . '&amp;ts='. time() .'&amp;{{BIDDER_ATTR}}&{{POST_ADM}}" target="_blank" style="display: block; overflow: 
+                    $creativeId . '&amp;ts='. time() .'&amp;{{BIDDER_ATTR}}{{POST_ADM}}" target="_blank" style="display: block; overflow: 
                 hidden; height: auto !important;"><img src="https://butler.tapklik.com/paint/' . $creativeId .'" alt="bann_' . rand(9999, 99999) . '"></a>';
             break;
         }
