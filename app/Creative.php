@@ -45,7 +45,7 @@ class   Creative extends ModelSetup implements Uuidable
             break;
 
             case 'url':
-                return 'https://butler.tapklik.com/paint/' . $creativeId;
+                return 'https://butler.tapklik.com/link/' . $creativeId;
             break;
 
             default:
