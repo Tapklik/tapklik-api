@@ -40,6 +40,7 @@ class ErlangCreativeTransformer extends TransformerAbstract
                 'adm'        => $creative->adm,
                 'adm_js'     => $creative->adm_js,
                 'adm_iframe' => $creative->adm_iframe,
+                'adm_url'    => $creative->adm_url,
                 'dim'        => [$creative->w.'x'.$creative->h],
                 'status'     => $creative->status,];
     }
