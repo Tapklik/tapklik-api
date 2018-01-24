@@ -64,7 +64,7 @@ class UserController extends Controller
             $actionToLog = sprintf('%s added an account user with ID#%s named %s',
                 $this->getJwtUserClaim('name'),
                 $user->uuid,
-                ucwords(strtolowert($user->first_name . ' ' . $user->last_name))
+                ucwords(strtolower($user->first_name . ' ' . $user->last_name))
             );
 
             $this->logActionToLoggerProvider($actionToLog);
