@@ -45,7 +45,7 @@ class   Creative extends ModelSetup implements Uuidable
             break;
 
             case 'url':
-                return '<a href="{{ADM_URL}}" target="_blank"><img src="https://butler.tapklik.com/paint/' . $creativeId .'" alt="bann_' . rand(9999, 99999) . '"></a>';
+                return 'https://butler.tapklik.com/paint/' . $creativeId;
             break;
 
             default:
