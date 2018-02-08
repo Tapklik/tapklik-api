@@ -423,6 +423,10 @@ Route::group(
         Route::group(['prefix' => 'list'], function () {
 
             // Categories
+			Route::get('/categories', [
+				'as' => 'list.categories',
+				'uses' => 'ListCategoriesController@index'
+			]);
 
             // Types
 

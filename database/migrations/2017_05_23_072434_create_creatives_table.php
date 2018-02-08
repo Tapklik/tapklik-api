@@ -33,7 +33,7 @@ class CreateCreativesTable extends Migration
 
             $table->foreign('folder_id')
                 ->references('id')
-                ->on('folders');
+                ->on('folders')->onDelete('cascade');
         });
     }
 
@@ -44,8 +44,9 @@ class CreateCreativesTable extends Migration
      */
     public function down()
     {
-        Schema::table('creatives', function(Blueprint $table) {
-            Schema::dropIfExists('creatives');
-        });
+    	    Schema::table('creatives', function (Blueprint $table) {
+    		    $table->dropForeign('creatives_folder_id_foreign');
+
+	    });
     }
 }
