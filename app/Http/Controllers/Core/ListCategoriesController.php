@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Core;
 
 use App\Category;
 use App\Http\Controllers\Controller;
-use App\Transformers\CategoryTransformer;
+use App\Transformers\CoreCategoryTransformer;
+
 /**
  * Class AccountController
  *
@@ -16,6 +17,6 @@ class ListCategoriesController extends Controller
     {
     	    $categories = Category::orderBy('code')->get();
 
-    	    return $this->collection($categories, new CategoryTransformer);
+    	    return $this->collection($categories, new CoreCategoryTransformer);
     }
 }
