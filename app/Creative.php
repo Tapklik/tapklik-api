@@ -23,7 +23,7 @@ class   Creative extends ModelSetup implements Uuidable
 
         switch($type) {
             case 'iframe':
-                return "<iframe src='https://butler.tapklik.com/paint/{$creativeId}?html=5&{{ADM_URL}}' frameborder='0' 
+                return "<iframe src='https://butler.tapklik.com/paint/{$creativeId}?type=html5&{{ADM_URL}}' frameborder='0' 
 height='{$creative->h}' width='{$creative->w}'></iframe>";
             break;
 

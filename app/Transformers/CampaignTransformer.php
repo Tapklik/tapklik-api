@@ -1,5 +1,6 @@
 <?php namespace App\Transformers;
 
+use App\Account;
 use App\Budget;
 use App\Campaign;
 use App\Creative;
@@ -20,6 +21,8 @@ class CampaignTransformer extends TransformerAbstract
      * @var array
      */
     protected $defaultIncludes = ['exchange', 'cat', 'budget', 'user', 'geo', 'creatives', 'device'];
+
+    protected $availableIncludes = ['account'];
 
     //    protected $defaultIncludes = [ 'device'];
 
@@ -122,5 +125,16 @@ class CampaignTransformer extends TransformerAbstract
     {
 
         return $this->item($campaign, new DeviceTransformer);
+    }
+
+    /**
+     * @param \App\Campaign $campaign
+     *
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeAccount(Campaign $campaign)
+    {
+
+        return $this->item($campaign->account, new AccountTransformer);
     }
 }
