@@ -34,6 +34,7 @@ class CreativeTransformer extends TransformerAbstract
             'adm'        => $creative->adm,
             'adm_js'     => $creative->adm_js,
             'adm_iframe' => $creative->adm_iframe,
+            'adm_url'    => $creative->adm_url,
             'ctrurl'     => $creative->ctrurl,
             'iurl'       => $creative->iurl,
             'thumb'      => $creative->thumb ?? 'http://placehold.it/' . $creative->w . 'x' . $creative->h,
