@@ -23,7 +23,7 @@ class   Creative extends ModelSetup implements Uuidable
 
 		switch ($type) {
 			case 'iframe':
-				$type = ($creative->type == 'html5') ? 'type=html5&' : '';
+				$type = ($creative->class == 'html5') ? 'type=html5&' : '';
 
 				return "<iframe src='" . env('AD_SERVER_URL') . "/paint/{$creativeId}?{$type}{{ADM_URL}}' marginwidth='0' marginheight='0' align='top' scrolling='no' frameborder='0' hspace='0' vspace='0'  height='{$creative->h}' width='{$creative->w}'></iframe>";
 				break;
