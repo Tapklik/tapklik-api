@@ -1,6 +1,6 @@
-<?php
+<?php namespace Tapklik\Banker;
 
-use App\Contracts\BankerInterface;
+use App\Contracts\Bankerable;
 
 /**
  * Class InvoiceIdGenerator
@@ -9,8 +9,21 @@ use App\Contracts\BankerInterface;
  */
 class InvoiceIdGenerator
 {
-    public function generate(BankerInterface $banker)
+    public function generate(Bankerable $banker, $relationShip)
     {
-        $banker->orderBy('id', 'desc')->first();
+        $lastBanker = $banker->{$relationShip}()->get();
+dd($lastBanker);
+        dd($this->_generateInvoice($lastBanker));
+    }
+
+    private function _generateInvoice($banker = null)
+    {
+    	dd($banker);
+
+    	    if($banker == null) return 'TK-' . date('Ymd', time()) . '-001';
+
+    	    $lastBanker = str_replace('TK-', '', $banker->invoice_id);
+
+    	    return $lastBanker;
     }
 }

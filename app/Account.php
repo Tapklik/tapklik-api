@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use App\Contracts\Bankerable;
+use App\Contracts\BankerInterface;
 
 /**
  * Class Account

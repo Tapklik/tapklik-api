@@ -4,6 +4,7 @@ use App\Exceptions\TransformerException;
 use App\Transformers\BankerTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Tapklik\Banker\InvoiceIdGenerator;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -147,6 +148,9 @@ class BankerController extends Controller
     public function store($uuid, $relationship)
     {
 
+
+
+
         try {
             $model             = $this->_getModel();
             $obj               = $model::findByUuId($uuid);
@@ -155,6 +159,9 @@ class BankerController extends Controller
 
             $systemGeneratedUuid = Uuid::uuid1();
 
+	        $id = (new InvoiceIdGenerator())->generate($model, $rel);
+
+	        dd($id);
             $banker = new $relationshipModel(
                 ['uuid'           => request('uuid') ?: $systemGeneratedUuid,
                  'updated_at'     => request('timestamp') ?: Carbon::now(),
@@ -162,7 +169,7 @@ class BankerController extends Controller
                  'credit'         => request('credit') ?: 0,
                  'description'    => request('description') ?: '',
                  'invoice_id'     => request('invoice_id') ?: '',
-                 'transaction_id' => request('transaction_id') ?: '',
+                 'transaction_id' => request('transaction_id') ?: (new InvoiceIdGenerator())->generate($this),
                  'type'           => request('type') ?: 'system']
             );
 
