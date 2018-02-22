@@ -161,15 +161,15 @@ class BankerController extends Controller
 
 	        $id = (new InvoiceIdGenerator())->generate($model, $rel);
 
-	        dd($id);
+
             $banker = new $relationshipModel(
                 ['uuid'           => request('uuid') ?: $systemGeneratedUuid,
                  'updated_at'     => request('timestamp') ?: Carbon::now(),
                  'debit'          => request('debit') ?: 0,
                  'credit'         => request('credit') ?: 0,
                  'description'    => request('description') ?: '',
-                 'invoice_id'     => request('invoice_id') ?: '',
-                 'transaction_id' => request('transaction_id') ?: (new InvoiceIdGenerator())->generate($this),
+                 'invoice_id'     => request('invoice_id') ?: $id,
+                 'transaction_id' => request('transaction_id') ?: '',
                  'type'           => request('type') ?: 'system']
             );
 
