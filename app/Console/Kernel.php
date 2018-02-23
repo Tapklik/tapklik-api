@@ -28,9 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('job')->everyMinute();
-
-        // $schedule->command('inspire')
-        //          ->hourly();
+	    $schedule->command('backup:mysql-dump')->dailyAt('00:00');
     }
 
     /**

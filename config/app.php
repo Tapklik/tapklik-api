@@ -194,6 +194,7 @@ return [
          */
         App\Providers\FractalResponseProvider::class,
         App\Providers\UploaderServiceProvider::class,
+	    Backup\BackupServiceProvider::class,
     ],
 
     /*

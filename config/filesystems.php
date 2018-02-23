@@ -57,8 +57,8 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_KEY'),
-            'secret' => env('AWS_SECRET'),
+            'key' => env('AWS_ACCESS_KEY'),
+            'secret' => env('AWS_SECRET_KEY'),
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
