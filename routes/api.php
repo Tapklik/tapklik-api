@@ -435,6 +435,18 @@ Route::group(
             // Models
         });
 
+        Route::group(['prefix' => 'cron'], function () {
+
+        	    Route::get('/campaign-status', [
+                'as' => 'cron.campaign-status',
+	            'uses' => 'CampaignsController@index'
+            ]);
+
+        	    Route::get('/db-backup', [
+                'as' => 'cron.db-backup',
+	            'uses' => 'BackupsController@index'
+            ]);
+        });
     }
 );
 
