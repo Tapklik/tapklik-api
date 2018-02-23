@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\Backup;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Artisan;
 
 class BackupListener
 {
@@ -26,6 +27,6 @@ class BackupListener
      */
     public function handle(Backup $event)
     {
-
+		Artisan::call('backup:mysql-dump');
     }
 }
