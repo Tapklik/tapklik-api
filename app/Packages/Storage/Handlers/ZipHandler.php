@@ -34,6 +34,7 @@ class ZipHandler implements FileHandlerInterface
 
 			$localZipFileLocation = url('trunk' . str_replace('./trunk', '', $file->getPathname()));
 			$uploadedFileLocation = 'http://comtapklik.s3.amazonaws.com/creatives/html5/' . $file->getFilename();
+			$localFileToExtract = str_replace('./', '/', $file->getPathname());
 
 			return [
 				'iurl'  => $uploadedFileLocation . '/index.jpg',
@@ -57,14 +58,12 @@ class ZipHandler implements FileHandlerInterface
 		}
 
 
-    	    // Extract zip
-		// Open dir folder check for first html
-		// Return html name
 	}
 
 	private function _extract(string $filePath) {
+		$filePath = public_path($filePath);
 
-		$tempDir = './public/tmp/' . sha1(time() . rand(99999, 9999999));
+		$tempDir = str_replace('.zip', '', $filePath);
 
 		$zip = new \ZipArchive();
 
@@ -82,10 +81,15 @@ class ZipHandler implements FileHandlerInterface
 
 	private function _scanDir(string $dir)
 	{
-		$itterator = new \DirectoryIterator($dir);
 
-		$itterator->each( function ($item) {
-			echo $item;
-		});
+		$content = scandir($dir);
+
+		foreach($content as $file) {
+			if($file == '.' || $file == '..') continue;
+
+			if(strpos($file, '.html') >= 0) return $file;
+		}
+
+		return '';
 	}
 }
