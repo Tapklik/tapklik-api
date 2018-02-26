@@ -36,11 +36,13 @@ class ZipHandler implements FileHandlerInterface
 			$uploadedFileLocation = 'http://comtapklik.s3.amazonaws.com/creatives/html5/' . $file->getFilename();
 			$localFileToExtract = str_replace('./', '/', $file->getPathname());
 
+			$mainHtmlFile = $this->_getMainHtmlFile($localFileToExtract);
+
 			return [
-				'iurl'  => $uploadedFileLocation . '/index.jpg',
+				'iurl'  => $uploadedFileLocation . '/' . str_replace('.html', '', $mainHtmlFile),
 				'asset' => $localZipFileLocation,
-				'thumb' => $uploadedFileLocation . '/index.jpg',
-				'html'  => $uploadedFileLocation . '/index.html'
+				'thumb' => $uploadedFileLocation . '/' . str_replace('.html', '', $mainHtmlFile),
+				'html'  => $uploadedFileLocation . '/' . $mainHtmlFile
 			];
 		} catch (S3Exception $e) {
 
