@@ -39,9 +39,9 @@ class ZipHandler implements FileHandlerInterface
 			$mainHtmlFile = $this->_getMainHtmlFile($localFileToExtract);
 
 			return [
-				'iurl'  => $uploadedFileLocation . '/' . str_replace('.html', '', $mainHtmlFile),
+				'iurl'  => $uploadedFileLocation . '/' . str_replace('.html', '', $mainHtmlFile) . '.jpg',
 				'asset' => $localZipFileLocation,
-				'thumb' => $uploadedFileLocation . '/' . str_replace('.html', '', $mainHtmlFile),
+				'thumb' => $uploadedFileLocation . '/' . str_replace('.html', '', $mainHtmlFile) . '.jpg',
 				'html'  => $uploadedFileLocation . '/' . $mainHtmlFile
 			];
 		} catch (S3Exception $e) {
