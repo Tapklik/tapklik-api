@@ -33,7 +33,7 @@ class ZipHandler implements FileHandlerInterface
 
 
 			$localZipFileLocation = url('trunk' . str_replace('./trunk', '', $file->getPathname()));
-			$uploadedFileLocation = 'http://comtapklik.s3.amazonaws.com/creatives/html5/' . $file->getFilename();
+			$uploadedFileLocation = 'https://comtapklik.s3.amazonaws.com/creatives/html5/' . $file->getFilename();
 			$localFileToExtract = str_replace('./', '/', $file->getPathname());
 
 			$mainHtmlFile = $this->_getMainHtmlFile($localFileToExtract);
