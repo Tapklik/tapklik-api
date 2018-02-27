@@ -21,6 +21,9 @@ class UploadController extends Controller
         try {
             $file      = $uploader->move($request->file('file'));
             $objectUrl = $uploader->save($file);
+
+            if($request->input('nosave')) return response(['error' => false, 'message' => $objectUrl]);
+
             $creative  = Creative::newCreative(array_merge($request->input(), $objectUrl, (array)$file));
 
             return $this->item($creative, new CreativeTransformer());
