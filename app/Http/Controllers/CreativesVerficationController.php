@@ -14,4 +14,10 @@ class CreativesVerficationController extends Controller
 
 		return response([], Response::HTTP_BAD_REQUEST);
     }
+
+	public function show(string $id)
+	{
+
+		return response(['status' => 'Pending verification']);
+    }
 }
