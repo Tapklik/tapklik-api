@@ -334,7 +334,7 @@ Route::group(
 		     'uses' => 'CreativesVerficationController@store']
 	    );
 
-	    Route::post(
+	    Route::get(
 		    '/{id}/status',
 		    ['as'   => 'creatives.show',
 		     'uses' => 'CreativesVerficationController@show']
