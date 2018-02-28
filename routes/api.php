@@ -328,6 +328,12 @@ Route::group(
              'uses' => 'CreativesController@show']
         );
 
+	    Route::post(
+		    '/{id}/verification',
+		    ['as'   => 'creatives.store',
+		     'uses' => 'CreativesVerficationController@store']
+	    );
+
         Route::delete('/{id}', [
             'as' => 'creatives.delete',
             'uses' => 'CreativesController@delete'

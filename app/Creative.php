@@ -15,7 +15,6 @@ class   Creative extends ModelSetup implements Uuidable
 	private static $_s3 = false;
 
 	// Methods
-
 	public static function generateAdm($campaignId, $creativeId, $type = '')
 	{
 
