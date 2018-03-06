@@ -1,27 +1,48 @@
 <?php namespace App\Packages\Courier;
 
+use App\Packages\Courier\Contracts\ConfigInterface;
+use Carbon\Carbon;
+use Tapklik\Courier\Exceptions\CourierConfigurationException;
 
-class Config
+class Config implements ConfigInterface
 {
-	/**
-	 * Required JSON structure
-	 */
-	const STRUCTURE = [
-		'service'   => [
-			'type'     => 'array',
-			'required' => true
-		],
-		'message'   => [
-			'type'     => 'string',
-			'required' => true
-		],
-		'timestamp' => [
-			'type'     => 'integer',
-			'required' => true
-		],
-		'users'     => [
-			'type'     => 'array',
-			'required' => true
-		]
-	];
+	private $_config = false;
+
+	public function __construct(array $config = [])
+	{
+		$this->_config = $config;
+	}
+
+	public function getKey(string $key)
+	{
+		if($this->keyExists($key))
+			throw new CourierConfigurationException(sprintf('The key %s does not exist.', $key));
+
+		return $this->_config[$key];
+	}
+
+	public function getService(): string
+	{
+		return $this->getKey('service');
+	}
+
+	public function getMessage(): string
+	{
+		return $this->getKey('message');
+	}
+
+	public function getUsers(): array
+	{
+		return $this->getKey('users');
+	}
+
+	public function getTimestamp(): Carbon
+	{
+		return Carbon::createFromTimestamp($this->getKey('service'));
+	}
+
+	public function keyExists(string $key): bool
+	{
+		return (array_key_exists($key, $this->_config));
+	}
 }

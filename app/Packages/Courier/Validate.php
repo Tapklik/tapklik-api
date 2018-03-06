@@ -32,7 +32,7 @@ class Validate
 	 */
 	private function _checkRequiredKeysArePresent(array $config)
 	{
-		collect(Config::STRUCTURE)->each( function ($item, $index) use ($config) {
+		collect(Structure::SKELETON)->each( function ($item, $index) use ($config) {
 			if(!array_key_exists($index, $config))
 				throw new CourierConfigurationException(sprintf('Key %s must be present', $index));
 		});
@@ -47,7 +47,7 @@ class Validate
 	 */
 	private function _checkForInvalidKeys(string $key)
 	{
-		if (!array_key_exists($key, Config::STRUCTURE))
+		if (!array_key_exists($key, Structure::SKELETON))
 			throw new CourierConfigurationException(sprintf('Key %s is invalid', $key));
 
 		return $this;
@@ -61,8 +61,8 @@ class Validate
 	 */
 	private function _checkVarTypeMatches(string $index, $item)
 	{
-		if (gettype($item) != Config::STRUCTURE[$index]['type'])
-			throw new CourierConfigurationException(sprintf('Key %s must be of type %s', $index, Config::STRUCTURE[$index]['type']));
+		if (gettype($item) != Structure::SKELETON[$index]['type'])
+			throw new CourierConfigurationException(sprintf('Key %s must be of type %s', $index, Structure::SKELETON[$index]['type']));
 
 		return $this;
 	}
