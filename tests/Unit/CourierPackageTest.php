@@ -1,7 +1,6 @@
 <?php namespace Tests\Unit;
 
-use App\Packages\Courier\ConfigValidator;
-use Tapklik\Courier\Exceptions\CourierConfigurationException;
+use App\Packages\Courier\Validate;
 use Tests\TestCase;
 
 class CourierPackageTest extends TestCase
@@ -16,7 +15,7 @@ class CourierPackageTest extends TestCase
 			'timestamp' => time()
 		];
 
-		$validator = ConfigValidator::validate($config);
+		$validator = Validate::config($config);
 
 		$this->assertTrue($validator);
 	}
@@ -35,7 +34,7 @@ class CourierPackageTest extends TestCase
 			'users'   => [],
 		];
 
-		ConfigValidator::validate($config);
+		Validate::config($config);
 	}
 
 	/**
@@ -53,6 +52,6 @@ class CourierPackageTest extends TestCase
 			'timestamp' => 123456
 		];
 
-		ConfigValidator::validate($config);
+		Validate::config($config);
 	}
 }

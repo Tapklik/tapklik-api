@@ -1,6 +1,6 @@
 <?php namespace App\Packages\Courier\Contracts;
 
-use App\Packages\Courier\ConfigValidator;
+use App\Packages\Courier\Validate;
 
 abstract class AbstractService implements ServiceInterface
 {
@@ -10,7 +10,7 @@ abstract class AbstractService implements ServiceInterface
 	public function __construct(array $config = [])
 	{
 		try {
-			ConfigValidator::validate($config);
+			Validate::config($config);
 
 			$this->config = $config;
 		} catch (CourierConfigurationException $e) {

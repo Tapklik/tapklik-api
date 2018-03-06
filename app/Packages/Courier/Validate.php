@@ -4,38 +4,17 @@ use Tapklik\Courier\Exceptions\CourierConfigurationException;
 
 
 /**
- * Class ConfigValidator
+ * Class Validate
  * @package App\Packages\Courier
  */
-class ConfigValidator
+class Validate
 {
-	/**
-	 * Required JSON structure
-	 */
-	const STRUCTURE = [
-		'service'   => [
-			'type'     => 'array',
-			'required' => true
-		],
-		'message'   => [
-			'type'     => 'string',
-			'required' => true
-		],
-		'timestamp' => [
-			'type'     => 'integer',
-			'required' => true
-		],
-		'users'     => [
-			'type'     => 'array',
-			'required' => true
-		]
-	];
 
 	/**
 	 * @param array $config
 	 * @return bool
 	 */
-	public static function validate(array $config)
+	public static function config(array $config)
 	{
 		collect($config)->each(function ($item, $index) use ($config) {
 			(new self)
@@ -53,7 +32,7 @@ class ConfigValidator
 	 */
 	private function _checkRequiredKeysArePresent(array $config)
 	{
-		collect(self::STRUCTURE)->each( function ($item, $index) use ($config) {
+		collect(Config::STRUCTURE)->each( function ($item, $index) use ($config) {
 			if(!array_key_exists($index, $config))
 				throw new CourierConfigurationException(sprintf('Key %s must be present', $index));
 		});
@@ -68,8 +47,8 @@ class ConfigValidator
 	 */
 	private function _checkForInvalidKeys(string $key)
 	{
-		if (!array_key_exists($key, self::STRUCTURE))
-			throw new CourierConfigurationException(sprintf('Key %s is invalid', $index));
+		if (!array_key_exists($key, Config::STRUCTURE))
+			throw new CourierConfigurationException(sprintf('Key %s is invalid', $key));
 
 		return $this;
 	}
@@ -82,8 +61,8 @@ class ConfigValidator
 	 */
 	private function _checkVarTypeMatches(string $index, $item)
 	{
-		if (gettype($item) != self::STRUCTURE[$index]['type'])
-			throw new CourierConfigurationException(sprintf('Key %s must be of type %s', $index, self::STRUCTURE[$index]['type']));
+		if (gettype($item) != Config::STRUCTURE[$index]['type'])
+			throw new CourierConfigurationException(sprintf('Key %s must be of type %s', $index, Config::STRUCTURE[$index]['type']));
 
 		return $this;
 	}
