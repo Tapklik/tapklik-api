@@ -35,7 +35,8 @@ Route::get(
         $creative->setHeight(250);
         $creative->setWidth(300);
         $creative->setBuyerCreativeId('9cf0882c-1bcc-11e8-b0da-0242ac110002');
-        $creative->setClickThroughUrl('http://tapklik.com');
+        $creative->setClickThroughUrl(['http://tapklik.com']);
+        $creative->setAdvertiserName('Tapklik');
 
         dd($service->creatives->insert($creative));
     }
