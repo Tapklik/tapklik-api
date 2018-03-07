@@ -15,7 +15,7 @@ class Config implements ConfigInterface
 
 	public function getKey(string $key)
 	{
-		if($this->keyExists($key))
+		if(!$this->keyExists($key))
 			throw new CourierConfigurationException(sprintf('The key %s does not exist.', $key));
 
 		return $this->_config[$key];
@@ -38,11 +38,11 @@ class Config implements ConfigInterface
 
 	public function getTimestamp(): Carbon
 	{
-		return Carbon::createFromTimestamp($this->getKey('service'));
+		return Carbon::createFromTimestamp($this->getKey('created_at'));
 	}
 
 	public function keyExists(string $key): bool
 	{
-		return (array_key_exists($key, $this->_config));
+		return array_key_exists($key, $this->_config);
 	}
 }

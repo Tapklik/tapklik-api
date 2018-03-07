@@ -3,5 +3,5 @@
 
 interface ServiceInterface
 {
-	public function publish(): bool;
+	public function publish(): int;
 }

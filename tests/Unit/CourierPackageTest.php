@@ -9,10 +9,10 @@ class CourierPackageTest extends TestCase
 	public function validator_can_validate_config_file_structure()
 	{
 		$config = [
-			'service'   => ['onead'],
-			'message'   => 'test message',
-			'users'     => [],
-			'timestamp' => time()
+			'service'    => ['onead'],
+			'message'    => 'test message',
+			'users'      => [],
+			'created_at' => (string) time()
 		];
 
 		$validator = Validate::config($config);
@@ -23,11 +23,11 @@ class CourierPackageTest extends TestCase
 	/**
 	 * @test
 	 * @expectedException Tapklik\Courier\Exceptions\CourierConfigurationException
-	 * @expectedExceptionMessage Key timestamp must be present
+	 * @expectedExceptionMessage Key created_at must be present
 	 */
 	public function validator_should_throw_an_exception_on_missing_keys()
 	{
-		// Omit timestamp
+		// Omit created_at
 		$config = [
 			'service' => ['onead'],
 			'message' => 'test message',
@@ -46,10 +46,10 @@ class CourierPackageTest extends TestCase
 	{
 		// Service key should be of type array
 		$config = [
-			'service' => 'onead',
-			'message' => 'test message',
-			'users'   => [],
-			'timestamp' => 123456
+			'service'    => 'onead',
+			'message'    => 'test message',
+			'users'      => [],
+			'created_at' => (string) 123456
 		];
 
 		Validate::config($config);

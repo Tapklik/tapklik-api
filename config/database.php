@@ -55,7 +55,7 @@ return [
             'driver' => 'mysql',
             'host' => '192.168.33.10',
             'port' => env('DB_PORT', '3306'),
-            'database' => 'api-tapklik-com-testing',
+            'database' => 'test_tapklik_com',
             'username' => 'root',
             'password' => 'root',
             'unix_socket' => env('DB_SOCKET', ''),

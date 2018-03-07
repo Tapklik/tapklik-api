@@ -459,6 +459,19 @@ Route::group(
 	            'uses' => 'BackupsController@index'
             ]);
         });
+
+        Route::group(['prefix' => 'notifications'], function () {
+
+        	    Route::post('/', [
+        	    	    'as' => 'notifications.store',
+	            'uses' => 'NotificationsController@store'
+            ]);
+
+        	    Route::get('/{id}', [
+        	    	    'as' => 'notifications.get',
+	            'uses' => 'NotificationsController@index'
+            ]);
+        });
     }
 );
 

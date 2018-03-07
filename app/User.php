@@ -7,69 +7,77 @@ use Lcobucci\JWT\Builder;
 
 class User extends Authenticatable implements Uuidable
 {
-    use Notifiable;
+	use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'account_id', 'first_name', 'last_name', 'phone', 'email', 'password', 'status', 'tutorial'
-    ];
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'account_id', 'first_name', 'last_name', 'phone', 'email', 'password', 'status', 'tutorial'
+	];
 
-    // Relationships
+	// Relationships
 
-    public function account() {
+	public function account()
+	{
 
-        return $this->HasOne(Account::class, 'id', 'account_id');
-    }
+		return $this->HasOne(Account::class, 'id', 'account_id');
+	}
 
-    // Mehtods
+	public function messages()
+	{
 
-    public static function findByUuId(string $uuid)
-    {
-        return self::where([
-            'uuid' => $uuid
-        ])->firstOrFail();
-    }
+		return $this->belongsToMany(Message::class)->withPivot(['user_id, message_id, status']);
+	}
 
-    // Setters
+	// Methods
 
-    public function getNameAttribute() {
-        return $this->first_name . ' ' . $this->last_name;
-    }
+	public static function findByUuId(string $uuid)
+	{
+		return self::where([
+			'uuid' => $uuid
+		])->firstOrFail();
+	}
 
-    public static function apiToken(User $user)
-    {
-        return (new Builder)->setIssuer(
-            'https://api.tapklik.com'
-        )->setAudience(
-            'https://api.tapklik.com'
-        )->setId(
-            12345, true
-        )->setIssuedAt(
-            Carbon::now()->timestamp
-        )->setExpiration(
-            Carbon::now()->addDays(30)->timestamp
-        )->set(
-            'email', $user->email
-        )->set(
-            'id', $user->id
-        )->set(
-            'uuid', $user->uuid
-        )->set(
-            'accountId', $user->account_id
-        )->set(
-            'accountUuId', $user->account->uuid
-        )->set(
-            'name', $user->name
-        )->set(
-            'role', $user->is_admin ?: 'user'
-        )->set(
-            'tutorial', $user->tutorial
-        )->set(
-            'campaigns', Campaign::findByAccountId($user->account_id)->pluck('uuid')
-        )->getToken();
-    }
+	// Setters
+
+	public function getNameAttribute()
+	{
+		return $this->first_name . ' ' . $this->last_name;
+	}
+
+	public static function apiToken(User $user)
+	{
+		return (new Builder)->setIssuer(
+			'https://api.tapklik.com'
+		)->setAudience(
+			'https://api.tapklik.com'
+		)->setId(
+			12345, true
+		)->setIssuedAt(
+			Carbon::now()->timestamp
+		)->setExpiration(
+			Carbon::now()->addDays(30)->timestamp
+		)->set(
+			'email', $user->email
+		)->set(
+			'id', $user->id
+		)->set(
+			'uuid', $user->uuid
+		)->set(
+			'accountId', $user->account_id
+		)->set(
+			'accountUuId', $user->account->uuid
+		)->set(
+			'name', $user->name
+		)->set(
+			'role', $user->is_admin ?: 'user'
+		)->set(
+			'tutorial', $user->tutorial
+		)->set(
+			'campaigns', Campaign::findByAccountId($user->account_id)->pluck('uuid')
+		)->getToken();
+	}
 }

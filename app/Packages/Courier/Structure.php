@@ -15,8 +15,8 @@ class Structure
 			'type'     => 'string',
 			'required' => true
 		],
-		'timestamp' => [
-			'type'     => 'integer',
+		'created_at' => [
+			'type'     => 'string',
 			'required' => true
 		],
 		'users'     => [
