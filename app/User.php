@@ -29,7 +29,7 @@ class User extends Authenticatable implements Uuidable
 	public function messages()
 	{
 
-		return $this->belongsToMany(Message::class)->withPivot(['user_id, message_id, status']);
+		return $this->belongsToMany(Message::class)->withPivot(['user_id', 'message_id', 'status']);
 	}
 
 	// Methods
