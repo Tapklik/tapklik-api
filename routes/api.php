@@ -471,6 +471,11 @@ Route::group(
         	    	    'as' => 'notifications.get',
 	            'uses' => 'NotificationsController@index'
             ]);
+
+        	    Route::put('/{id}', [
+        	    	    'as' => 'notifications.update',
+	            'uses' => 'NotificationsController@update'
+            ]);
         });
     }
 );

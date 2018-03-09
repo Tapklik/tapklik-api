@@ -3,6 +3,8 @@
 
 class MessageUser extends ModelSetup
 {
+	protected $table      = 'message_user';
+	public    $timestamps = false;
 
 	public function user()
 	{

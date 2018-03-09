@@ -7,26 +7,39 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class NotificationsControllerTest extends TestCase
+class AdvertiserDomainControllerTest extends TestCase
 {
 
-    use DatabaseMigrations, WithoutMiddleware;
+	use DatabaseMigrations, WithoutMiddleware;
 
-    /** @test */
-    public function it_can_retrieve_user_messages() {
-    	    $user = factory(\App\User::class)->create();
-    	    $messages = factory(\App\Message::class, 20)->create();
+	public function setUp()
+	{
 
-    	    $messages->each(function ($message) use ($user) {
-    	    	    $user->messages()->save($message);
-        });
+		parent::setUp();
 
-		$result = $this->get('v1/core/notifications/' . $user->id);
+		$this->campaign = factory(Campaign::class)->create();
+	}
 
-		$result->assertStatus(Response::HTTP_OK);
+	/** @test */
+	public function user_can_access_adomain_endpoint_through_campaign()
+	{
 
-		$data = $result->decodeResponseJson();
+		$this->get('/v1/campaigns/'.$this->campaign->uuid.'/adomain')->assertStatus(Response::HTTP_OK)->assertExactJson(
+			$this->collection($this->campaign->advertiserDomains, new AdvertiserDomainTransformer)
+		);
+	}
 
-		$this->assertCount(20, $data['data']);
-    }
+	/** @test */
+	public function user_can_create_advertiser_domain()
+	{
+
+		$advertiserDomain = factory(\App\AdvertiserDomain::class)->make();
+
+		$response  =$this->post('/v1/campaigns/' . $this->campaign->uuid . '/adomain', $advertiserDomain->toArray());
+
+//            ->assertStatus(Response::HTTP_OK);
+//            ->assertExactJson(
+//                $this->collection($this->campaign->advertiserDomains, new AdvertiserDomainTransformer)
+//            );
+	}
 }

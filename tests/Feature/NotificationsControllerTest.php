@@ -1,45 +1,52 @@
 <?php
 
-use App\Campaign;
-use App\Transformers\AdvertiserDomainTransformer;
-use Illuminate\Http\Response;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class AdvertiserDomainControllerTest extends TestCase
-{
+	use App\Campaign;
+	use App\Transformers\AdvertiserDomainTransformer;
+	use Illuminate\Http\Response;
+	use Tests\TestCase;
+	use Illuminate\Foundation\Testing\DatabaseMigrations;
+	use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-    use DatabaseMigrations, WithoutMiddleware;
+	class NotificationsControllerTest extends TestCase
+	{
 
-    public function setUp()
-    {
+		use DatabaseMigrations, WithoutMiddleware;
 
-        parent::setUp();
+		/** @test */
+		public function it_can_retrieve_user_messages()
+		{
+			$user = factory(\App\User::class)->create();
+			$messages = factory(\App\Message::class, 20)->create();
 
-        $this->campaign = factory(Campaign::class)->create();
-    }
+			$messages->each(function ($message) use ($user) {
+				$user->messages()->save($message);
+			});
 
-    /** @test */
-    public function user_can_access_adomain_endpoint_through_campaign()
-    {
+			$result = $this->get('v1/core/notifications/' . $user->id);
 
-        $this->get('/v1/campaigns/'.$this->campaign->uuid.'/adomain')->assertStatus(Response::HTTP_OK)->assertExactJson(
-                $this->collection($this->campaign->advertiserDomains, new AdvertiserDomainTransformer)
-            );
-    }
+			$result->assertStatus(Response::HTTP_OK);
 
-    /** @test */
-    public function user_can_create_advertiser_domain()
-    {
+			$data = $result->decodeResponseJson();
 
-        $advertiserDomain = factory(\App\AdvertiserDomain::class)->make();
+			$this->assertCount(20, $data['data']);
+		}
 
-        $response  =$this->post('/v1/campaigns/' . $this->campaign->uuid . '/adomain', $advertiserDomain->toArray());
+		/** @test */
+		public function it_can_update_status()
+		{
+			$user = factory(\App\User::class)->create();
+			$message = factory(\App\Message::class)->make();
 
-//            ->assertStatus(Response::HTTP_OK);
-//            ->assertExactJson(
-//                $this->collection($this->campaign->advertiserDomains, new AdvertiserDomainTransformer)
-//            );
-    }
-}
+			$user->messages()->save($message);
+
+			$result = $this->put('v1/core/notifications/' . $message->id, ['status' => 1]);
+
+			$result->assertStatus(Response::HTTP_OK);
+
+			$result->assertExactJson([
+				'error' => false,
+				'message' => 'Message updated successfully'
+			]);
+		}
+	}

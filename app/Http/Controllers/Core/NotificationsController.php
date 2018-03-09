@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Http\Response\FractalResponse;
 use App\Message;
+use App\MessageUser;
 use App\Packages\Courier\Drivers\OneadDriver;
 use App\Transformers\MessageTransformer;
 use App\User;
@@ -21,7 +22,7 @@ class NotificationsController extends Controller
 		} catch (ModelNotFoundException $e) {
 
 			return response([
-				'error' => true,
+				'error'   => true,
 				'message' => 'User not found'
 			], Response::HTTP_NOT_FOUND);
 		}
@@ -35,5 +36,26 @@ class NotificationsController extends Controller
 		$message = Message::with(['users'])->where(['id' => $messageId])->firstOrFail();
 
 		return $this->item($message, new MessageTransformer);
+	}
+
+	public function update($id)
+	{
+		try {
+			$notication = MessageUser::where(['message_id' => $id])->firstOrFail();
+			$notication->update(['status' => 1]);
+			$notication->save();
+
+			return response([
+				'error' => false,
+				'message' => 'Message updated successfully'
+			]);
+		} catch (ModelNotFoundException $e) {
+
+			return response([
+				'error'   => true,
+				'message' => 'Message not found'
+			], Response::HTTP_NOT_FOUND);
+		}
+
 	}
 }
