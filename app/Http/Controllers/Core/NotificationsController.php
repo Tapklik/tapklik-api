@@ -41,9 +41,10 @@ class NotificationsController extends Controller
 	public function update($id)
 	{
 		try {
-			$notication = MessageUser::where(['message_id' => $id])->firstOrFail();
-			$notication->update(['status' => 1]);
-			$notication->save();
+			$message = Message::find($id)->first();
+			$userMessage = $message->users()->first();
+			$userMessage->pivot->status = 1;
+			$userMessage->pivot->save();
 
 			return response([
 				'error' => false,
