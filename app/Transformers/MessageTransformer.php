@@ -12,7 +12,7 @@ class MessageTransformer extends TransformerAbstract
 		return [
 			'id'         => $notification->id,
 			'message'    => $notification->message,
-			'status'     => (int) $notification->pivot->status,
+			'status'     => $notification->users->first()->pivot->status,
 			'created_at' => $notification->created_at->toDateTimeString()
 		];
 	}
