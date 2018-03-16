@@ -21,6 +21,7 @@ class UserTransformer extends TransformerAbstract
 
         return [
             'id'         => $user->uuid,
+	        'internalId' => $user->id,
             'first_name' => $user->first_name,
             'last_name'  => $user->last_name,
             'name'       => $user->first_name.' '.$user->last_name,
