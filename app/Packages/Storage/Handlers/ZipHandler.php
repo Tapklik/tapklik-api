@@ -14,15 +14,9 @@ use Tapklik\Uploader\Exceptions\TapklikUploaderException;
  */
 class ZipHandler implements FileHandlerInterface
 {
+	protected $directories = [];
 
-	/**
-	 * @param \Symfony\Component\HttpFoundation\File\File $file
-	 *
-	 * @param \Tapklik\Storage\Contracts\AbstractStorageAdapter $uploader
-	 *
-	 * @return \Tapklik\Storage\Handlers\Array
-	 */
-	public function handle(File $file, AbstractStorageAdapter $uploader): Array
+	public function handle(File $file, AbstractStorageAdapter $uploader): array
 	{
 
 		try {
@@ -95,34 +89,45 @@ class ZipHandler implements FileHandlerInterface
 		}
 	}
 
-	private function _scanDir(string $dir)
+	private function _scanDir(string $mainDir)
 	{
+		$mainFile = $this->_checkForMainHtmlFile($mainDir);
 
-		return $this->_iterate($dir);
+		if(!$mainFile) {
+
+			$this->_checkForDirectories($mainDir)->each(function ($subDir) use ($mainDir, &$mainFile) {
+				$result = $this->_checkForMainHtmlFile($mainDir . '/' . $subDir);
+
+				if(strlen($result) > 0) $mainFile = $result;
+			});
+		}
+
+		return $mainFile;
+
 	}
 
-	private function _iterate($dir) {
-
+	private function _checkForMainHtmlFile(string $dir) {
 		$collection = scandir($dir);
-		$mainHtmlFile  = '';
 
-		$file = collect($collection)->filter(function ($item) use ($dir, &$mainHtmlFile) {
+		$payload = collect($collection)->filter(function($item) {
 
+			return strpos($item, '.html');
+		})->flatten()->first();
+
+		return (is_null($payload)) ? '' : $payload;
+	}
+
+	private function _checkForDirectories(string $dir) {
+		$collection = scandir($dir);
+
+		collect($collection)->each(function ($item) use ($dir) {
 			if($item != '.' && $item != '..') {
-
 				if(is_dir($dir . '/' . $item)) {
-					$this->_iterate($dir . '/' . $item);
-				}
-
-				if(strpos($item, '.html') > 0 && strpos($item, '._') === false) {
-					if(is_file($dir . '/' . $item)) {
-						return $item;
-					}
+					array_push($this->directories, $item);
 				}
 			}
-		})->flatten();
+		});
 
-
-		return ($file->first() !== NULL) ? $file : '';
+		return collect($this->directories);
 	}
 }

@@ -5,5 +5,5 @@ use Tapklik\Uploader\Contracts\UploaderInterface;
 
 interface FileHandlerInterface
 {
-    public function handle(File $file, AbstractStorageAdapter $uploader) : Array;
+    public function handle(File $file, AbstractStorageAdapter $uploader) : array;
 }
