@@ -98,7 +98,7 @@ class ZipHandler implements FileHandlerInterface
 			$this->_checkForDirectories($mainDir)->each(function ($subDir) use ($mainDir, &$mainFile) {
 				$result = $this->_checkForMainHtmlFile($mainDir . '/' . $subDir);
 
-				if(strlen($result) > 0) $mainFile = $result;
+				if(strlen($result) > 0) $mainFile = $subDir . '/' . $result;
 			});
 		}
 
