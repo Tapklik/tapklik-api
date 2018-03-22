@@ -1,5 +1,6 @@
 <?php namespace Tapklik\Storage\Handlers;
 
+use Log;
 use Symfony\Component\HttpFoundation\File\File;
 use Tapklik\Storage\Contracts\AbstractStorageAdapter;
 use Tapklik\Storage\Contracts\FileHandlerInterface;
@@ -50,13 +51,24 @@ class ZipHandler implements FileHandlerInterface
 		}
 	}
 
+	private function _cleanFileName(string $filename)
+	{
+		$remove = collect(['X', 'x', '_', '-', '/', '\\']);
+
+		$remove->each(function ($character) use (&$filename) {
+			$filename = str_replace($character, '', $filename);
+		});
+
+		return $filename;
+	}
+
 	private function _getMainHtmlFile(string $filePath)
 	{
 
 		try {
 			return $this->_extract($filePath);
 		} catch (\Exception $e) {
-			\Log::info($e->getMessage());
+			Log::info($e->getMessage());
 		}
 
 
@@ -74,7 +86,9 @@ class ZipHandler implements FileHandlerInterface
 			$zip->extractTo($tempDir);
 			$zip->close();
 
-			return $this->_scanDir($tempDir);
+			$mainFile = $this->_scanDir($tempDir);
+
+			if($mainFile) return $mainFile;
 		} else {
 
 			throw new TapklikUploaderException('Could not extract the zip file');
@@ -84,14 +98,31 @@ class ZipHandler implements FileHandlerInterface
 	private function _scanDir(string $dir)
 	{
 
-		$content = scandir($dir);
+		return $this->_iterate($dir);
+	}
 
-		foreach($content as $file) {
-			if($file == '.' || $file == '..') continue;
+	private function _iterate($dir) {
 
-			if(strpos($file, '.html') >= 0) return $file;
-		}
+		$collection = scandir($dir);
+		$mainHtmlFile  = '';
 
-		return '';
+		$file = collect($collection)->filter(function ($item) use ($dir, &$mainHtmlFile) {
+
+			if($item != '.' && $item != '..') {
+
+				if(is_dir($dir . '/' . $item)) {
+					$this->_iterate($dir . '/' . $item);
+				}
+
+				if(strpos($item, '.html') > 0 && strpos($item, '._') === false) {
+					if(is_file($dir . '/' . $item)) {
+						return $item;
+					}
+				}
+			}
+		})->flatten();
+
+
+		return ($file->first() !== NULL) ? $file : '';
 	}
 }
