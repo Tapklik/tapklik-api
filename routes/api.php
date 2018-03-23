@@ -477,6 +477,19 @@ Route::group(
 	            'uses' => 'NotificationsController@update'
             ]);
         });
+
+        // Group dedicated to a tasker package from admin
+        Route::group(['prefix' => 'tasker'], function () {
+        	    Route::get('campaigns/start', [
+        	    	    'as' => 'tasker.campaigns.start.index',
+	            'uses' => 'TaskerCampaignStartsController@index'
+            ]);
+
+        	    Route::get('campaigns/expire', [
+        	    	    'as' => 'tasker.campaigns.expire.index',
+	            'uses' => 'TaskerCampaignExpiresController@index'
+            ]);
+        });
     }
 );
 

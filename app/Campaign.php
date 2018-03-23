@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use App\Contracts\Bankerable;
+use Carbon\Carbon;
 
 /**
  * Class Campaign
@@ -148,6 +149,17 @@ class Campaign extends ModelSetup implements Uuidable, Bankerable
     {
         return $this->morphMany(BankerSpend::class, 'spendable');
     }
+
+    public static function toStart() {
+
+    	    return self::where('start', '>=', Carbon::now())->where(['status' => 'not started']);
+    }
+
+    public static function toExpire() {
+
+	    return self::where('end', '<', Carbon::now())->where(['status' => 'active']);
+    }
+
 
 //    public function setBidAttribute($value) {
 //
