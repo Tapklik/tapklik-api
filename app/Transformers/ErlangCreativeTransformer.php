@@ -27,7 +27,7 @@ class ErlangCreativeTransformer extends TransformerAbstract
             return '';
         }
 
-        return [
+       return [
             'crid'       => $creative->uuid,
             'class'      => $creative->class,
             'type'       => $creative->type,
@@ -42,10 +42,11 @@ class ErlangCreativeTransformer extends TransformerAbstract
             'adm_js'     => $creative->adm_js,
             'adm_iframe' => $creative->adm_iframe,
             'adm_url'    => $creative->adm_url,
-            'path'       => $this->_parseUrl($creative->iurl),
+            'path'       => $creative->iurl,
+            'html'       => $creative->html,
             'dim'        => [$creative->w.'x'.$creative->h],
             'status'     => $creative->status,
-	    ];
+            ];
     }
 
     private function _parseUrl(string $url) {

@@ -24,7 +24,7 @@ class   Creative extends ModelSetup implements Uuidable
 			case 'iframe':
 				$type = ($creative->class == 'html5') ? 'type=html5&' : '';
 
-				return "<iframe src='" . env('AD_SERVER_URL') . "/paint/{$creativeId}?{$type}{{ADM_URL}}' marginwidth='0' marginheight='0' align='top' scrolling='no' frameborder='0' hspace='0' vspace='0'  height='{$creative->h}' width='{$creative->w}'></iframe>";
+				return "<iframe src='{{IMP_PATH}}&{{ADM_URL}}' marginwidth='0' marginheight='0' align='top' scrolling='no' frameborder='0' hspace='0' vspace='0'  height='{$creative->h}' width='{$creative->w}'></iframe>";
 				break;
 
 			case 'js':
@@ -49,8 +49,7 @@ class   Creative extends ModelSetup implements Uuidable
 				break;
 
 			default:
-				return '<a href="{{ADM_URL}}" target="_blank" style="display: block; overflow: 
-                hidden; height: auto !important;"><img src="' . env('AD_SERVER_URL') . '/paint/' . $creativeId . '" alt="bann_' . rand(9999, 99999) . '"></a>';
+				return '<script language="javascript" src="{{IMP_PATH}}"></script><a href="{{ADM_URL}}" target="_blank" style="display: block; overflow: hidden; height: auto !important;"><img src="' . $creative->iurl . '" alt="bann_' . rand(9999, 99999) . '"></a>';
 				break;
 		}
 
