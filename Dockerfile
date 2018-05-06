@@ -7,9 +7,10 @@ RUN ls
 RUN composer install
 RUN cp .env.example .env
 RUN php artisan key:generate
-CMD chown -R www-data public/trunk
-CMD chown -R www-data storage bootstrap/cache
-CMD chmod -R ug+rwx storage bootstrap/cache
+CMD mkdir public/trunk
+CMD chown -R www-data:www-data public/trunk
+CMD chown -R www-data:www-data storage
+CMD chown -R www-data:www-data bootstrap/cache
 
 WORKDIR /etc/apache2/sites-available
 RUN sed -i 's/{{SERVICE}}/api.tapklik.com/g' 000-default.conf
