@@ -11,7 +11,7 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Account::class)->create([
+        \App\Account::create([
             'name' => 'Tapklik',
             'country' => 'UAE',
             'city' => 'Dubai',
