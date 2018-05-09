@@ -25,6 +25,5 @@ class AccountSeeder extends Seeder
             'billing_city' => 'Dubai',
         ]);
 
-        factory(\App\Account::class)->create();
     }
 }
