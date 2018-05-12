@@ -24,7 +24,7 @@ class ZipHandler implements FileHandlerInterface
 				public_path(str_replace('.zip', '', $file->getPathname())),
 				getenv('AWS_BUCKET'),
 				'creatives/h/' . $file->getFilename(),
-                $content, 'public-read'
+                'public-read'
 			);
 
 
