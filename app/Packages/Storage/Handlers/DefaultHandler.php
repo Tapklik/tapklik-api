@@ -24,10 +24,12 @@ class DefaultHandler implements FileHandlerInterface
 
         try {
             $content = file_get_contents($file->getPathname());
-            $result = $uploader->getStorageDriver()->upload(getenv('AWS_BUCKET'), 'creatives/' . $file->getFilename(),
+            $result = $uploader->getStorageDriver()->upload(getenv('AWS_BUCKET'), 'creatives/b/' . $file->getFilename(),
                 $content, 'public-read');
 
-            return ['iurl' => $result->get('ObjectURL')];
+            $uploadedFileLocation = env('CREATIVES_PATH') . '/h/' . $file->getFilename();
+
+            return ['iurl' => $uploadedFileLocation];
         } catch (S3Exception $e) {
 
             throw new TapklikUploaderException($e->getMessage(), $e->getCode());
