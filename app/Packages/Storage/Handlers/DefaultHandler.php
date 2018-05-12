@@ -27,7 +27,7 @@ class DefaultHandler implements FileHandlerInterface
             $result = $uploader->getStorageDriver()->upload(getenv('AWS_BUCKET'), 'creatives/b/' . $file->getFilename(),
                 $content, 'public-read');
 
-            $uploadedFileLocation = env('CREATIVES_PATH') . '/h/' . $file->getFilename();
+            $uploadedFileLocation = env('CREATIVES_PATH') . '/b/' . $file->getFilename();
 
             return ['iurl' => $uploadedFileLocation];
         } catch (S3Exception $e) {
