@@ -16,12 +16,15 @@ class HtmlHandler implements FileHandlerInterface
             $result = $uploader->getStorageDriver()
 	            ->upload(
 	            	    getenv('AWS_BUCKET'),
-		            \Request::input('path') . '/' . \Request::input('name'),
+		            \Request::input('path') . '/b/' . \Request::input('name'),
 		            $content,
 		            'public-read'
 	            );
 
-            return ['iurl' => $result->get('ObjectURL')];
+                $uploadedFileLocation = env('CREATIVES_PATH') . '/b/' . $file->getFilename();
+
+
+            return ['iurl' => $uploadedFileLocation];
         } catch (S3Exception $e) {
 
             throw new TapklikUploaderException($e->getMessage(), $e->getCode());

@@ -23,12 +23,13 @@ class ZipHandler implements FileHandlerInterface
 			$uploader->getStorageDriver()->uploadDirectory(
 				public_path(str_replace('.zip', '', $file->getPathname())),
 				getenv('AWS_BUCKET'),
-				'creatives/html5/' . $file->getFilename()
+				'creatives/h/' . $file->getFilename(),
+                $content, 'public-read');
 			);
 
 
 			$localZipFileLocation = url('trunk' . str_replace('./trunk', '', $file->getPathname()));
-			$uploadedFileLocation = 'https://cdn.tapklik.com/html5/' . $file->getFilename();
+			$uploadedFileLocation = env('CREATIVES_PATH') . '/h/' . $file->getFilename();
 			$localFileToExtract = str_replace('./', '/', $file->getPathname());
 
 			$mainHtmlFile = $this->_getMainHtmlFile($localFileToExtract);
