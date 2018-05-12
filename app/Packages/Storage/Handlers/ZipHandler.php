@@ -24,7 +24,15 @@ class ZipHandler implements FileHandlerInterface
 				public_path(str_replace('.zip', '', $file->getPathname())),
 				getenv('AWS_BUCKET'),
 				'creatives/h/' . $file->getFilename(),
-                'public-read'
+                array(
+			        'concurrency' => 20,
+			        'debug'       => true,
+			        'before' => function (\Aws\Command $command) {
+			        $command['ACL'] = strpos($command['Key'], 'CONFIDENTIAL') === false
+			            ? 'public-read'
+			            : 'private';
+			        }
+			    )
 			);
 
 
