@@ -368,15 +368,29 @@ Route::group(
 Route::group(['prefix' => 'exchanges', 'middleware' => JWT::class], function () {
 
     Route::get('/', [
-        'as' => 'exchanges.index',
+        'as' => 'reports.index',
         'uses' => 'AccountExchangesController@index'
     ]);
 
     Route::get('/{id}', [
-        'as' => 'exchanges.show',
+        'as' => 'reports.show',
         'uses' => 'AccountExchangesController@show'
     ]);
 });
+
+Route::group(['prefix' => 'reports', 'middleware' => JWT::class], function () {
+
+    Route::get('/', [
+        'as' => 'reports.index',
+        'uses' => 'ReportsController@index'
+    ]);
+
+    Route::get('/{table}', [
+        'as' => 'reports.get',
+        'uses' => 'ReportsController@get'
+    ]);
+});
+
 
 /**
  * Core namespace provides utility endpoints, such as fuzzy search

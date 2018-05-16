@@ -14,7 +14,8 @@
         "lcobucci/jwt": "^3.2",
         "league/fractal": "0.14.*",
         "paulvl/backup": "^3.0",
-        "ramsey/uuid": "^3.6"
+        "ramsey/uuid": "^3.6",
+        "spatie/laravel-query-builder": "^1.9"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
