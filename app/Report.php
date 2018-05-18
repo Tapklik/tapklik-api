@@ -77,7 +77,7 @@ class Report extends Model
     }
 
     public static function getSumFields($carry, $item) {
- 		$carry = $carry . 'COALESCE(SUM(' . $item . '), 0) AS ' . $item . ',';
+ 		$carry = $carry . 'IFNULL(SUM(' . $item . '), 0) AS ' . $item . ',';
     	return $carry;
     }
    
