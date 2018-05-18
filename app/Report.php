@@ -62,15 +62,11 @@ class Report extends Model
     	$from = $request->from;
     	$to = $request->to;
     	$fields = explode(',', $request->fields);
-
-    	$select = 'acc,';
-    	if($cmp != '') $select .= 'cmp,';
-    	if($crid != '') $select .= 'crid,';
     		
     	$sumFields = rtrim(array_reduce($fields, "self::getSumFields"), ',');
 
     	$report = $this
-    				->selectRaw($select . $sumFields)
+    				->selectRaw($sumFields)
     				->whereIn('acc', explode(',' , $acc))
     				->whereBetween('timestamp', [$from, $to]);
 
