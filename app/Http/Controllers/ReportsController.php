@@ -26,6 +26,8 @@ class ReportsController extends Controller
                 'acc'   => 'required',
                 'cmp'   => 'nullable',
                 'crid'   => 'nullable',
+                'device_type' => 'nullable',
+                'country' => 'nullable',
             ]);
 
             $report = new Report;

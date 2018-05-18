@@ -29,13 +29,18 @@ class Report extends Model
     	$acc = $request->acc;
     	$cmp = $request->cmp;
     	$crid = $request->crid;
+
+    	$device_type = $request->device_type;
+    	$country = $request->country;
+
     	$from = $request->from;
     	$to = $request->to;
     	$fields = explode(',', $request->fields);
 
-    	$select = 'acc,';
-    	if($cmp != '') $select .= 'cmp,';
-    	if($crid != '') $select .= 'crid,';
+    	$select = '';
+    	if($device_type != '') $select .= 'device_type,';
+    	if($country != '') $select .= 'country,';
+
     		
     	$sumFields = rtrim(array_reduce($fields, "self::getSumFields"), ',');
 
@@ -49,6 +54,10 @@ class Report extends Model
 
     	if($cmp != '') $report->whereIn('cmp', explode(',' , $cmp));
     	if($crid != '') $report->whereIn('crid', explode(',' , $crid));	
+
+    	if($device_type != '') $report->whereIn('device_type', explode(',' , $device_type));	
+    	if($country != '') $report->whereIn('country', explode(',' , $country));	
+
     	    	
     	return $report->get();
     }
@@ -59,6 +68,10 @@ class Report extends Model
     	$acc = $request->acc;
     	$cmp = $request->cmp;
     	$crid = $request->crid;
+
+		$device_type = $request->device_type;
+    	$country = $request->country;
+
     	$from = $request->from;
     	$to = $request->to;
     	$fields = explode(',', $request->fields);
@@ -72,6 +85,9 @@ class Report extends Model
 
     	if($cmp != '') $report->whereIn('cmp', explode(',' , $cmp));
     	if($crid != '') $report->whereIn('crid', explode(',' , $crid));	
+
+    	if($device_type != '') $report->whereIn('device_type', explode(',' , $device_type));	
+    	if($country != '') $report->whereIn('country', explode(',' , $country));	
     	    	
     	return $report->get();
     }
