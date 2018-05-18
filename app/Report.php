@@ -44,7 +44,8 @@ class Report extends Model
     	$report = $this
     				->selectRaw($select . 'timestamp,' . $sumFields)
     				->groupBy($groupBy)
-    				->whereIn('acc', explode(',' , $acc));
+    				->whereIn('acc', explode(',' , $acc))
+    				->whereBetween('timestamp', [$from, $to]);
 
     	if($cmp != '') $report->whereIn('cmp', explode(',' , $cmp));
     	if($crid != '') $report->whereIn('crid', explode(',' , $crid));	
@@ -68,12 +69,10 @@ class Report extends Model
     		
     	$sumFields = rtrim(array_reduce($fields, "self::getSumFields"), ',');
 
-    	$groupBy = explode(',', rtrim($select, ','));
-
     	$report = $this
     				->selectRaw($select . $sumFields)
-    				->groupBy($groupBy)
-    				->whereIn('acc', explode(',' , $acc));
+    				->whereIn('acc', explode(',' , $acc))
+    				->whereBetween('timestamp', [$from, $to]);
 
     	if($cmp != '') $report->whereIn('cmp', explode(',' , $cmp));
     	if($crid != '') $report->whereIn('crid', explode(',' , $crid));	
