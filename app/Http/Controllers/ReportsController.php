@@ -20,14 +20,15 @@ class ReportsController extends Controller
         try {
 
             $this->validate($request, [
-                'op' => 'required',
-                'from' => 'required',
-                'to'   => 'required',
-                'acc'   => 'required',
-                'cmp'   => 'nullable',
-                'crid'   => 'nullable',
-                'device_type' => 'nullable',
-                'country' => 'nullable',
+                'op'            => 'required',
+                'from'          => 'required',
+                'to'            => 'required',
+                'acc'           => 'required',
+                'cmp'           => 'nullable',
+                'crid'          => 'nullable',
+                'device_type'   => 'nullable',
+                'country'       => 'nullable',
+                'scale'         => 'nullable'
             ]);
 
             $report = new Report;
@@ -44,7 +45,7 @@ class ReportsController extends Controller
                      $report = $report->getRaw($request);
             }
            
-            return $report->toJson();
+            return (new ReportTransformer($request->from, $request->to, $request->scale, $request->fields))->transform($report, $request->op);
 
         } catch (ModelNotFoundException $e) {
 

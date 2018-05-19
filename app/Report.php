@@ -2,6 +2,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
+
 /**
  * Class Category
  *
@@ -37,6 +38,21 @@ class Report extends Model
     	$to = $request->to;
     	$fields = explode(',', $request->fields);
 
+    	$scale = $request->scale;
+
+    	$result = [];
+
+    	switch($scale) {
+    		case 'dd':
+    			$timestamp = 'DATE_FORMAT(timestamp, "%Y-%m-%d")';
+    			break;
+    		case 'mm':			
+		      	$timestamp = 'DATE_FORMAT(timestamp, "%Y-%m")';
+    			break;
+    		default:
+    			$timestamp = 'timestamp';
+    	}
+
     	$select = '';
     	if($device_type != '') $select .= 'device_type,';
     	if($country != '') $select .= 'country,';
@@ -44,20 +60,19 @@ class Report extends Model
     		
     	$sumFields = rtrim(array_reduce($fields, "self::getSumFields"), ',');
 
-    	$groupBy = explode(',', $select . 'timestamp');
+    	$groupBy = explode(',', $select . 'time');
 
-    	$report = $this
-    				->selectRaw($select . 'timestamp,' . $sumFields)
+    	$report = Report::selectRaw($select . $timestamp . ' AS time,' . $sumFields)
     				->groupBy($groupBy)
     				->whereIn('acc', explode(',' , $acc))
-    				->whereBetween('timestamp', [$from, $to]);
+    				->whereBetween('timestamp', [$from, $to])
+    				->orderBy('time');
 
     	if($cmp != '') $report->whereIn('cmp', explode(',' , $cmp));
     	if($crid != '') $report->whereIn('crid', explode(',' , $crid));	
 
     	if($device_type != '') $report->whereIn('device_type', explode(',' , $device_type));	
     	if($country != '') $report->whereIn('country', explode(',' , $country));	
-
     	    	
     	return $report->get();
     }
@@ -96,6 +111,7 @@ class Report extends Model
  		$carry = $carry . 'IFNULL(SUM(' . $item . '), 0) AS ' . $item . ',';
     	return $carry;
     }
+   
    
 }
 
