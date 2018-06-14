@@ -281,6 +281,10 @@ Route::group(
             ['as'   => 'account.banker.destroy',
              'uses' => 'BankerController@destroy']
         );
+
+        Route::get(
+            '/{id}/creatives', 'CreativesController@index'
+        );
     }
 );
 
@@ -304,6 +308,8 @@ Route::group(
             'as' => 'creatives.folder.admin.show',
             'uses' => 'AdminFolderController@show'
         ]);
+
+        Route::get('/{id}/creatives', 'AdminFolderController@showAll');
 
         Route::get(
             '/folders',

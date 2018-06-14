@@ -66,6 +66,15 @@ class   Creative extends ModelSetup implements Uuidable
 		return self::where(['uuid' => $uuid])->firstOrFail();
 	}
 
+	public static function findByAccountId($id) {
+		
+		return Creative::selectRaw('creatives.*, accounts.uuid as account_uuid')
+		->join('folders','folders.id','=','creatives.folder_id')
+		->join('accounts', 'accounts.id', '=', 'folders.account_id')
+		->where(['accounts.uuid' => $id])
+		->get();
+	}
+
 	public function campaign()
 	{
 

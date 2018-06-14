@@ -3,6 +3,7 @@
 
 use App\Account;
 use App\Folder;
+use App\Creative;
 use App\Transformers\CreativeTransformer;
 use App\Transformers\FolderTransformer;
 use Illuminate\Http\Response;
@@ -36,6 +37,17 @@ class AdminFolderController extends Controller
         } catch (\Exception $e) {
 
             return $this->error(Response::HTTP_BAD_REQUEST, 'Unknown error', $e->getMessage());
+        }
+    }
+    public function showAll($id) {
+        try {
+
+            $creatives = Creative::findByAccountId($id);
+            
+            return $this->collection($creatives, new CreativeTransformer);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, $e->getMessage());
         }
     }
 }

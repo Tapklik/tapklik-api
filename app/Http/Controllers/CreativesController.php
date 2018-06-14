@@ -16,6 +16,19 @@ class CreativesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index($id)
+    {
+        try {
+
+            $creatives = Creative::findByAccountId($id);
+
+            return $this->collection($creatives, new CreativeTransformer);
+        } catch (ModelNotFoundException $e) {
+
+            return $this->error(Response::HTTP_NOT_FOUND, $e->getMessage());
+        }
+    }
+
     public function show($uuid)
     {
         try {
