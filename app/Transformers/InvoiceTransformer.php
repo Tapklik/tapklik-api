@@ -12,11 +12,6 @@ class InvoiceTransformer extends TransformerAbstract
 {
     public function transform(Invoice $invoice)
     {
-
-        return [
-            'id'         => $invoice->offer_id,
-	        'offer_date' => $invoice->offer_date,
-            'offer_amount' => $invoice->offer_amount
-        ];
+        return $invoice;
     }
 }

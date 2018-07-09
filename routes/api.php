@@ -289,6 +289,15 @@ Route::group(
         Route::get(
             '/{id}/invoices', 'InvoicesController@index'
         );
+        Route::post(
+            '/{id}/invoices', 'InvoicesController@store'
+        );
+        Route::put(
+            '/{id}/invoices/{offer_id}', 'InvoicesController@update'
+        );
+        Route::delete(
+            '/{id}/invoices/{offer_id}', 'InvoicesController@delete'
+        );
     }
 );
 
