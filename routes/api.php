@@ -285,6 +285,10 @@ Route::group(
         Route::get(
             '/{id}/creatives', 'CreativesController@index'
         );
+
+        Route::get(
+            '/{id}/invoices', 'InvoicesController@index'
+        );
     }
 );
 
