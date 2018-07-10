@@ -183,6 +183,7 @@ return [
         App\Providers\CampaignObserverProvider::class,
         App\Providers\CreativeObserverProvider::class,
         App\Providers\AccountObserverProvider::class,
+        App\Providers\InvoiceObserverProvider::class,
         App\Providers\UserObserverProvider::class,
         App\Providers\FolderObserverProvider::class,
         \App\Providers\BankerMainObserverProvider::class,
