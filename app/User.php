@@ -41,6 +41,12 @@ class User extends Authenticatable implements Uuidable
 		])->firstOrFail();
 	}
 
+	public static function findByAccountId(int $id) {
+		return User::selectRaw('users.*')
+        ->where(['account_id' => $id])
+        ->get();
+	}
+
 	// Setters
 
 	public function getNameAttribute()

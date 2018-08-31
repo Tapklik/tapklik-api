@@ -13,6 +13,25 @@ use App\Http\Middleware\JWT;
 |
 */
 
+// Notifications
+Route::group(
+    ['prefix' => 'users', 'middleware' => JWT::class],
+    function() {
+        Route::get(
+            '/{uuid}/notifications',
+            'NotificationsHandlerController@show'
+        );
+        Route::put(
+            '/{uuid}/notifications/{id}',
+            'NotificationsHandlerController@updateReadAt'
+        );
+        Route::put(
+            '/{uuid}/notifications',
+            'NotificationsHandlerController@updateAllReadAt'
+        );
+    }
+);
+
 // Campaigns
 Route::group(
     ['prefix' => 'campaigns', 'middleware' => JWT::class],

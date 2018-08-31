@@ -12,13 +12,14 @@ class MailController extends Controller
     public function index() {
 
         $ses = new SesClient([
-            'version'     => env('SES_VERSION'),
-            'region'      => env('SES_REGION'),
+            'version'     => env('AWS_VERSION'),
+            'region'      => env('AWS_REGION_US'),
             'credentials' => [
-                'key'    => env('SES_KEY'),
-                'secret' => env('SES_SECRET')
+                'key'    => env('AWS_ACCESS_KEY'),
+                'secret' => env('AWS_SECRET_KEY')
             ]
         ]);
+        var_dump('lol');
 
 //        dd(request('message/'));
         try {

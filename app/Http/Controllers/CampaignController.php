@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use App\User;
+use Notification;
+use App\Notifications\CreateCampaign;
+use App\Notifications\PauseCampaign;
+use App\Notifications\ExpireCampaign;
 
 /**
  * Class CampaignController
@@ -122,13 +127,28 @@ class CampaignController extends Controller
 
         try {
             $campaign = Campaign::findByUuId($uuid);
+            $campaign_old_status = $campaign->status;
             $campaign->update($request->input());
+            $campaign_new_status = $campaign->status;
+            $account_id = $campaign->account_id;
+            $users = User::findByAccountId($account_id);
 
             $actionToLog = sprintf('%s created a new campaign #%s named %s',
                 $this->getJwtUserClaim('name'),
                 $campaign->uuid,
                 $campaign->name
             );
+            if($campaign_old_status != $campaign_new_status) {
+                if($campaign_new_status == 'active') {
+                    Notification::send($users, new CreateCampaign($campaign->uuid));
+                }
+                if($campaign_new_status == 'paused') {
+                    Notification::send($users, new PauseCampaign($campaign->uuid));
+                }
+                if($campaign_new_status == 'expired') {
+                    Notification::send($users, new ExpireCampaign($campaign->uuid));
+                }
+            }
 
             $this->logActionToLoggerProvider($actionToLog);
 
