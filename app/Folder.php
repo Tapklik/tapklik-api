@@ -48,7 +48,6 @@ class Folder extends ModelSetup
     
     public static function findById(int $id)
     {
-
         return self::where(['id' => $id])->firstOrFail();
     }
 }

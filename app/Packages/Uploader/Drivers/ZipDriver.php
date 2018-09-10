@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tapklik\Uploader\Contracts\CanUnzipFiles;
 use Tapklik\Uploader\Contracts\UploaderInterface;
 use Tapklik\Uploader\Exceptions\TapklikUploaderException;
+use Carbon\Carbon;
 use ZipArchive;
 
 /**
@@ -24,11 +25,11 @@ class ZipDriver implements UploaderInterface, CanUnzipFiles
         $this->_location = $location;
     }
 
-    public function move(UploadedFile $file) : File
+    public function move($account_uuid, UploadedFile $file) : File
     {
 
         try {
-            $this->_file = $file->move($this->_location, $this->makeName($file));
+            $this->_file = $file->move($this->_location, $this->makeName($account_uuid, $file));
 
             $this->unzip($this->_file->getPathname(), env('UPLOAD_DIR'));
 
@@ -46,16 +47,18 @@ class ZipDriver implements UploaderInterface, CanUnzipFiles
         return $this->_file;
     }
 
-    public function makeName(File $file) : String
+    public function makeName($account_uuid, File $file) : String
     {
-
-        return sha1($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+        $now = Carbon::now();
+        $date = str_replace('-','',$now->toDateString());
+        $id = rand(1000, 9999);
+        $name = 't_' . $account_uuid . '_' . $date . '_' . $id . '.' . $file->getClientOriginalExtension();
+        return $name;
     }
 
     public function unzip(string $file, string $location)
     {
         $tempFolder = str_replace('.zip', '', $this->getFile()->getBasename());
-
         $zip = new ZipArchive();
         $zip->open($file);
         $zip->extractTo($location . '/' . $tempFolder);

@@ -25,7 +25,6 @@ class UserController extends Controller
     {
         try {
             $account = Account::findByUuId($uuid);
-
             return $this->collection($account->users, new UserTransformer);
         } catch (ModelNotFoundException $e) {
 

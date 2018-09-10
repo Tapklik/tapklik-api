@@ -6,9 +6,9 @@ use Tapklik\Uploader\Contracts\AbstractUploader;
 
 class Service extends AbstractUploader
 {
-    public function move(UploadedFile $file)
+    public function move($account_uuid, UploadedFile $file)
     {
-        return $this->driver->move($file);
+        return $this->driver->move($account_uuid, $file);
     }
 
     public function save(File $file) {

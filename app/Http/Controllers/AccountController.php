@@ -7,6 +7,7 @@ use App\Transformers\AccountTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Log;
 
 /**
  * Class AccountController
@@ -64,7 +65,6 @@ class AccountController extends Controller
     public function show($uuid)
     {
         try {
-
             return $this->item(Account::findByUuId($uuid), new AccountTransformer());
         } catch (ModelNotFoundException $e) {
 

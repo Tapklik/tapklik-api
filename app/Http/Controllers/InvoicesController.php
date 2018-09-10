@@ -100,7 +100,7 @@ class InvoicesController extends Controller
                 $banker = self::_createBankerMain($invoice, $account);
                 $invoice->banker_transaction_id = $banker->uuid;
                 Notification::send($users, new CreateInvoice($invoice->offer_amount / 1000000));
-                $this->sendCreateInvoiceMail($invoice);
+                $this->sendCreateInvoiceMail($users ,$invoice);
             }
             else if($req_input['action'] == 'settle_payment') {
                 $invoice->paid = $req_input['paid'];
@@ -130,7 +130,7 @@ class InvoicesController extends Controller
         }
     }
 
-    private function sendCreateInvoiceMail($invoice) {
+    private function sendCreateInvoiceMail($users, $invoice) {
         $ses = new SesClient([
             'version'     => env('AWS_VERSION'),
             'region'      => env('AWS_REGION_US'),
@@ -144,7 +144,7 @@ class InvoicesController extends Controller
             $result = $ses->sendEmail([
                 'Source' => 'robot@tapklik.com',
                 'Destination' => [
-                    'ToAddresses' => ['emir.s@tapklik.com']
+                    'ToAddresses' => []
                 ],
                 'Message' => [
                     'Subject' => [

@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 interface UploaderInterface
 {
-    public function move(UploadedFile $file) : File;
+    public function move($account_uuid, UploadedFile $file) : File;
 
-    public function makeName(File $file) : String;
+    public function makeName($account_uuid, File $file) : String;
 
     public function getFile() : File;
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Tapklik\Uploader\Contracts\AbstractUploader as Uploader;
 use Tapklik\Uploader\Exceptions\TapklikUploaderException;
+use App\Folder;
+use App\Account;
 
 /**
  * Class UploadController
@@ -19,7 +21,9 @@ class UploadController extends Controller
     {
 
         try {
-            $file      = $uploader->move($request->file('file'));
+            $folder = Folder::findById($request->input('folder_id'));
+            $account = Account::find($folder->account_id);
+            $file      = $uploader->move($account->uuid,$request->file('file'));
             $objectUrl = $uploader->save($file);
 
             if($request->input('nosave')) return response(['error' => false, 'message' => $objectUrl]);

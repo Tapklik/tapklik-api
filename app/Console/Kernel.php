@@ -2,10 +2,13 @@
 
 namespace App\Console;
 
-use App\Console\Commands\JobStateChecker;
+use App\Console\Commands\CampaignStateChecker;
+use App\Console\Commands\NotifyNearing;
 use App\Console\Commands\Jwt;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Carbon\Carbon;
+use Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,7 +19,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Jwt::class,
-        JobStateChecker::class
+        CampaignStateChecker::class,
+        NotifyNearing::class
     ];
 
     /**
@@ -28,7 +32,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('job')->everyMinute();
-	    $schedule->command('backup:mysql-dump')->dailyAt('00:00');
+        $schedule->command('notify_nearing')->daily()->at('07:00')->timezone('UTC');
     }
 
     /**
