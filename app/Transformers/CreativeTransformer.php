@@ -44,6 +44,7 @@ class CreativeTransformer extends TransformerAbstract
             'pos'        => $creative->pos,
             'approved'   => $creative->status,
             'folder'     => ['key' => $creative->folder->id, 'name' => $creative->folder->name],
+            'uploaded_at' => $creative->created_at
         ];
     }
     

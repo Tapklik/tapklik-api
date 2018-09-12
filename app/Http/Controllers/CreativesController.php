@@ -53,6 +53,7 @@ class CreativesController extends Controller
             $creative_old_status = $creative->status;
             $creative->update($request->input());
             $creative_new_status = $creative->status;
+            
             $creative->save();
 
             if($creative_old_status != $creative_new_status) {

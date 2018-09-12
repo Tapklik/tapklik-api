@@ -17,6 +17,10 @@ use App\Http\Middleware\JWT;
 Route::group(
     ['prefix' => 'users', 'middleware' => JWT::class],
     function() {
+        Route::put(
+            '/{uuid}/notifications/opened',
+            'NotificationsHandlerController@updateOpenedAt'
+        );
         Route::get(
             '/{uuid}/notifications',
             'NotificationsHandlerController@show'

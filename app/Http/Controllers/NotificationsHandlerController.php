@@ -8,12 +8,25 @@ use Illuminate\Http\Response;
 use Notification;
 use App\Account;
 use App\User;
+use Carbon\Carbon;
 
 class NotificationsHandlerController extends Controller
 {
     public function show($uuid) {
         $user = User::findByUuid($uuid);
         return $user->notifications;
+    }
+
+    public function updateOpenedAt(Request $request, $uuid) {
+        $user = User::findByUuid($uuid);
+        $notifications = $user->notifications;
+        foreach($notifications as $notification) {
+            if($notification->opened_at == null) {
+                $notification->opened_at = Carbon::now();
+                $notification->save();
+            }
+        }
+        return $this->show($uuid);
     }
 
     public function updateReadAt($uuid ,$id) {
